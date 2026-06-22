@@ -1,0 +1,44 @@
+name: Daily RoK Scrape
+
+on:
+  schedule:
+    # Ogni mattina alle 06:00 UTC (dati di ieri disponibili)
+    - cron: '0 0,5,12,18 * * *'
+  workflow_dispatch:
+    inputs:
+      start_date:
+        description: 'Start date (YYYY-MM-DD). Leave empty for yesterday.'
+        required: false
+        default: ''
+      end_date:
+        description: 'End date (YYYY-MM-DD). Leave empty for yesterday.'
+        required: false
+        default: ''
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r seeds-extractor/requirements.txt
+
+      - name: Fetch kingdom data
+        env:
+          LILITH_EMAIL: ${{ secrets.LILITH_EMAIL }}
+          LILITH_PASSWORD_MD5: ${{ secrets.LILITH_PASSWORD_MD5 }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          START="${{ inputs.start_date }}"
+          END="${{ inputs.end_date }}"
+          if [[ -n "$START" && -n "$END" ]]; then
+            python seeds-extractor/rok_automation.py --start "$START" --end "$END" --exclude-kingdoms 4041 --supabase
+          else
+            python seeds-extractor/rok_automation.py --exclude-kingdoms 4041 --supabase
+          fi

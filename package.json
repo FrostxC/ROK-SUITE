@@ -1,0 +1,22 @@
+﻿{
+    "name":  "rok-suite",
+    "private":  true,
+    "workspaces":  [
+                       "apps/*",
+                       "adapters/*",
+                       "packages/*"
+                   ],
+    "scripts":  {
+                    "build":  "pnpm -r run build",
+                    "lint":  "pnpm -r run lint",
+                    "test":  "pnpm -r run test",
+                    "typecheck":  "pnpm -r run typecheck"
+                },
+    "devDependencies":  {
+                            "baseline-browser-mapping":  "^2.8.32",
+                            "vercel":  "^50.17.1"
+                        },
+    "dependencies":  {
+                         "xlsx":  "^0.18.5"
+                     }
+}
