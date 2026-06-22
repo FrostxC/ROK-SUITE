@@ -67,3 +67,10 @@ apps/web/scripts/add-*.ts
 
 # macOS
 .DS_Store
+
+# Build-required static game data (no PII) — keep these tracked despite the data/*.json rule above
+!apps/web/data/bag-items.json
+!apps/web/data/crusader_achievements.json
+!apps/web/data/equipment.json
+!apps/web/data/kvk2-achievements.json
+!apps/web/data/rss_nodes_complete.json
