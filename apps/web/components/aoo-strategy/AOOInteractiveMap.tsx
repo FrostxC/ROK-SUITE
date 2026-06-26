@@ -81,6 +81,41 @@ const teamColors: Record<number, { bg: string; text: string }> = {
   3: { bg: '#7C3AED', text: 'white' },
 };
 
+// Map a building id to its structure category, then render a recognizable icon
+// (instead of a plain circle) so the markers look like the actual AoO structures.
+function structureType(id: string): string {
+  if (id.startsWith('obelisk')) return 'obelisk';
+  if (id.startsWith('iset') || id.startsWith('seth')) return 'outpost';
+  if (id.startsWith('war')) return 'war';
+  if (id.startsWith('life')) return 'life';
+  if (id.startsWith('desert')) return 'desert';
+  if (id.startsWith('sky')) return 'sky';
+  if (id === 'ark') return 'ark';
+  return 'outpost';
+}
+
+function StructureIcon({ id, className }: { id: string; className?: string }) {
+  const common = { viewBox: '0 0 24 24', fill: 'currentColor', className };
+  switch (structureType(id)) {
+    case 'obelisk': // tapered monument on a stepped base
+      return (<svg {...common}><path d="M10.8 3h2.4l.8 13h-4z" /><rect x="8.5" y="16" width="7" height="2" rx=".4" /><rect x="7" y="18" width="10" height="2.6" rx=".8" /></svg>);
+    case 'outpost': // watchtower with a flag
+      return (<svg {...common}><path d="M12 3.2l4.5 1.1-4.5 1.1z" /><rect x="11.4" y="3" width="1.2" height="3.4" /><path d="M8.7 9h6.6l-.6 9H9.3z" /><path d="M8.7 9l.5-2h5.6l.5 2z" /><rect x="7.6" y="18" width="8.8" height="2.4" rx=".7" /></svg>);
+    case 'war': // shield
+      return (<svg {...common}><path d="M12 2.5l7 2.4v5.6c0 4.6-2.9 7.6-7 10.5-4.1-2.9-7-5.9-7-10.5V4.9z" /></svg>);
+    case 'life': // healing cross
+      return (<svg {...common}><path d="M10 3.5h4v5h5v4h-5v5h-4v-5H5v-4h5z" /></svg>);
+    case 'desert': // pyramid altar
+      return (<svg {...common}><path d="M12 4.5L20 18H4z" /></svg>);
+    case 'sky': // cloud
+      return (<svg {...common}><path d="M7.5 18.5a4 4 0 01-.3-8 5.2 5.2 0 0110-1.2 3.6 3.6 0 01.3 9.2z" /></svg>);
+    case 'ark': // the prize — a star
+      return (<svg {...common}><path d="M12 2.6l2.7 5.9 6.5.6-4.9 4.3 1.5 6.4L12 16.9 6.2 20.2l1.5-6.4L2.8 9.1l6.5-.6z" /></svg>);
+    default:
+      return (<svg {...common}><circle cx="12" cy="12" r="8" /></svg>);
+  }
+}
+
 // Conquer order by zone - NOT USED, assignments come from database mapAssignments
 // Keeping empty for now - admin assigns buildings to zones via UI
 const CONQUER_ORDER: Record<number, Record<string, number>> = {};
@@ -604,22 +639,36 @@ export default function AOOInteractiveMap({ initialAssignments, onSave, initialD
                       onMouseEnter={() => setHoveredBuilding(building)}
                       onMouseLeave={() => setHoveredBuilding(null)}
                     >
-                      {/* Marker */}
-                      <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 ${
-                          assignment?.team
-                            ? 'border-white'
-                            : isDark ? 'border-zinc-600 bg-zinc-700' : 'border-slate-400 bg-slate-200'
-                        }`}
-                        style={assignment?.team ? { backgroundColor: teamColors[assignment.team].bg } : {}}
-                      >
-                        {assignment?.team && assignment?.order ? (
-                          <span className="text-white font-bold text-sm">{assignment.order}</span>
-                        ) : (
-                          <span className={`text-xs font-medium ${isDark ? 'text-zinc-300' : 'text-slate-600'}`}>
-                            {building.shortName}
-                          </span>
-                        )}
+                      {/* Marker — structure icon (not a plain circle) */}
+                      <div className="flex flex-col items-center gap-0.5">
+                        <div
+                          className={`relative w-10 h-10 rounded-lg flex items-center justify-center shadow-lg border-2 ${
+                            assignment?.team
+                              ? 'border-white'
+                              : isDark ? 'border-zinc-600 bg-zinc-800/85' : 'border-slate-400 bg-white/85'
+                          }`}
+                          style={assignment?.team ? { backgroundColor: teamColors[assignment.team].bg } : {}}
+                        >
+                          <StructureIcon
+                            id={building.id}
+                            className={`w-6 h-6 ${assignment?.team ? 'text-white' : isDark ? 'text-zinc-200' : 'text-slate-700'}`}
+                          />
+                          {assignment?.team && assignment?.order ? (
+                            <span
+                              className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-white text-[10px] font-bold flex items-center justify-center shadow border border-white"
+                              style={{ color: teamColors[assignment.team].bg }}
+                            >
+                              {assignment.order}
+                            </span>
+                          ) : null}
+                        </div>
+                        <span
+                          className={`text-[8px] leading-none font-semibold px-1 py-0.5 rounded ${
+                            isDark ? 'bg-black/55 text-zinc-200' : 'bg-white/80 text-slate-700'
+                          }`}
+                        >
+                          {building.shortName}
+                        </span>
                       </div>
 
 {/* Conquer Order Indicators - shown directly on/around the building marker */}
