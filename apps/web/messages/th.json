@@ -51,7 +51,8 @@
     "allianceCalculator": "เครื่องคิดเลขพันธมิตร",
     "dkp": "คะแนน ดีเคพี",
     "recognition": "การยอมรับ",
-    "applyLeader": "ส่งข้อมูลหัวหน้า"
+    "applyLeader": "ส่งข้อมูลหัวหน้า",
+    "calculators": "Calculators"
   },
   "home": {
     "tagline": "อาณาจักร 23 • กำเนิดอาณาจักร",
@@ -128,6 +129,10 @@
       "applyLeader": {
         "title": "ส่งข้อมูลหัวหน้ารวมพล/กองรักษาการณ์",
         "description": "สำหรับผู้สมัครหัวหน้ารวมพลและกองรักษาการณ์ — แชร์ผู้บัญชาการของคุณให้เจ้าหน้าที่ตรวจสอบ"
+      },
+      "calculators": {
+        "title": "Calculators",
+        "description": "Speedup, resource, and action-point planning tools"
       }
     },
     "guide": {

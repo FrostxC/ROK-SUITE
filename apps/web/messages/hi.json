@@ -51,7 +51,8 @@
     "allianceCalculator": "एलायंस कैलकुलेटर",
     "dkp": "डीकेपी स्कोर",
     "recognition": "मान्यता",
-    "applyLeader": "लीडर जानकारी भेजें"
+    "applyLeader": "लीडर जानकारी भेजें",
+    "calculators": "Calculators"
   },
   "home": {
     "tagline": "साम्राज्य 23 • राज्यों का उदय",
@@ -128,6 +129,10 @@
       "applyLeader": {
         "title": "रैली/गैरीसन लीड जानकारी भेजें",
         "description": "संभावित रैली और गैरीसन लीड के लिए — अपने कमांडर साझा करें ताकि अधिकारी समीक्षा कर सकें।"
+      },
+      "calculators": {
+        "title": "Calculators",
+        "description": "Speedup, resource, and action-point planning tools"
       }
     },
     "guide": {

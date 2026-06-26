@@ -51,7 +51,8 @@
     "allianceCalculator": "同盟計算機",
     "dkp": "DKPスコア",
     "recognition": "認識",
-    "applyLeader": "リーダー情報を送信"
+    "applyLeader": "リーダー情報を送信",
+    "calculators": "Calculators"
   },
   "home": {
     "tagline": "キングダム 23 • ライズ オブ キングダム",
@@ -128,6 +129,10 @@
       "applyLeader": {
         "title": "ラリー/ギャリソンリーダー情報を送信",
         "description": "ラリー・ギャリソンリーダー希望者向け — 司令官情報を共有すると役員が確認します。"
+      },
+      "calculators": {
+        "title": "Calculators",
+        "description": "Speedup, resource, and action-point planning tools"
       }
     },
     "guide": {

@@ -51,7 +51,8 @@
     "allianceCalculator": "Calculadora de Aliança",
     "dkp": "Pontuação DKP",
     "recognition": "Reconhecimento",
-    "applyLeader": "Enviar info de líder"
+    "applyLeader": "Enviar info de líder",
+    "calculators": "Calculators"
   },
   "home": {
     "tagline": "Reino 23 • Ascensão dos Reinos",
@@ -128,6 +129,10 @@
       "applyLeader": {
         "title": "Enviar info de líder de rally/guarnição",
         "description": "Para futuros líderes de rally e guarnição — partilhe os seus comandantes para análise dos oficiais."
+      },
+      "calculators": {
+        "title": "Calculators",
+        "description": "Speedup, resource, and action-point planning tools"
       }
     },
     "guide": {

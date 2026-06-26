@@ -51,7 +51,8 @@
     "allianceCalculator": "동맹 계산기",
     "dkp": "DKP 점수",
     "recognition": "인식",
-    "applyLeader": "리더 정보 제출"
+    "applyLeader": "리더 정보 제출",
+    "calculators": "Calculators"
   },
   "home": {
     "tagline": "킹덤 23 • 라이즈 오브 킹덤즈",
@@ -128,6 +129,10 @@
       "applyLeader": {
         "title": "랠리/가리슨 리더 정보 제출",
         "description": "랠리·가리슨 리더 후보를 위한 페이지 — 사령관 정보를 공유하면 임원이 검토합니다."
+      },
+      "calculators": {
+        "title": "Calculators",
+        "description": "Speedup, resource, and action-point planning tools"
       }
     },
     "guide": {

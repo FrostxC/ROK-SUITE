@@ -52,7 +52,8 @@
     "allianceCalculator": "Alliance Calculator",
     "dkp": "DKP Score",
     "migration": "Emigration",
-    "applyLeader": "Submit lead info"
+    "applyLeader": "Submit lead info",
+    "calculators": "Calculators"
   },
   "home": {
     "tagline": "Kingdom 23 • Rise of Kingdoms",
@@ -133,6 +134,10 @@
       "applyLeader": {
         "title": "Submit rally/garrison lead info",
         "description": "For prospective rally and garrison leads — share your commanders so officers can review."
+      },
+      "calculators": {
+        "title": "Calculators",
+        "description": "Speedup, resource, and action-point planning tools"
       }
     },
     "guide": {

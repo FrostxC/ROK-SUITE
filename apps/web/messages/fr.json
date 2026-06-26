@@ -51,7 +51,8 @@
     "allianceCalculator": "Calculateur d'alliances",
     "dkp": "Score DKP",
     "recognition": "Reconnaissance",
-    "applyLeader": "Envoyer infos chef"
+    "applyLeader": "Envoyer infos chef",
+    "calculators": "Calculators"
   },
   "home": {
     "tagline": "Royaume 23 • L'avènement des royaumes",
@@ -128,6 +129,10 @@
       "applyLeader": {
         "title": "Envoyer infos chef de rally/garnison",
         "description": "Pour les futurs chefs de rally et garnison — partagez vos commandants pour examen par les officiers."
+      },
+      "calculators": {
+        "title": "Calculators",
+        "description": "Speedup, resource, and action-point planning tools"
       }
     },
     "guide": {

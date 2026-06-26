@@ -51,7 +51,8 @@
     "allianceCalculator": "İttifak Hesaplayıcı",
     "dkp": "DKP Puanı",
     "recognition": "Tanıma",
-    "applyLeader": "Lider bilgisi gönder"
+    "applyLeader": "Lider bilgisi gönder",
+    "calculators": "Calculators"
   },
   "home": {
     "tagline": "Krallık 23 • Krallıkların Yükselişi",
@@ -128,6 +129,10 @@
       "applyLeader": {
         "title": "Rally/Garnizon lider bilgisi gönder",
         "description": "Aday rally ve garnizon liderleri için — komutanlarını paylaş, subaylar incelesin."
+      },
+      "calculators": {
+        "title": "Calculators",
+        "description": "Speedup, resource, and action-point planning tools"
       }
     },
     "guide": {

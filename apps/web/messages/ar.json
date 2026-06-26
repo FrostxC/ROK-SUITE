@@ -51,7 +51,8 @@
     "allianceCalculator": "حاسبة التحالف",
     "dkp": "نقاط DKP",
     "recognition": "تعرُّف",
-    "applyLeader": "إرسال معلومات القائد"
+    "applyLeader": "إرسال معلومات القائد",
+    "calculators": "Calculators"
   },
   "home": {
     "tagline": "المملكة 23 • صعود الممالك",
@@ -128,6 +129,10 @@
       "applyLeader": {
         "title": "إرسال معلومات قائد الرالي/الحامية",
         "description": "للراغبين في قيادة الرالي والحامية — شارك قادتك ليراجعها الضباط."
+      },
+      "calculators": {
+        "title": "Calculators",
+        "description": "Speedup, resource, and action-point planning tools"
       }
     },
     "guide": {

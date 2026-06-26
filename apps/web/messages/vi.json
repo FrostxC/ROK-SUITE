@@ -51,7 +51,8 @@
     "allianceCalculator": "Máy tính liên minh",
     "dkp": "Điểm DKP",
     "recognition": "Sự công nhận",
-    "applyLeader": "Gửi thông tin trưởng"
+    "applyLeader": "Gửi thông tin trưởng",
+    "calculators": "Calculators"
   },
   "home": {
     "tagline": "Vương quốc 23 • Vương quốc trỗi dậy",
@@ -128,6 +129,10 @@
       "applyLeader": {
         "title": "Gửi thông tin trưởng rally/garrison",
         "description": "Dành cho ứng viên trưởng rally và garrison — chia sẻ tướng của bạn để sĩ quan xem."
+      },
+      "calculators": {
+        "title": "Calculators",
+        "description": "Speedup, resource, and action-point planning tools"
       }
     },
     "guide": {
