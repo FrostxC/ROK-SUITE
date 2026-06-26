@@ -29,6 +29,7 @@ function generateShareId(): string {
 
 // Dynamic imports
 const RegistrationTab = dynamic(() => import('@/components/aoo-strategy/RegistrationTab'), { ssr: false });
+const BattleDayTab = dynamic(() => import('@/components/aoo-strategy/BattleDayTab'), { ssr: false });
 const AOOInteractiveMap = dynamic(() => import('@/components/aoo-strategy/AOOInteractiveMap'), {
   ssr: false,
   loading: () => (
@@ -2439,7 +2440,7 @@ export default function AooStrategyPage() {
     // player in the latest scan is reachable, regardless of alliance status.
     const powerByGovId = scanPowerByGovId;
     const killsByGovId = scanKillsByGovId;
-    const [activeTab, setActiveTab] = useState<'map' | 'builder' | 'registration'>('registration');
+    const [activeTab, setActiveTab] = useState<'map' | 'builder' | 'registration' | 'battleday'>('registration');
     const [players, setPlayers] = useState<Player[]>([]);
     const [substitutes, setSubstitutes] = useState<Player[]>([]);
     const [teams, setTeams] = useState<TeamInfo[]>(DEFAULT_TEAMS);
@@ -3486,6 +3487,16 @@ export default function AooStrategyPage() {
                         >
                             🛠️ {t('tabs.teamBuilder')}
                         </button>
+                        <button
+                            onClick={() => setActiveTab('battleday')}
+                            className={`px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 border-b-2 -mb-[1px] ${
+                                activeTab === 'battleday'
+                                    ? 'text-[#4318ff] border-[#4318ff] bg-[#4318ff]/5'
+                                    : 'text-[var(--text-secondary)] border-transparent hover:text-[var(--foreground)] hover:bg-[var(--background-hover)]'
+                            }`}
+                        >
+                            ⚔️ Battle Day
+                        </button>
                     </div>
                 </div>
             </header>
@@ -3775,6 +3786,10 @@ export default function AooStrategyPage() {
                     isEditor={isEditor}
                     players={players}
                 />
+            )}
+
+            {activeTab === 'battleday' && (
+                <BattleDayTab shareId={shareId || undefined} canEdit={isEditor} />
             )}
 
             {activeTab === 'builder' && (
