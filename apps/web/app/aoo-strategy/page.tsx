@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import dynamic from 'next/dynamic';
-import type { MapAssignments, Player, Team, StrategyData as ImportedStrategyData, EventMode, AooTeam } from '@/lib/aoo-strategy/types';
+import type { MapAssignments, MapDrawings, Player, Team, StrategyData as ImportedStrategyData, EventMode, AooTeam } from '@/lib/aoo-strategy/types';
 import { defaultStrategyData } from '@/lib/aoo-strategy/strategy-data';
 import { useScanRoster, formatPower, RosterMember } from '@/lib/supabase/use-alliance-roster';
 import { usePlayerDrawer } from '@/lib/roster/player-drawer-context';
@@ -2447,6 +2447,7 @@ export default function AooStrategyPage() {
     const [mapImage, setMapImage] = useState<string | null>(null);
     const [notes, setNotes] = useState('');
     const [mapAssignments, setMapAssignments] = useState<MapAssignments | undefined>(undefined);
+    const [mapDrawings, setMapDrawings] = useState<MapDrawings | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(true);
     const [strategyId, setStrategyId] = useState<number | null>(null);
     const strategyIdRef = useRef<number | null>(null);
@@ -2655,6 +2656,7 @@ export default function AooStrategyPage() {
                 setMapImage(strategyData?.mapImage || null);
                 setNotes(strategyData?.notes || '');
                 setMapAssignments(strategyData?.mapAssignments || undefined);
+                setMapDrawings(strategyData?.mapDrawings || undefined);
                 // Restore Team Builder state
                 if (strategyData?.builderAlliance) setBuilderAlliance(strategyData.builderAlliance);
                 if (strategyData?.teamCount) setTeamCount(strategyData.teamCount as TeamNumber);
@@ -2746,6 +2748,7 @@ export default function AooStrategyPage() {
             mapImage: updatedData.mapImage ?? mapImage,
             notes: updatedData.notes ?? notes,
             mapAssignments: updatedData.mapAssignments ?? mapAssignments ?? {},
+            mapDrawings: updatedData.mapDrawings ?? mapDrawings,
             substitutes: updatedData.substitutes ?? substitutes,
             // Team Builder state
             builderAlliance: updatedData.builderAlliance ?? builderAlliance,
@@ -2936,6 +2939,11 @@ export default function AooStrategyPage() {
         console.log('handleMapSave called', { newAssignments, strategyId, isEditor });
         setMapAssignments(newAssignments);
         saveData({ mapAssignments: newAssignments });
+    };
+
+    const handleDrawingsSave = (newDrawings: MapDrawings) => {
+        setMapDrawings(newDrawings);
+        saveData({ mapDrawings: newDrawings });
     };
 
     // Generate zone roster text for copying to clipboard (newline separated)
@@ -3488,6 +3496,16 @@ export default function AooStrategyPage() {
                             🛠️ {t('tabs.teamBuilder')}
                         </button>
                         <button
+                            onClick={() => setActiveTab('map')}
+                            className={`px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 border-b-2 -mb-[1px] ${
+                                activeTab === 'map'
+                                    ? 'text-[#4318ff] border-[#4318ff] bg-[#4318ff]/5'
+                                    : 'text-[var(--text-secondary)] border-transparent hover:text-[var(--foreground)] hover:bg-[var(--background-hover)]'
+                            }`}
+                        >
+                            🗺️ Strategy Map
+                        </button>
+                        <button
                             onClick={() => setActiveTab('battleday')}
                             className={`px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 border-b-2 -mb-[1px] ${
                                 activeTab === 'battleday'
@@ -3783,6 +3801,8 @@ export default function AooStrategyPage() {
                 <AOOInteractiveMap
                     initialAssignments={mapAssignments}
                     onSave={handleMapSave}
+                    initialDrawings={mapDrawings}
+                    onSaveDrawings={handleDrawingsSave}
                     isEditor={isEditor}
                     players={players}
                 />

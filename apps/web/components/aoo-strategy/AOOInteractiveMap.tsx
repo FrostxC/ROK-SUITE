@@ -1,11 +1,20 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { Moon, Sun, RotateCcw, RotateCw } from 'lucide-react';
-import type { Player, MapAssignments, MapAssignment } from '@/lib/aoo-strategy/types';
+import { Moon, Sun, RotateCcw, RotateCw, Pencil, Undo2, Trash2, ArrowRight, Minus } from 'lucide-react';
+import type { Player, MapAssignments, MapAssignment, MapDrawings, DrawPoint } from '@/lib/aoo-strategy/types';
 
 type TeamNumber = 1 | 2 | 3 | null;
+
+// Route colours for the drawing layer (4 teams, matching common AoO planners).
+const ROUTE_COLORS: Record<number, string> = {
+  1: '#2563EB', // blue
+  2: '#D97706', // orange
+  3: '#DC2626', // red
+  4: '#059669', // green
+};
+const DRAW_PHASES = ['1', '2', '3', '4'];
 
 interface Building {
   id: string;
@@ -18,6 +27,8 @@ interface Building {
 interface Props {
   initialAssignments?: MapAssignments;
   onSave?: (assignments: MapAssignments) => void;
+  initialDrawings?: MapDrawings;
+  onSaveDrawings?: (drawings: MapDrawings) => void;
   isEditor?: boolean;
   players?: Player[];
 }
@@ -132,7 +143,7 @@ const getDefaultAssignments = (): MapAssignments => {
   return initial;
 };
 
-export default function AOOInteractiveMap({ initialAssignments, onSave, isEditor = true, players = [] }: Props) {
+export default function AOOInteractiveMap({ initialAssignments, onSave, initialDrawings, onSaveDrawings, isEditor = true, players = [] }: Props) {
   const tm = useTranslations('aoo.map');
   const teamNames: Record<number, string> = {
     1: tm('topLane'),
@@ -154,6 +165,66 @@ export default function AOOInteractiveMap({ initialAssignments, onSave, isEditor
       setAssignments(initialAssignments);
     }
   }, [initialAssignments]);
+
+  // ---- Route drawing layer ----
+  const mapRef = useRef<HTMLDivElement>(null);
+  const [drawings, setDrawings] = useState<MapDrawings>(() => initialDrawings || {});
+  const [drawPhase, setDrawPhase] = useState('1');
+  const [drawMode, setDrawMode] = useState(false);
+  const [drawTeam, setDrawTeam] = useState(1);
+  const [arrowMode, setArrowMode] = useState(true);
+  const [stroke, setStroke] = useState<DrawPoint[] | null>(null);
+
+  useEffect(() => {
+    if (initialDrawings) setDrawings(initialDrawings);
+  }, [initialDrawings]);
+
+  const commitDrawings = (next: MapDrawings) => {
+    setDrawings(next);
+    onSaveDrawings?.(next);
+  };
+
+  const pointFromEvent = (e: React.PointerEvent): DrawPoint | null => {
+    const el = mapRef.current;
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    const y = ((e.clientY - r.top) / r.height) * 100;
+    return { x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) };
+  };
+
+  const onDrawDown = (e: React.PointerEvent) => {
+    if (!drawMode || !isEditor) return;
+    const p = pointFromEvent(e);
+    if (!p) return;
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+    setStroke([p]);
+  };
+  const onDrawMove = (e: React.PointerEvent) => {
+    if (!drawMode || !stroke) return;
+    const p = pointFromEvent(e);
+    if (!p) return;
+    const last = stroke[stroke.length - 1];
+    if (Math.hypot(p.x - last.x, p.y - last.y) < 0.6) return; // throttle by distance
+    setStroke([...stroke, p]);
+  };
+  const onDrawUp = () => {
+    if (!stroke) return;
+    if (stroke.length >= 2) {
+      const next = { ...drawings, [drawPhase]: [...(drawings[drawPhase] || []), { team: drawTeam, arrow: arrowMode, points: stroke }] };
+      commitDrawings(next);
+    }
+    setStroke(null);
+  };
+  const undoStroke = () => {
+    const cur = drawings[drawPhase] || [];
+    if (!cur.length) return;
+    commitDrawings({ ...drawings, [drawPhase]: cur.slice(0, -1) });
+  };
+  const clearPhase = () => commitDrawings({ ...drawings, [drawPhase]: [] });
+
+  const phaseStrokes = drawings[drawPhase] || [];
+  const toPts = (pts: DrawPoint[]) => pts.map((p) => `${p.x},${p.y}`).join(' ');
 
   const theme = {
     bg: isDark ? 'bg-zinc-950' : 'bg-slate-50',
@@ -373,7 +444,52 @@ export default function AOOInteractiveMap({ initialAssignments, onSave, isEditor
           {/* Center - Map (shown first on mobile) */}
           <div className="flex-1 order-first lg:order-none">
             <div className={`${theme.bgSecondary} rounded-xl overflow-hidden border ${theme.border}`}>
-              <div className="relative w-full" style={{ aspectRatio: '1275 / 891' }}>
+              {/* Route drawing toolbar */}
+              {isEditor && (
+                <div className={`flex flex-wrap items-center gap-2 p-2 border-b ${theme.border} ${theme.bgTertiary}`}>
+                  <button
+                    onClick={() => setDrawMode((m) => !m)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium ${drawMode ? 'bg-emerald-500 text-white' : `${theme.bgSecondary} ${theme.textSecondary} border ${theme.border}`}`}
+                  >
+                    <Pencil size={14} /> {drawMode ? 'Drawing — click & drag' : 'Draw routes'}
+                  </button>
+                  {drawMode && (
+                    <>
+                      <span className={`text-xs ${theme.textMuted} ml-1`}>Team</span>
+                      {[1, 2, 3, 4].map((t) => (
+                        <button
+                          key={t}
+                          onClick={() => setDrawTeam(t)}
+                          className="w-6 h-6 rounded-full border-2 transition-transform hover:scale-110"
+                          style={{ backgroundColor: ROUTE_COLORS[t], borderColor: drawTeam === t ? '#fff' : 'transparent' }}
+                          title={`Team ${t}`}
+                        />
+                      ))}
+                      <button
+                        onClick={() => setArrowMode((a) => !a)}
+                        className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm ${arrowMode ? 'bg-[#4318ff]/20 text-[#4318ff]' : `${theme.bgSecondary} ${theme.textSecondary} border ${theme.border}`}`}
+                        title="Toggle arrowhead"
+                      >
+                        {arrowMode ? <ArrowRight size={14} /> : <Minus size={14} />}
+                      </button>
+                      <button onClick={undoStroke} className={`p-1.5 rounded-lg ${theme.bgSecondary} ${theme.textSecondary} border ${theme.border}`} title="Undo last route"><Undo2 size={14} /></button>
+                      <button onClick={clearPhase} className="p-1.5 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/30" title="Clear this phase"><Trash2 size={14} /></button>
+                    </>
+                  )}
+                  <div className="flex-1" />
+                  <span className={`text-xs ${theme.textMuted}`}>Phase</span>
+                  {DRAW_PHASES.map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => setDrawPhase(p)}
+                      className={`px-2.5 py-1 rounded-lg text-sm font-medium ${drawPhase === p ? 'bg-[#4318ff] text-white' : `${theme.bgSecondary} ${theme.textSecondary} border ${theme.border}`}`}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div ref={mapRef} className="relative w-full" style={{ aspectRatio: '1275 / 891' }}>
                 {/* Map Background */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -382,6 +498,52 @@ export default function AOOInteractiveMap({ initialAssignments, onSave, isEditor
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ opacity: isDark ? 0.8 : 1 }}
                 />
+
+                {/* Route drawing layer */}
+                <svg
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                  className="absolute inset-0 w-full h-full"
+                  style={{ zIndex: drawMode ? 40 : 5, pointerEvents: drawMode ? 'auto' : 'none', cursor: drawMode ? 'crosshair' : 'default', touchAction: 'none' }}
+                  onPointerDown={onDrawDown}
+                  onPointerMove={onDrawMove}
+                  onPointerUp={onDrawUp}
+                  onPointerLeave={onDrawUp}
+                >
+                  <defs>
+                    {Object.entries(ROUTE_COLORS).map(([k, c]) => (
+                      <marker key={k} id={`aoo-arrow-${k}`} markerWidth="4" markerHeight="4" refX="2" refY="2" orient="auto" markerUnits="userSpaceOnUse">
+                        <path d="M0,0 L4,2 L0,4 Z" fill={c} />
+                      </marker>
+                    ))}
+                  </defs>
+                  {phaseStrokes.map((s, i) => (
+                    <polyline
+                      key={i}
+                      points={toPts(s.points)}
+                      fill="none"
+                      stroke={ROUTE_COLORS[s.team] || '#ffffff'}
+                      strokeWidth={3}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      vectorEffect="non-scaling-stroke"
+                      markerEnd={s.arrow ? `url(#aoo-arrow-${s.team})` : undefined}
+                      opacity={0.92}
+                    />
+                  ))}
+                  {stroke && stroke.length > 1 && (
+                    <polyline
+                      points={toPts(stroke)}
+                      fill="none"
+                      stroke={ROUTE_COLORS[drawTeam]}
+                      strokeWidth={3}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      vectorEffect="non-scaling-stroke"
+                      opacity={0.7}
+                    />
+                  )}
+                </svg>
 
                 {/* START Marker - position swaps based on swapCorners */}
                 <div

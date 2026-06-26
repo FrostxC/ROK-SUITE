@@ -31,6 +31,22 @@ export interface MapAssignments {
   [key: string]: MapAssignment;
 }
 
+// Freehand route drawing on the AoO map (the "paint the path" layer).
+// Coordinates are normalized 0-100 (percent of the map) so they scale on any screen.
+export interface DrawPoint {
+  x: number;
+  y: number;
+}
+export interface DrawStroke {
+  team: number; // 1-4, picks the route colour
+  arrow?: boolean; // draw an arrowhead at the end
+  points: DrawPoint[];
+}
+// Strokes grouped by phase id ('1'..'4'), so each phase has its own route map.
+export interface MapDrawings {
+  [phase: string]: DrawStroke[];
+}
+
 export interface StrategyData {
   players: Player[];
   teams: Team[];
@@ -38,6 +54,7 @@ export interface StrategyData {
   notes: string;
   mapImage: string | null;
   mapAssignments: MapAssignments;
+  mapDrawings?: MapDrawings;
   // Team Builder state (persisted for sharing)
   builderAlliance?: string;
   teamCount?: number;
