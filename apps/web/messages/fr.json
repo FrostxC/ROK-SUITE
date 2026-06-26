@@ -52,7 +52,8 @@
     "dkp": "Score DKP",
     "recognition": "Reconnaissance",
     "applyLeader": "Envoyer infos chef",
-    "calculators": "Calculators"
+    "calculators": "Calculators",
+    "commanders": "Commanders"
   },
   "home": {
     "tagline": "Royaume 23 • L'avènement des royaumes",
@@ -133,6 +134,10 @@
       "calculators": {
         "title": "Calculators",
         "description": "Speedup, resource, and action-point planning tools"
+      },
+      "commanders": {
+        "title": "Commanders",
+        "description": "Commander pairing tier list by role and troop type"
       }
     },
     "guide": {

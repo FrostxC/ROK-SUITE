@@ -52,7 +52,8 @@
     "dkp": "DKP 점수",
     "recognition": "인식",
     "applyLeader": "리더 정보 제출",
-    "calculators": "Calculators"
+    "calculators": "Calculators",
+    "commanders": "Commanders"
   },
   "home": {
     "tagline": "킹덤 23 • 라이즈 오브 킹덤즈",
@@ -133,6 +134,10 @@
       "calculators": {
         "title": "Calculators",
         "description": "Speedup, resource, and action-point planning tools"
+      },
+      "commanders": {
+        "title": "Commanders",
+        "description": "Commander pairing tier list by role and troop type"
       }
     },
     "guide": {

@@ -52,7 +52,8 @@
     "dkp": "DKPスコア",
     "recognition": "認識",
     "applyLeader": "リーダー情報を送信",
-    "calculators": "Calculators"
+    "calculators": "Calculators",
+    "commanders": "Commanders"
   },
   "home": {
     "tagline": "キングダム 23 • ライズ オブ キングダム",
@@ -133,6 +134,10 @@
       "calculators": {
         "title": "Calculators",
         "description": "Speedup, resource, and action-point planning tools"
+      },
+      "commanders": {
+        "title": "Commanders",
+        "description": "Commander pairing tier list by role and troop type"
       }
     },
     "guide": {

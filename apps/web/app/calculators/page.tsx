@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Calculator, Timer, Pickaxe, Zap } from 'lucide-react';
+import { Calculator, Timer, Pickaxe, Zap, Crown, Star, BookOpen } from 'lucide-react';
 import { AppSidebar } from '@/components/AppSidebar';
+import { VIP_THRESHOLDS, SCULPTURES_TO_MAX, XP_TO_LEVEL_60, TOME_VALUES } from './game-data';
 
 // ---------------------------------------------------------------------------
 // Shared helpers
@@ -255,12 +256,155 @@ function ActionPointsCalc() {
 }
 
 // ---------------------------------------------------------------------------
+// 4) VIP Calculator — cumulative point thresholds
+// ---------------------------------------------------------------------------
+function VipCalc() {
+  const [points, setPoints] = useState('');
+  const [target, setTarget] = useState('15');
+  const p = parseInt(points || '0', 10) || 0;
+
+  const current = useMemo(() => {
+    let lvl = 0;
+    for (const t of VIP_THRESHOLDS) if (p >= t.points) lvl = t.level;
+    return lvl;
+  }, [p]);
+
+  const nextEntry = VIP_THRESHOLDS.find((t) => t.level === current + 1);
+  const toNext = nextEntry ? nextEntry.points - p : 0;
+  const targetEntry = VIP_THRESHOLDS.find((t) => t.level === (parseInt(target, 10) || 0));
+  const toTarget = targetEntry ? Math.max(0, targetEntry.points - p) : 0;
+
+  return (
+    <div className="grid gap-5 lg:grid-cols-2">
+      <div className={cardClass}>
+        <h3 className="text-sm font-semibold text-[var(--foreground)] mb-4">Your VIP progress</h3>
+        <div className="space-y-3">
+          <div>
+            <label className={labelClass}>Current VIP points</label>
+            <input type="number" min="0" placeholder="e.g. 150300" value={points} onChange={(e) => setPoints(e.target.value)} className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass}>Target VIP level</label>
+            <select value={target} onChange={(e) => setTarget(e.target.value)} className={inputClass}>
+              {VIP_THRESHOLDS.filter((t) => t.level > 0).map((t) => (
+                <option key={t.level} value={t.level}>VIP {t.level}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <p className="text-[11px] text-[var(--text-muted)] mt-4">Thresholds are cumulative points to reach each level.</p>
+      </div>
+      <div className={cardClass}>
+        <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Current VIP level</div>
+        <div className="text-3xl font-bold text-amber-400 mt-1">VIP {current}</div>
+        <div className="h-px bg-[var(--border)] my-4" />
+        <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Points to VIP {current + 1}</div>
+        <div className="text-2xl font-bold text-violet-400 mt-1">{nextEntry ? fmtNum(toNext) : 'Max'}</div>
+        <div className="h-px bg-[var(--border)] my-4" />
+        <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Points to VIP {target}</div>
+        <div className="text-2xl font-bold text-emerald-400 mt-1">{toTarget > 0 ? fmtNum(toTarget) : 'Reached!'}</div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 5) Sculpture Calculator — sculptures to fully max a commander
+// ---------------------------------------------------------------------------
+function SculptureCalc() {
+  const [rarity, setRarity] = useState<'legendary' | 'epic'>('legendary');
+  const [owned, setOwned] = useState('');
+  const total = SCULPTURES_TO_MAX[rarity];
+  const have = parseInt(owned || '0', 10) || 0;
+  const remaining = Math.max(0, total - have);
+  const pct = Math.min(100, (have / total) * 100);
+
+  return (
+    <div className="grid gap-5 lg:grid-cols-2">
+      <div className={cardClass}>
+        <h3 className="text-sm font-semibold text-[var(--foreground)] mb-4">Commander to max</h3>
+        <div className="space-y-3">
+          <div>
+            <label className={labelClass}>Rarity</label>
+            <select value={rarity} onChange={(e) => setRarity(e.target.value as 'legendary' | 'epic')} className={inputClass}>
+              <option value="legendary">Legendary (690 to max)</option>
+              <option value="epic">Epic (440 to max)</option>
+            </select>
+          </div>
+          <div>
+            <label className={labelClass}>Sculptures already invested + owned</label>
+            <input type="number" min="0" placeholder="0" value={owned} onChange={(e) => setOwned(e.target.value)} className={inputClass} />
+          </div>
+        </div>
+        <p className="text-[11px] text-[var(--text-muted)] mt-4">Max = 6 stars with all skills 5/5/5/5.</p>
+      </div>
+      <div className={cardClass}>
+        <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Sculptures still needed</div>
+        <div className="text-3xl font-bold text-violet-400 mt-1">{fmtNum(remaining)}</div>
+        <div className="text-xs text-[var(--text-muted)] mt-1">of {fmtNum(total)} total</div>
+        <div className="mt-4 h-3 rounded-full bg-[var(--background-secondary)] overflow-hidden">
+          <div className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500" style={{ width: `${pct}%` }} />
+        </div>
+        <div className="text-xs text-[var(--text-muted)] mt-1">{pct.toFixed(1)}% maxed</div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 6) Commander XP / Tome Calculator
+// ---------------------------------------------------------------------------
+function TomeCalc() {
+  const [counts, setCounts] = useState<Record<number, string>>({});
+  const totalXp = TOME_VALUES.reduce((s, t) => s + (parseInt(counts[t.xp] || '0', 10) || 0) * t.xp, 0);
+  const pctTo60 = Math.min(100, (totalXp / XP_TO_LEVEL_60) * 100);
+
+  return (
+    <div className="grid gap-5 lg:grid-cols-2">
+      <div className={cardClass}>
+        <h3 className="text-sm font-semibold text-[var(--foreground)] mb-4">Tomes of Knowledge you have</h3>
+        <div className="space-y-3">
+          {TOME_VALUES.map((t) => (
+            <div key={t.xp}>
+              <label className={labelClass}>{t.label} tome</label>
+              <input
+                type="number"
+                min="0"
+                placeholder="0"
+                value={counts[t.xp] ?? ''}
+                onChange={(e) => setCounts({ ...counts, [t.xp]: e.target.value })}
+                className={inputClass}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={cardClass}>
+        <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Total commander XP</div>
+        <div className="text-3xl font-bold text-violet-400 mt-1">{fmtNum(totalXp)}</div>
+        <div className="h-px bg-[var(--border)] my-4" />
+        <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Toward a maxed commander (lvl 60)</div>
+        <div className="mt-2 h-3 rounded-full bg-[var(--background-secondary)] overflow-hidden">
+          <div className="h-full bg-gradient-to-r from-emerald-500 to-teal-500" style={{ width: `${pctTo60}%` }} />
+        </div>
+        <div className="text-xs text-[var(--text-muted)] mt-1">
+          {pctTo60.toFixed(1)}% of ~{fmtNum(XP_TO_LEVEL_60)} XP needed for level 60
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Page shell with tabs
 // ---------------------------------------------------------------------------
 const TABS = [
   { id: 'speedup', label: 'Speedups', icon: Timer, comp: SpeedupCalc },
   { id: 'resources', label: 'Resources', icon: Pickaxe, comp: ResourceCalc },
   { id: 'ap', label: 'Action Points', icon: Zap, comp: ActionPointsCalc },
+  { id: 'vip', label: 'VIP', icon: Crown, comp: VipCalc },
+  { id: 'sculptures', label: 'Sculptures', icon: Star, comp: SculptureCalc },
+  { id: 'tomes', label: 'Commander XP', icon: BookOpen, comp: TomeCalc },
 ];
 
 export default function CalculatorsPage() {

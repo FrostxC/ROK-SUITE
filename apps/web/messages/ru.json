@@ -52,7 +52,8 @@
     "dkp": "Оценка ДКП",
     "recognition": "Признание",
     "applyLeader": "Отправить инфо лидера",
-    "calculators": "Calculators"
+    "calculators": "Calculators",
+    "commanders": "Commanders"
   },
   "home": {
     "tagline": "Королевство 23 • Восстание королевств",
@@ -133,6 +134,10 @@
       "calculators": {
         "title": "Calculators",
         "description": "Speedup, resource, and action-point planning tools"
+      },
+      "commanders": {
+        "title": "Commanders",
+        "description": "Commander pairing tier list by role and troop type"
       }
     },
     "guide": {

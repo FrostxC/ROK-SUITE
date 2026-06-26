@@ -52,7 +52,8 @@
     "dkp": "DKP Puanı",
     "recognition": "Tanıma",
     "applyLeader": "Lider bilgisi gönder",
-    "calculators": "Calculators"
+    "calculators": "Calculators",
+    "commanders": "Commanders"
   },
   "home": {
     "tagline": "Krallık 23 • Krallıkların Yükselişi",
@@ -133,6 +134,10 @@
       "calculators": {
         "title": "Calculators",
         "description": "Speedup, resource, and action-point planning tools"
+      },
+      "commanders": {
+        "title": "Commanders",
+        "description": "Commander pairing tier list by role and troop type"
       }
     },
     "guide": {

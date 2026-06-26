@@ -52,7 +52,8 @@
     "dkp": "Punteggio DKP",
     "recognition": "Riconoscimento",
     "applyLeader": "Invia info leader",
-    "calculators": "Calculators"
+    "calculators": "Calculators",
+    "commanders": "Commanders"
   },
   "home": {
     "tagline": "Regno 23 • L'ascesa dei regni",
@@ -133,6 +134,10 @@
       "calculators": {
         "title": "Calculators",
         "description": "Speedup, resource, and action-point planning tools"
+      },
+      "commanders": {
+        "title": "Commanders",
+        "description": "Commander pairing tier list by role and troop type"
       }
     },
     "guide": {

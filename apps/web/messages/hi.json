@@ -52,7 +52,8 @@
     "dkp": "डीकेपी स्कोर",
     "recognition": "मान्यता",
     "applyLeader": "लीडर जानकारी भेजें",
-    "calculators": "Calculators"
+    "calculators": "Calculators",
+    "commanders": "Commanders"
   },
   "home": {
     "tagline": "साम्राज्य 23 • राज्यों का उदय",
@@ -133,6 +134,10 @@
       "calculators": {
         "title": "Calculators",
         "description": "Speedup, resource, and action-point planning tools"
+      },
+      "commanders": {
+        "title": "Commanders",
+        "description": "Commander pairing tier list by role and troop type"
       }
     },
     "guide": {

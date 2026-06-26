@@ -52,7 +52,8 @@
     "dkp": "Pontuação DKP",
     "recognition": "Reconhecimento",
     "applyLeader": "Enviar info de líder",
-    "calculators": "Calculators"
+    "calculators": "Calculators",
+    "commanders": "Commanders"
   },
   "home": {
     "tagline": "Reino 23 • Ascensão dos Reinos",
@@ -133,6 +134,10 @@
       "calculators": {
         "title": "Calculators",
         "description": "Speedup, resource, and action-point planning tools"
+      },
+      "commanders": {
+        "title": "Commanders",
+        "description": "Commander pairing tier list by role and troop type"
       }
     },
     "guide": {

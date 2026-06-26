@@ -52,7 +52,8 @@
     "dkp": "Puntuación DKP",
     "recognition": "Reconocimiento",
     "applyLeader": "Enviar info de líder",
-    "calculators": "Calculators"
+    "calculators": "Calculators",
+    "commanders": "Commanders"
   },
   "home": {
     "tagline": "Reino 23 • El surgimiento de los reinos",
@@ -133,6 +134,10 @@
       "calculators": {
         "title": "Calculators",
         "description": "Speedup, resource, and action-point planning tools"
+      },
+      "commanders": {
+        "title": "Commanders",
+        "description": "Commander pairing tier list by role and troop type"
       }
     },
     "guide": {

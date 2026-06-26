@@ -52,7 +52,8 @@
     "dkp": "คะแนน ดีเคพี",
     "recognition": "การยอมรับ",
     "applyLeader": "ส่งข้อมูลหัวหน้า",
-    "calculators": "Calculators"
+    "calculators": "Calculators",
+    "commanders": "Commanders"
   },
   "home": {
     "tagline": "อาณาจักร 23 • กำเนิดอาณาจักร",
@@ -133,6 +134,10 @@
       "calculators": {
         "title": "Calculators",
         "description": "Speedup, resource, and action-point planning tools"
+      },
+      "commanders": {
+        "title": "Commanders",
+        "description": "Commander pairing tier list by role and troop type"
       }
     },
     "guide": {
