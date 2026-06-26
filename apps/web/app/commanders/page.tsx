@@ -4,6 +4,27 @@ import { useState, useMemo } from 'react';
 import { Swords, Search, Info } from 'lucide-react';
 import { AppSidebar } from '@/components/AppSidebar';
 import { COMMANDER_META, META_PATCH, type Tier } from './meta-data';
+const AVATAR_BG: Record<string, string> = {
+  Infantry: 'bg-gradient-to-br from-sky-500 to-blue-600',
+  Cavalry: 'bg-gradient-to-br from-emerald-500 to-teal-600',
+  Archer: 'bg-gradient-to-br from-rose-500 to-red-600',
+  Mixed: 'bg-gradient-to-br from-amber-500 to-orange-600',
+};
+
+function CommanderChip({ name, troop }: { name: string; troop: string }) {
+  const initials = name.replace(/[^a-zA-Z ]/g, '').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <span
+        className={`w-7 h-7 rounded-md ${AVATAR_BG[troop] || 'bg-[var(--background-secondary)]'} text-[10px] font-bold text-white flex items-center justify-center flex-shrink-0`}
+        title={name}
+      >
+        {initials}
+      </span>
+      <span>{name}</span>
+    </span>
+  );
+}
 
 const TIER_STYLE: Record<Tier, string> = {
   S: 'bg-gradient-to-br from-rose-500 to-red-600 text-white',
@@ -111,10 +132,12 @@ export default function CommandersPage() {
                       {p.tier}
                     </div>
                     <div className="min-w-0">
-                      <div className="text-sm font-semibold text-[var(--foreground)]">
-                        {p.primary} <span className="text-[var(--text-muted)]">+</span> {p.secondary}
+                      <div className="text-sm font-semibold text-[var(--foreground)] flex items-center gap-2 flex-wrap">
+                        <CommanderChip name={p.primary} troop={p.troop} />
+                        <span className="text-[var(--text-muted)]">+</span>
+                        <CommanderChip name={p.secondary} troop={p.troop} />
                       </div>
-                      <div className={`text-[11px] font-medium ${TROOP_COLOR[p.troop] || 'text-[var(--text-muted)]'}`}>{p.troop}</div>
+                      <div className={`text-[11px] font-medium ${TROOP_COLOR[p.troop] || 'text-[var(--text-muted)]'} mt-1`}>{p.troop}</div>
                       {p.note && <div className="text-xs text-[var(--text-secondary)] mt-1">{p.note}</div>}
                     </div>
                   </div>
