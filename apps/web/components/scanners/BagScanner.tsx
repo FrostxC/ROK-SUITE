@@ -323,7 +323,7 @@ export function BagScanner({ onClose, onImport, preloadedInventory }: BagScanner
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
       case 'legendary': return 'text-[#ffb547] bg-[#ffb547]/20';
-      case 'epic': return 'text-[#9f7aea] bg-[#9f7aea]/20';
+      case 'epic': return 'text-[#C9A961] bg-[#C9A961]/20';
       case 'elite': return 'text-[#21d4fd] bg-[#0075ff]/20';
       case 'advanced': return 'text-[#01b574] bg-[#01b574]/20';
       default: return 'text-[#a0aec0] bg-[#a0aec0]/20';
@@ -677,7 +677,7 @@ export function BagScanner({ onClose, onImport, preloadedInventory }: BagScanner
               {/* Chests */}
               {preloadedInventory.bagInventory.chests && Object.keys(preloadedInventory.bagInventory.chests).length > 0 && (
                 <div className="p-4 rounded-xl bg-[rgba(6,11,40,0.5)] border border-white/10">
-                  <h3 className="text-sm font-semibold text-[#9f7aea] mb-3">Equipment Chests</h3>
+                  <h3 className="text-sm font-semibold text-[#C9A961] mb-3">Equipment Chests</h3>
                   <div className="grid grid-cols-2 gap-2">
                     {Object.entries(preloadedInventory.bagInventory.chests).map(([key, value]) => (
                       <div key={key} className="flex items-center justify-between bg-[#1a1f3c]/50 rounded px-3 py-2">

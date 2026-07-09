@@ -177,7 +177,7 @@ export function LeaderApplicationsAdmin() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search name, gov ID, kingdom, Discord…"
-          className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-[var(--background-secondary)] border border-[var(--border)] text-base sm:text-sm text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[#4318ff]/40"
+          className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-[var(--background-secondary)] border border-[var(--border)] text-base sm:text-sm text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[#DC143C]/40"
         />
       </div>
 
@@ -291,7 +291,7 @@ function FilterChip({ label, active, classes, onClick }: FilterChipProps) {
   const base = 'px-3 py-1.5 rounded-full text-xs font-medium transition-colors';
   if (active) {
     return (
-      <button type="button" onClick={onClick} className={`${base} ${classes ?? 'bg-[#4318ff] text-white'}`}>
+      <button type="button" onClick={onClick} className={`${base} ${classes ?? 'bg-[#DC143C] text-white'}`}>
         {label}
       </button>
     );
@@ -321,7 +321,7 @@ function SortButton({ label, active, dir, onClick }: SortButtonProps) {
       onClick={onClick}
       className={`flex items-center gap-1 px-3 py-2 rounded-lg border text-xs font-medium transition-colors ${
         active
-          ? 'bg-[#4318ff]/10 border-[#4318ff]/40 text-[#a78bfa]'
+          ? 'bg-[#DC143C]/10 border-[#DC143C]/40 text-[#a78bfa]'
           : 'bg-[var(--background-secondary)] border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--foreground)]'
       }`}
     >
@@ -410,7 +410,7 @@ function ApplicationCard({
           <select
             value={app.status}
             onChange={(e) => onStatusChange(e.target.value as ApplicationStatus)}
-            className="flex-1 sm:flex-initial text-sm px-2 py-1.5 rounded-md border border-[var(--border)] bg-[var(--background-secondary)] text-[var(--foreground)] focus:outline-none focus:ring-1 focus:ring-[#4318ff]/40"
+            className="flex-1 sm:flex-initial text-sm px-2 py-1.5 rounded-md border border-[var(--border)] bg-[var(--background-secondary)] text-[var(--foreground)] focus:outline-none focus:ring-1 focus:ring-[#DC143C]/40"
             aria-label="Update status"
           >
             {STATUS_OPTIONS.map((s) => (

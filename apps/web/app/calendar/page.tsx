@@ -1254,7 +1254,7 @@ export default function CalendarPage() {
                         {isAdmin ? (
                             <button
                                 onClick={handleAdminLogout}
-                                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-violet-500/15 text-violet-400 border border-violet-500/30 hover:bg-violet-500/25 transition-colors flex items-center gap-1.5"
+                                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--gold)]/15 text-[var(--gold)] border border-violet-500/30 hover:bg-violet-500/25 transition-colors flex items-center gap-1.5"
                             >
                                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -1282,7 +1282,7 @@ export default function CalendarPage() {
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => { setShowPasswordPrompt(false); setPassword(''); setPasswordError(false); }}>
                     <div className="bg-[var(--background-card)] border border-[var(--border)] rounded-xl p-6 w-full max-w-sm shadow-2xl" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center gap-2 mb-4">
-                            <svg className="w-5 h-5 text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <svg className="w-5 h-5 text-[var(--gold)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                             </svg>
                             <h3 className="text-lg font-semibold">Admin Login</h3>
@@ -1369,7 +1369,7 @@ export default function CalendarPage() {
                                             <span className="w-3 h-3 rounded-full" style={{ backgroundColor: cal.color }} />
                                             <h4 className="font-medium">{cal.name}</h4>
                                             {isRok && (
-                                                <span className="ml-1 text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/30 bg-violet-500/10 text-violet-300">
+                                                <span className="ml-1 text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/30 bg-[var(--gold)]/10 text-violet-300">
                                                     auto
                                                 </span>
                                             )}

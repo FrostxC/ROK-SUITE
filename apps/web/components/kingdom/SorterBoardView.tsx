@@ -385,7 +385,7 @@ function PlayerCard({
         {assignment.status !== 'STAY' && (
           <span className={`text-[10px] font-medium ${
             assignment.status === 'MOVE' ? 'text-sky-500' :
-            assignment.status === 'INCOMING' ? 'text-violet-500' :
+            assignment.status === 'INCOMING' ? 'text-[var(--gold)]' :
             assignment.status === 'ILLEGAL' ? 'text-red-500' :
             'text-gray-400'
           }`}>

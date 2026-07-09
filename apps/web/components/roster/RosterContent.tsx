@@ -1575,7 +1575,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
         border: 'border-[var(--border)]',
         input: 'bg-[var(--background-card)] border-[var(--border)] text-[var(--foreground)] placeholder-[var(--text-muted)]',
         button: 'bg-[var(--background-card)] hover:opacity-80 text-[var(--foreground)] border border-[var(--border)]',
-        buttonPrimary: 'bg-gradient-to-r from-[#4318ff] to-[#9f7aea] hover:opacity-90 text-white',
+        buttonPrimary: 'bg-gradient-to-r from-[#DC143C] to-[#C9A961] hover:opacity-90 text-white',
     };
 
     // Sort icon with priority badge for multi-column sorting
@@ -1590,7 +1590,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
             <span className="relative inline-flex items-center">
                 <Icon className={`w-4 h-4 transition-opacity ${isActive ? 'opacity-100' : 'opacity-30'}`} />
                 {showPriority && (
-                    <span className="absolute -top-1 -right-1 w-3 h-3 text-[8px] font-bold rounded-full bg-[#4318ff] text-white flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 w-3 h-3 text-[8px] font-bold rounded-full bg-[#DC143C] text-white flex items-center justify-center">
                         {ruleIndex + 1}
                     </span>
                 )}
@@ -1612,7 +1612,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
         return (
             <div className={`min-h-screen ${theme.bg} ${theme.text} flex items-center justify-center`}>
                 <div className="flex items-center gap-3">
-                    <div className="w-5 h-5 border-2 border-[#4318ff] border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-[#DC143C] border-t-transparent rounded-full animate-spin"></div>
                     <span className={theme.textMuted}>Loading roster...</span>
                 </div>
             </div>
@@ -1696,7 +1696,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                             }
                                         }
                                     }}
-                                    className="p-2 sm:px-3 sm:py-2 rounded-lg text-sm font-medium bg-[#4318ff] text-white hover:bg-[#4318ff]/80 transition-colors flex items-center gap-1"
+                                    className="p-2 sm:px-3 sm:py-2 rounded-lg text-sm font-medium bg-[#DC143C] text-white hover:bg-[#DC143C]/80 transition-colors flex items-center gap-1"
                                 >
                                     <X className="w-4 h-4 sm:hidden" />
                                     <span className="hidden sm:inline">Exit Admin</span>
@@ -1718,7 +1718,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
                     {/* Snapshot Status */}
                     {snapshotStatus && (
-                        <div className="mt-2 px-3 py-2 rounded-lg bg-[#4318ff]/20 text-[#9f7aea] text-sm">
+                        <div className="mt-2 px-3 py-2 rounded-lg bg-[#DC143C]/20 text-[#C9A961] text-sm">
                             {snapshotStatus}
                         </div>
                     )}
@@ -1736,7 +1736,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                             onChange={(e) => setEditorPassword(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && handlePasswordSubmit()}
                             placeholder="Password"
-                            className={`w-full px-3 py-2 rounded-lg border ${theme.input} mb-4 focus:outline-none focus:ring-2 focus:ring-[#4318ff]`}
+                            className={`w-full px-3 py-2 rounded-lg border ${theme.input} mb-4 focus:outline-none focus:ring-2 focus:ring-[#DC143C]`}
                             autoFocus
                         />
                         <div className="flex gap-2">
@@ -1753,13 +1753,13 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
             {/* Admin Mode Banner */}
             {isEditor && (
-                <div className="bg-[#4318ff]/10 border-b border-[#4318ff]/30">
+                <div className="bg-[#DC143C]/10 border-b border-[#DC143C]/30">
                     <div className="max-w-6xl mx-auto px-4 md:px-6 py-3">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                             <div className="flex items-start gap-3">
-                                <Edit2 className="w-5 h-5 text-[#9f7aea] flex-shrink-0 mt-0.5" />
+                                <Edit2 className="w-5 h-5 text-[#C9A961] flex-shrink-0 mt-0.5" />
                                 <div>
-                                    <h3 className="font-medium text-[#9f7aea] text-sm">Admin Mode Active</h3>
+                                    <h3 className="font-medium text-[#C9A961] text-sm">Admin Mode Active</h3>
                                     <p className={`text-xs ${theme.textMuted} mt-1`}>
                                         <strong>Roster tab:</strong> Click any row to edit KP and notes •
                                         <strong> Analytics tab:</strong> Adjust activity score weights •
@@ -1770,7 +1770,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                             </div>
                             <button
                                 onClick={findDuplicates}
-                                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${theme.button} hover:bg-[#4318ff]/20 transition-colors whitespace-nowrap`}
+                                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${theme.button} hover:bg-[#DC143C]/20 transition-colors whitespace-nowrap`}
                             >
                                 <Copy className="w-3.5 h-3.5" />
                                 Find Duplicates
@@ -1785,31 +1785,31 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                 <div className="max-w-6xl mx-auto px-4 md:px-6 pt-4">
                     <div className={`${theme.card} border rounded-xl p-5`}>
                         <h3 className="font-semibold mb-4 flex items-center gap-2 text-lg">
-                            <Upload className="w-5 h-5 text-[#4318ff]" />
+                            <Upload className="w-5 h-5 text-[#DC143C]" />
                             Import Roster from ROKstats
                         </h3>
 
                         {/* Step by step instructions */}
                         <div className={`${theme.bg} rounded-lg p-4 mb-4 border border-[var(--border)]`}>
                             <h4 className="font-medium text-sm mb-3 flex items-center gap-2">
-                                <Info className="w-4 h-4 text-[#4318ff]" />
+                                <Info className="w-4 h-4 text-[#DC143C]" />
                                 How to export from ROKstats:
                             </h4>
                             <ol className="space-y-2 text-sm">
                                 <li className="flex items-start gap-2">
-                                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4318ff] text-white text-xs flex items-center justify-center font-bold">1</span>
-                                    <span>Go to <a href="https://app.rokstats.online/kvk/dashboard/S11400" target="_blank" rel="noopener noreferrer" className="text-[#4318ff] hover:underline inline-flex items-center gap-1">app.rokstats.online/kvk/dashboard/S11400 <ExternalLink className="w-3 h-3" /></a></span>
+                                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#DC143C] text-white text-xs flex items-center justify-center font-bold">1</span>
+                                    <span>Go to <a href="https://app.rokstats.online/kvk/dashboard/S11400" target="_blank" rel="noopener noreferrer" className="text-[#DC143C] hover:underline inline-flex items-center gap-1">app.rokstats.online/kvk/dashboard/S11400 <ExternalLink className="w-3 h-3" /></a></span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4318ff] text-white text-xs flex items-center justify-center font-bold">2</span>
+                                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#DC143C] text-white text-xs flex items-center justify-center font-bold">2</span>
                                     <span>Filter by kingdom <strong className="text-[var(--foreground)]">3923</strong> using the filter options</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4318ff] text-white text-xs flex items-center justify-center font-bold">3</span>
+                                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#DC143C] text-white text-xs flex items-center justify-center font-bold">3</span>
                                     <span>Click the <strong className="text-[var(--foreground)]">Export CSV</strong> button to download</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4318ff] text-white text-xs flex items-center justify-center font-bold">4</span>
+                                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#DC143C] text-white text-xs flex items-center justify-center font-bold">4</span>
                                     <span>Upload the downloaded CSV file below</span>
                                 </li>
                             </ol>
@@ -1829,7 +1829,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                     onChange={(e) => e.target.files?.[0] && handleImportCSV(e.target.files[0])}
                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                 />
-                                <div className={`w-full px-4 py-3 rounded-lg border-2 border-dashed border-[var(--border)] hover:border-[#4318ff] transition-colors ${theme.bg} text-center cursor-pointer`}>
+                                <div className={`w-full px-4 py-3 rounded-lg border-2 border-dashed border-[var(--border)] hover:border-[#DC143C] transition-colors ${theme.bg} text-center cursor-pointer`}>
                                     <Upload className="w-5 h-5 mx-auto mb-1 text-[var(--text-muted)]" />
                                     <p className="text-sm font-medium">Choose CSV file or drag & drop</p>
                                     <p className={`text-xs ${theme.textMuted}`}>ROKstats export or custom CSV</p>
@@ -1916,7 +1916,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                 )}
                                                                 <span className="font-medium text-sm">{member.name}</span>
                                                                 {isTagged && (
-                                                                    <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[#4318ff]/20 text-[#9f7aea]">Tagged</span>
+                                                                    <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[#DC143C]/20 text-[#C9A961]">Tagged</span>
                                                                 )}
                                                             </div>
                                                             <div className={`text-xs ${theme.textMuted}`}>
@@ -1945,7 +1945,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                 {/* Stats Summary */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                     <div className={`${theme.card} border rounded-xl p-4 text-center`}>
-                        <Users className="w-6 h-6 mx-auto mb-2 text-[#9f7aea]" />
+                        <Users className="w-6 h-6 mx-auto mb-2 text-[#C9A961]" />
                         <p className={`text-xs ${theme.textMuted}`}>Members</p>
                         <p className="text-2xl font-bold">{statsRoster.length}</p>
                     </div>
@@ -1959,7 +1959,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                     </div>
                     <div className={`${theme.card} border rounded-xl p-4 text-center`}>
                         <p className={`text-xs ${theme.textMuted}`}>Avg Power</p>
-                        <p className="text-2xl font-bold text-[#4318ff]">{formatPower(Math.round(totalPower / (statsRoster.length || 1)))}</p>
+                        <p className="text-2xl font-bold text-[#DC143C]">{formatPower(Math.round(totalPower / (statsRoster.length || 1)))}</p>
                     </div>
                 </div>
 
@@ -1973,7 +1973,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 placeholder="Search by name or governor ID..."
-                                className={`w-full pl-10 pr-4 py-2 rounded-lg border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#4318ff]`}
+                                className={`w-full pl-10 pr-4 py-2 rounded-lg border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#DC143C]`}
                             />
                         </div>
                         <div className="flex gap-2 flex-wrap">
@@ -1982,7 +1982,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                 <select
                                     value={allianceFilter || ''}
                                     onChange={(e) => setAllianceFilter(e.target.value || null)}
-                                    className={`px-3 py-2 rounded-lg text-sm border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#4318ff]`}
+                                    className={`px-3 py-2 rounded-lg text-sm border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#DC143C]`}
                                 >
                                     <option value="">All Alliances</option>
                                     {alliances.map(a => (
@@ -1994,7 +1994,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                             <select
                                 value={rankFilter || ''}
                                 onChange={(e) => setRankFilter(e.target.value || null)}
-                                className={`px-3 py-2 rounded-lg text-sm border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#4318ff]`}
+                                className={`px-3 py-2 rounded-lg text-sm border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#DC143C]`}
                             >
                                 <option value="">All Ranks</option>
                                 <option value="R5">R5</option>
@@ -2007,7 +2007,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                             <select
                                 value={aooFilter}
                                 onChange={(e) => setAooFilter(e.target.value as typeof aooFilter)}
-                                className={`px-3 py-2 rounded-lg text-sm border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#4318ff]`}
+                                className={`px-3 py-2 rounded-lg text-sm border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#DC143C]`}
                             >
                                 <option value="all">All AoO</option>
                                 <option value="team1">Team 1</option>
@@ -2019,7 +2019,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                             <select
                                 value={tagFilter || ''}
                                 onChange={(e) => setTagFilter(e.target.value || null)}
-                                className={`px-3 py-2 rounded-lg text-sm border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#4318ff]`}
+                                className={`px-3 py-2 rounded-lg text-sm border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#DC143C]`}
                             >
                                 <option value="">All Groups</option>
                                 {isEditor && <option value="angmar-og">Angmar Core</option>}
@@ -2039,7 +2039,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                             <div className="relative" data-view-options>
                                 <button
                                     onClick={() => setShowViewOptions(!showViewOptions)}
-                                    className={`px-3 py-2 rounded-lg text-sm font-medium ${theme.button} flex items-center gap-2 ${showViewOptions ? 'ring-2 ring-[#4318ff]' : ''}`}
+                                    className={`px-3 py-2 rounded-lg text-sm font-medium ${theme.button} flex items-center gap-2 ${showViewOptions ? 'ring-2 ring-[#DC143C]' : ''}`}
                                     title="View Options"
                                 >
                                     <Eye className="w-4 h-4" />
@@ -2070,7 +2070,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                             onClick={() => toggleColumn(col.id)}
                                                             className={`w-full flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[var(--background-secondary)] transition-colors`}
                                                         >
-                                                            <div className={`w-4 h-4 rounded border flex items-center justify-center ${isColumnVisible(col.id) ? 'bg-[#4318ff] border-[#4318ff]' : 'border-[var(--border)]'}`}>
+                                                            <div className={`w-4 h-4 rounded border flex items-center justify-center ${isColumnVisible(col.id) ? 'bg-[#DC143C] border-[#DC143C]' : 'border-[var(--border)]'}`}>
                                                                 {isColumnVisible(col.id) && <Check className="w-3 h-3 text-white" />}
                                                             </div>
                                                             <span className="text-sm">{col.label}</span>
@@ -2086,7 +2086,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                             <div className="relative" data-export-menu>
                                 <button
                                     onClick={() => setShowExportMenu(!showExportMenu)}
-                                    className={`px-3 py-2 rounded-lg text-sm font-medium ${theme.button} flex items-center gap-2 ${showExportMenu ? 'ring-2 ring-[#4318ff]' : ''}`}
+                                    className={`px-3 py-2 rounded-lg text-sm font-medium ${theme.button} flex items-center gap-2 ${showExportMenu ? 'ring-2 ring-[#DC143C]' : ''}`}
                                     title="Export roster data"
                                 >
                                     <Download className="w-4 h-4" />
@@ -2126,7 +2126,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                     {idx > 0 && <span className={`mx-1 ${theme.textMuted}`}>→</span>}
                                     <button
                                         onClick={() => removeSortRule(rule.field)}
-                                        className="inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-full bg-[#4318ff]/20 text-[#9f7aea] hover:bg-[#4318ff]/30 transition-colors"
+                                        className="inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-full bg-[#DC143C]/20 text-[#C9A961] hover:bg-[#DC143C]/30 transition-colors"
                                         title={`Remove ${SORT_FIELD_LABELS[rule.field]} from sort`}
                                     >
                                         {SORT_FIELD_LABELS[rule.field]}
@@ -2156,7 +2156,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                             </span>
                             <button
                                 onClick={() => setShowPasswordPrompt(true)}
-                                className={`text-[10px] sm:text-xs ${theme.textMuted} hover:text-[#9f7aea] transition-colors flex items-center gap-1`}
+                                className={`text-[10px] sm:text-xs ${theme.textMuted} hover:text-[#C9A961] transition-colors flex items-center gap-1`}
                             >
                                 <Edit2 className="w-3 h-3" />
                                 <span className="hidden sm:inline">Edit KP & notes</span>
@@ -2479,7 +2479,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                         )}
                                         {isColumnVisible('ratio') && (
                                             <td className="px-2 sm:px-4 py-2 sm:py-3 text-right hidden md:table-cell">
-                                                <span className={`text-sm ${member.kills ? 'text-[#9f7aea]' : theme.textMuted}`}>
+                                                <span className={`text-sm ${member.kills ? 'text-[#C9A961]' : theme.textMuted}`}>
                                                     {member.kills ? (member.power / member.kills).toFixed(1) : '-'}
                                                 </span>
                                             </td>
@@ -2557,7 +2557,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                     }
                                                     const teamLabel = stats.aoo.lastTeam === 'Team 1' ? 'T1' : stats.aoo.lastTeam === 'Team 2' ? 'T2' : '-';
                                                     return (
-                                                        <span className="text-[#4318ff]">
+                                                        <span className="text-[#DC143C]">
                                                             {teamLabel} ({stats.aoo.participatedCount}/{stats.aoo.totalAssigned})
                                                         </span>
                                                     );
@@ -2588,7 +2588,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                         )}
                                         {isColumnVisible('acclaim') && (
                                             <td className="px-4 py-3 text-right hidden md:table-cell">
-                                                <span className={member.acclaim ? 'text-[#9f7aea]' : theme.textMuted}>
+                                                <span className={member.acclaim ? 'text-[#C9A961]' : theme.textMuted}>
                                                     {member.acclaim ? member.acclaim.toLocaleString() : '-'}
                                                 </span>
                                             </td>
@@ -2651,7 +2651,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                     </select>
                                                 ) : (
                                                     <span
-                                                        className={`text-sm ${member.alliance ? 'text-[#9f7aea] cursor-pointer hover:underline' : theme.textMuted}`}
+                                                        className={`text-sm ${member.alliance ? 'text-[#C9A961] cursor-pointer hover:underline' : theme.textMuted}`}
                                                         onClick={() => member.alliance && setAllianceFilter(member.alliance)}
                                                     >
                                                         {allianceDisplay(member.alliance)}
@@ -2813,7 +2813,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
                                                                             return (
                                                                                 <tr key={snap.id || snapIdx} className="border-b border-[var(--border)]/30">
-                                                                                    <td className="px-2 py-1 text-[#9f7aea]">
+                                                                                    <td className="px-2 py-1 text-[#C9A961]">
                                                                                         {formatDate(snap.snapshot_date)}
                                                                                     </td>
                                                                                     <td className={`px-2 py-1 text-right text-[#01b574] ${powerCarry ? carryoverClass : ''}`}>
@@ -3008,7 +3008,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                             onClick={() => setGrowthAllianceFilter(a)}
                                             className={`px-2.5 py-1 text-xs font-medium rounded transition-all ${
                                                 growthAllianceFilter === a
-                                                    ? 'bg-[#4318ff] text-white'
+                                                    ? 'bg-[#DC143C] text-white'
                                                     : `${theme.textMuted} hover:text-[var(--foreground)]`
                                             }`}
                                         >
@@ -3020,7 +3020,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                     onClick={() => setShowCharts(!showCharts)}
                                     className={`flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
                                         showCharts
-                                            ? 'bg-[#4318ff] text-white'
+                                            ? 'bg-[#DC143C] text-white'
                                             : `${theme.button}`
                                     }`}
                                 >
@@ -3038,7 +3038,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                             onClick={() => setChartMode('alliance')}
                                             className={`px-2 py-1 text-xs font-medium rounded transition-all ${
                                                 chartMode === 'alliance'
-                                                    ? 'bg-[#4318ff] text-white'
+                                                    ? 'bg-[#DC143C] text-white'
                                                     : `${theme.textMuted} hover:text-[var(--foreground)]`
                                             }`}
                                         >
@@ -3048,7 +3048,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                             onClick={() => setChartMode('individual')}
                                             className={`px-2 py-1 text-xs font-medium rounded transition-all ${
                                                 chartMode === 'individual'
-                                                    ? 'bg-[#4318ff] text-white'
+                                                    ? 'bg-[#DC143C] text-white'
                                                     : `${theme.textMuted} hover:text-[var(--foreground)]`
                                             }`}
                                         >
@@ -3112,11 +3112,11 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                             <span className={`text-xs ${theme.textMuted}`}>View:</span>
                                             <div className="flex gap-1">
                                                 {[
-                                                    { key: 'all', label: 'All', color: '#4318ff' },
+                                                    { key: 'all', label: 'All', color: '#DC143C' },
                                                     { key: 'kp', label: 'KP', color: '#f56565' },
                                                     { key: 'power', label: 'Power', color: '#01b574' },
                                                     { key: 'honor', label: 'Honor', color: '#fbbf24' },
-                                                    { key: 'ratio', label: 'P:KP Ratio', color: '#9f7aea' },
+                                                    { key: 'ratio', label: 'P:KP Ratio', color: '#C9A961' },
                                                 ].map(metric => (
                                                     <button
                                                         key={metric.key}
@@ -3175,7 +3175,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                     placeholder="Search by name or governor ID..."
                                     value={growthSearch}
                                     onChange={(e) => { setGrowthSearch(e.target.value); setProfilePlayer(null); }}
-                                    className={`w-full pl-9 pr-8 py-1.5 text-sm rounded-lg ${theme.card} border focus:outline-none focus:ring-1 focus:ring-[#4318ff]`}
+                                    className={`w-full pl-9 pr-8 py-1.5 text-sm rounded-lg ${theme.card} border focus:outline-none focus:ring-1 focus:ring-[#DC143C]`}
                                 />
                                 {growthSearch && (
                                     <button onClick={() => { setGrowthSearch(''); setProfilePlayer(null); }} className="absolute right-2 top-1/2 -translate-y-1/2">
@@ -3220,7 +3220,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                 <button
                                                     key={m.id}
                                                     onClick={() => setProfilePlayer(m.name)}
-                                                    className={`px-2 py-1 text-xs rounded-lg ${theme.button} hover:bg-[#4318ff]/20 hover:text-[#4318ff]`}
+                                                    className={`px-2 py-1 text-xs rounded-lg ${theme.button} hover:bg-[#DC143C]/20 hover:text-[#DC143C]`}
                                                 >
                                                     {m.name}
                                                     {m.governor_id && <span className={`ml-1 ${theme.textMuted}`}>({m.governor_id})</span>}
@@ -3251,7 +3251,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
                             const metrics = [
                                 { label: 'KP Growth', ...kpRank, color: '#f56565' },
-                                { label: 'Power Growth', ...powerRank, color: '#4318ff' },
+                                { label: 'Power Growth', ...powerRank, color: '#DC143C' },
                                 { label: 'Honor Growth', ...honorRank, color: '#fbbf24' },
                                 { label: 'Gathered', ...gatheredRank, color: '#38bdf8' },
                                 { label: 'Alliance Helps', ...helpsRank, color: '#a78bfa' },
@@ -3266,7 +3266,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                         <h3 className="text-base font-semibold">{target.name}</h3>
                                         {target.governor_id && <span className={`text-xs ${theme.textMuted}`}>ID: {target.governor_id}</span>}
                                         {target.alliance && (
-                                            <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-[#4318ff]/20 text-[#4318ff]">
+                                            <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-[#DC143C]/20 text-[#DC143C]">
                                                 {allianceDisplay(target.alliance)}
                                             </span>
                                         )}
@@ -3314,12 +3314,12 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
                         {historyLoading ? (
                             <div className="flex items-center justify-center py-12">
-                                <div className="w-5 h-5 border-2 border-[#4318ff] border-t-transparent rounded-full animate-spin"></div>
+                                <div className="w-5 h-5 border-2 border-[#DC143C] border-t-transparent rounded-full animate-spin"></div>
                                 <span className={`ml-3 ${theme.textMuted}`}>Loading growth data...</span>
                             </div>
                         ) : dailyTotals.length === 0 ? (
                             <div className={`${theme.card} border rounded-xl p-8 text-center`}>
-                                <TrendingUp className="w-12 h-12 mx-auto mb-4 text-[#4318ff]/50" />
+                                <TrendingUp className="w-12 h-12 mx-auto mb-4 text-[#DC143C]/50" />
                                 <h3 className="text-lg font-semibold mb-2">No Growth Data Yet</h3>
                                 <p className={`text-sm ${theme.textMuted} mb-4`}>
                                     Start tracking by importing roster data or clicking "Lock Today" to create your first snapshot.
@@ -3374,7 +3374,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                         if (!selectedPlayer) {
                                             return (
                                                 <div className={`${theme.card} border rounded-xl p-8 text-center`}>
-                                                    <Users className="w-12 h-12 mx-auto mb-4 text-[#4318ff]/50" />
+                                                    <Users className="w-12 h-12 mx-auto mb-4 text-[#DC143C]/50" />
                                                     <p className={`text-sm ${theme.textMuted}`}>Select a player to view their individual growth charts</p>
                                                 </div>
                                             );
@@ -3383,7 +3383,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                         if (playerHistory.length === 0) {
                                             return (
                                                 <div className={`${theme.card} border rounded-xl p-8 text-center`}>
-                                                    <TrendingUp className="w-12 h-12 mx-auto mb-4 text-[#4318ff]/50" />
+                                                    <TrendingUp className="w-12 h-12 mx-auto mb-4 text-[#DC143C]/50" />
                                                     <p className={`text-sm ${theme.textMuted}`}>No historical data for {selectedPlayer}</p>
                                                 </div>
                                             );
@@ -3409,7 +3409,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                             { key: 'power', label: 'Power', color: '#01b574' },
                                             { key: 'honor', label: 'Honor', color: '#fbbf24' },
                                             { key: 't4', label: 'T4 Kills', color: '#f97316' },
-                                            { key: 't5', label: 'T5 Kills', color: '#9f7aea' },
+                                            { key: 't5', label: 'T5 Kills', color: '#C9A961' },
                                         ];
 
                                         const renderPlayerChart = (metric: typeof playerMetrics[0], height: number = 200) => (
@@ -3560,7 +3560,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                         { key: 'kp', label: 'Kill Points', color: '#f56565', isCount: false, isRatio: false },
                                         { key: 'power', label: 'Power', color: '#01b574', isCount: false, isRatio: false },
                                         { key: 'honor', label: 'Honor', color: '#fbbf24', isCount: false, isRatio: false },
-                                        { key: 'ratio', label: 'Power:KP Ratio', color: '#9f7aea', isCount: false, isRatio: true },
+                                        { key: 'ratio', label: 'Power:KP Ratio', color: '#C9A961', isCount: false, isRatio: true },
                                     ];
 
                                     const renderChart = (metric: typeof metrics[0], height: number = 300) => (
@@ -3733,7 +3733,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                 {/* Player Power:KP Ratio Over Time */}
                                                 <div className={`${theme.card} border rounded-xl p-2 sm:p-4`}>
                                                     <h3 className="font-semibold mb-2 sm:mb-3 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                                                        <BarChart3 className="w-3 sm:w-4 h-3 sm:h-4 text-[#9f7aea]" />
+                                                        <BarChart3 className="w-3 sm:w-4 h-3 sm:h-4 text-[#C9A961]" />
                                                         <span className="hidden sm:inline">Power:KP</span> Ratio
                                                     </h3>
                                                     <div className="space-y-1 sm:space-y-1.5">
@@ -3749,7 +3749,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                     <span className={`text-[10px] sm:text-xs ${theme.textMuted} w-8 sm:w-12`}>{formatDate(snap.snapshot_date)}</span>
                                                                     <div className="flex-1 h-3 sm:h-5 bg-[var(--background-secondary)] rounded overflow-hidden">
                                                                         <div
-                                                                            className="h-full bg-gradient-to-r from-[#9f7aea] to-[#9f7aea]/50 rounded"
+                                                                            className="h-full bg-gradient-to-r from-[#C9A961] to-[#C9A961]/50 rounded"
                                                                             style={{ width: `${Math.max(pct, 10)}%` }}
                                                                         />
                                                                     </div>
@@ -3862,7 +3862,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                     {/* Power:KP Ratio Over Time */}
                                     <div className={`${theme.card} border rounded-xl p-2 sm:p-4`}>
                                         <h3 className="font-semibold mb-2 sm:mb-3 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                                            <BarChart3 className="w-3 sm:w-4 h-3 sm:h-4 text-[#9f7aea]" />
+                                            <BarChart3 className="w-3 sm:w-4 h-3 sm:h-4 text-[#C9A961]" />
                                             <span className="hidden sm:inline">Power:KP</span> Ratio
                                         </h3>
                                         <div className="space-y-1 sm:space-y-1.5">
@@ -3878,7 +3878,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                         <span className={`text-[10px] sm:text-xs ${theme.textMuted} w-8 sm:w-12`}>{formatDate(day.date)}</span>
                                                         <div className="flex-1 h-3 sm:h-5 bg-[var(--background-secondary)] rounded overflow-hidden">
                                                             <div
-                                                                className="h-full bg-gradient-to-r from-[#9f7aea] to-[#9f7aea]/50 rounded"
+                                                                className="h-full bg-gradient-to-r from-[#C9A961] to-[#C9A961]/50 rounded"
                                                                 style={{ width: `${Math.max(pct, 10)}%` }}
                                                             />
                                                         </div>
@@ -3895,7 +3895,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
                                 {/* KP Growth Table — Collapsible */}
                                 {kpGrowthData.length > 0 && (
-                                    <button onClick={() => toggleSection('kp')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#4318ff]/30 transition-all`}>
+                                    <button onClick={() => toggleSection('kp')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#DC143C]/30 transition-all`}>
                                         <span className="flex items-center gap-2 text-sm font-semibold">
                                             {expandedSections.has('kp') ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                                             <TrendingUp className="w-4 h-4 text-[#f56565]" />
@@ -4016,7 +4016,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                     <td className={`px-2 py-2 ${theme.textMuted}`}>{globalIdx + 1}</td>
                                                                     <td className="px-2 py-2 font-medium">
                                                                         <span
-                                                                            className="cursor-pointer hover:text-[#4318ff] hover:underline"
+                                                                            className="cursor-pointer hover:text-[#DC143C] hover:underline"
                                                                             onClick={() => {
                                                                                 setSelectedPlayer(member.name);
                                                                                 setChartMode('individual');
@@ -4029,7 +4029,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                             <span className="ml-1.5 px-1 py-0.5 text-[9px] font-semibold rounded bg-amber-500/20 text-amber-400">ANG</span>
                                                                         )}
                                                                     </td>
-                                                                    <td className="px-2 py-2 text-right text-[#9f7aea]">
+                                                                    <td className="px-2 py-2 text-right text-[#C9A961]">
                                                                         {formatPower(member.firstKp)}
                                                                     </td>
                                                                     <td className="px-2 py-2 text-right text-[#01b574]">
@@ -4155,7 +4155,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
                                 {/* Honor Growth Table — Collapsible */}
                                 {honorGrowthData.length > 0 && (
-                                    <button onClick={() => toggleSection('honor')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#4318ff]/30 transition-all`}>
+                                    <button onClick={() => toggleSection('honor')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#DC143C]/30 transition-all`}>
                                         <span className="flex items-center gap-2 text-sm font-semibold">
                                             {expandedSections.has('honor') ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                                             <Trophy className="w-4 h-4 text-[#fbbf24]" />
@@ -4284,7 +4284,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                     <td className={`px-2 py-2 ${theme.textMuted}`}>{globalIdx + 1}</td>
                                                                     <td className="px-2 py-2 font-medium">
                                                                         <span
-                                                                            className="cursor-pointer hover:text-[#4318ff] hover:underline"
+                                                                            className="cursor-pointer hover:text-[#DC143C] hover:underline"
                                                                             onClick={() => {
                                                                                 setSelectedPlayer(member.name);
                                                                                 setChartMode('individual');
@@ -4297,7 +4297,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                             <span className="ml-1.5 px-1 py-0.5 text-[9px] font-semibold rounded bg-amber-500/20 text-amber-400">ANG</span>
                                                                         )}
                                                                     </td>
-                                                                    <td className="px-2 py-2 text-right text-[#9f7aea]">
+                                                                    <td className="px-2 py-2 text-right text-[#C9A961]">
                                                                         {member.firstHonor.toLocaleString()}
                                                                     </td>
                                                                     <td className="px-2 py-2 text-right text-[#01b574]">
@@ -4421,10 +4421,10 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
                                 {/* Power Growth Table — Collapsible */}
                                 {powerGrowthData.length > 0 && (
-                                    <button onClick={() => toggleSection('power')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#4318ff]/30 transition-all`}>
+                                    <button onClick={() => toggleSection('power')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#DC143C]/30 transition-all`}>
                                         <span className="flex items-center gap-2 text-sm font-semibold">
                                             {expandedSections.has('power') ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                                            <TrendingUp className="w-4 h-4 text-[#4318ff]" />
+                                            <TrendingUp className="w-4 h-4 text-[#DC143C]" />
                                             Power Growth
                                         </span>
                                         <span className={`text-xs ${theme.textMuted}`}>{powerGrowthData.length} members</span>
@@ -4468,7 +4468,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                         <div className={`${theme.card} border rounded-xl p-2 sm:p-4`}>
                                             <div className="flex items-center justify-between mb-2 sm:mb-4">
                                                 <h3 className="font-semibold flex items-center gap-2 text-sm sm:text-base">
-                                                    <TrendingUp className="w-4 h-4 text-[#4318ff]" />
+                                                    <TrendingUp className="w-4 h-4 text-[#DC143C]" />
                                                     <span className="hidden sm:inline">Power Growth</span>
                                                     <span className="sm:hidden">Power</span>
                                                     <span className={`text-xs font-normal ${theme.textMuted}`}>({sortedPowerGrowth.length})</span>
@@ -4543,7 +4543,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                     <td className={`px-2 py-2 ${theme.textMuted}`}>{globalIdx + 1}</td>
                                                                     <td className="px-2 py-2 font-medium">
                                                                         <span
-                                                                            className="cursor-pointer hover:text-[#4318ff] hover:underline"
+                                                                            className="cursor-pointer hover:text-[#DC143C] hover:underline"
                                                                             onClick={() => {
                                                                                 setSelectedPlayer(member.name);
                                                                                 setChartMode('individual');
@@ -4554,7 +4554,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                             {member.name}
                                                                         </span>
                                                                     </td>
-                                                                    <td className="px-2 py-2 text-right text-[#9f7aea]">
+                                                                    <td className="px-2 py-2 text-right text-[#C9A961]">
                                                                         {formatPower(member.firstPower)}
                                                                     </td>
                                                                     <td className="px-2 py-2 text-right text-[#01b574]">
@@ -4568,12 +4568,12 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                                 <div className="flex items-center gap-2">
                                                                                     <div className="flex-1 h-4 bg-[var(--background-secondary)] rounded overflow-hidden min-w-[60px]">
                                                                                         <div
-                                                                                            className={`h-full rounded ${isPositive ? 'bg-gradient-to-r from-[#4318ff] to-[#4318ff]/50' : 'bg-gradient-to-r from-gray-500 to-gray-400'}`}
+                                                                                            className={`h-full rounded ${isPositive ? 'bg-gradient-to-r from-[#DC143C] to-[#DC143C]/50' : 'bg-gradient-to-r from-gray-500 to-gray-400'}`}
                                                                                             style={{ width: `${pct}%` }}
                                                                                         />
                                                                                     </div>
                                                                                     <div className="text-right min-w-[80px]">
-                                                                                        <span className={`font-medium ${isPositive ? 'text-[#4318ff]' : 'text-gray-400'}`}>
+                                                                                        <span className={`font-medium ${isPositive ? 'text-[#DC143C]' : 'text-gray-400'}`}>
                                                                                             {member.allTimeGrowth >= 0 ? '+' : ''}{formatPower(member.allTimeGrowth)}
                                                                                         </span>
                                                                                         <span className={`text-[10px] ${theme.textMuted} ml-1`}>
@@ -4648,7 +4648,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
                                 {/* Gathered Growth Table — Collapsible */}
                                 {gatheredGrowthData.length > 0 && (
-                                    <button onClick={() => toggleSection('gathered')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#4318ff]/30 transition-all`}>
+                                    <button onClick={() => toggleSection('gathered')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#DC143C]/30 transition-all`}>
                                         <span className="flex items-center gap-2 text-sm font-semibold">
                                             {expandedSections.has('gathered') ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                                             <TrendingUp className="w-4 h-4 text-[#38bdf8]" />
@@ -4769,7 +4769,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                 <tr key={member.name} className={`border-b border-[var(--border)]/50 ${idx % 2 === 0 ? 'bg-[var(--background-secondary)]/30' : ''}`}>
                                                                     <td className={`px-2 py-2 ${theme.textMuted}`}>{globalIdx + 1}</td>
                                                                     <td className="px-2 py-2 font-medium">{member.name}</td>
-                                                                    <td className="px-2 py-2 text-right text-[#9f7aea]">
+                                                                    <td className="px-2 py-2 text-right text-[#C9A961]">
                                                                         {formatPower(member.firstGathered)}
                                                                     </td>
                                                                     <td className="px-2 py-2 text-right text-[#01b574]">
@@ -4863,7 +4863,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
                                 {/* Alliance Helps Growth Table — Collapsible */}
                                 {helpsGrowthData.length > 0 && (
-                                    <button onClick={() => toggleSection('helps')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#4318ff]/30 transition-all`}>
+                                    <button onClick={() => toggleSection('helps')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#DC143C]/30 transition-all`}>
                                         <span className="flex items-center gap-2 text-sm font-semibold">
                                             {expandedSections.has('helps') ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                                             <Users className="w-4 h-4 text-[#a78bfa]" />
@@ -4984,7 +4984,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                 <tr key={member.name} className={`border-b border-[var(--border)]/50 ${idx % 2 === 0 ? 'bg-[var(--background-secondary)]/30' : ''}`}>
                                                                     <td className={`px-2 py-2 ${theme.textMuted}`}>{globalIdx + 1}</td>
                                                                     <td className="px-2 py-2 font-medium">{member.name}</td>
-                                                                    <td className="px-2 py-2 text-right text-[#9f7aea]">
+                                                                    <td className="px-2 py-2 text-right text-[#C9A961]">
                                                                         {member.firstHelps.toLocaleString()}
                                                                     </td>
                                                                     <td className="px-2 py-2 text-right text-[#01b574]">
@@ -5077,10 +5077,10 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                 })()}
 
                                 {/* Alliance Mobilization Event Growth — Collapsible */}
-                                <button onClick={() => toggleSection('mob')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#4318ff]/30 transition-all`}>
+                                <button onClick={() => toggleSection('mob')} className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl ${theme.card} border hover:border-[#DC143C]/30 transition-all`}>
                                     <span className="flex items-center gap-2 text-sm font-semibold">
                                         {expandedSections.has('mob') ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                                        <BarChart3 className="w-4 h-4 text-[#9f7aea]" />
+                                        <BarChart3 className="w-4 h-4 text-[#C9A961]" />
                                         Mobilization Growth
                                     </span>
                                 </button>
@@ -5202,7 +5202,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                         <span className="ml-1 px-1 py-0.5 text-[9px] font-semibold rounded bg-red-500/20 text-red-400">QUIT</span>
                                                                     )}
                                                                 </td>
-                                                                <td className="px-2 py-2 text-right text-[#9f7aea]">
+                                                                <td className="px-2 py-2 text-right text-[#C9A961]">
                                                                     {member.previousScore !== null ? formatPower(member.previousScore) : '-'}
                                                                 </td>
                                                                 <td className="px-2 py-2 text-right text-[#01b574]">
@@ -5485,7 +5485,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                     onClick={() => setGrowthAllianceFilter(a)}
                                     className={`px-2.5 py-1 text-xs font-medium rounded transition-all ${
                                         growthAllianceFilter === a
-                                            ? 'bg-[#4318ff] text-white'
+                                            ? 'bg-[#DC143C] text-white'
                                             : `${theme.textMuted} hover:text-[var(--foreground)]`
                                     }`}
                                 >
@@ -5579,7 +5579,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                     <div className="grid grid-cols-3 gap-2 sm:gap-4">
                                         <div className={`${theme.card} border rounded-xl p-2 sm:p-4`}>
                                             <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
-                                                <Users className="w-4 sm:w-5 h-4 sm:h-5 text-[#4318ff]" />
+                                                <Users className="w-4 sm:w-5 h-4 sm:h-5 text-[#DC143C]" />
                                                 <span className={`text-[10px] sm:text-sm ${theme.textMuted}`}>Active</span>
                                             </div>
                                             <div className="text-lg sm:text-2xl font-bold">{activeMembers}<span className="text-sm sm:text-base">/{analyticsRoster.length}</span></div>
@@ -5599,10 +5599,10 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                         </div>
                                         <div className={`${theme.card} border rounded-xl p-2 sm:p-4`}>
                                             <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
-                                                <TrendingUp className="w-4 sm:w-5 h-4 sm:h-5 text-[#9f7aea]" />
+                                                <TrendingUp className="w-4 sm:w-5 h-4 sm:h-5 text-[#C9A961]" />
                                                 <span className={`text-[10px] sm:text-sm ${theme.textMuted}`}>Mob</span>
                                             </div>
-                                            <div className="text-lg sm:text-2xl font-bold text-[#9f7aea]">{formatPower(avgMobScore)}</div>
+                                            <div className="text-lg sm:text-2xl font-bold text-[#C9A961]">{formatPower(avgMobScore)}</div>
                                             <div className={`text-[10px] sm:text-xs ${theme.textMuted} hidden sm:block`}>
                                                 avg score
                                             </div>
@@ -5613,17 +5613,17 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                     <div className={`${theme.card} border rounded-xl p-3 sm:p-4`}>
                                         <h3 className="font-semibold mb-2 sm:mb-3 flex items-center justify-between text-sm sm:text-base">
                                             <span className="flex items-center gap-2">
-                                                <BarChart3 className="w-4 h-4 text-[#9f7aea]" />
+                                                <BarChart3 className="w-4 h-4 text-[#C9A961]" />
                                                 <span className="hidden sm:inline">How Activity Score is Calculated</span>
                                                 <span className="sm:hidden">Activity Score</span>
                                                 {isEditor && (
-                                                    <span className="text-[10px] sm:text-xs font-normal text-[#9f7aea] ml-1 sm:ml-2">(Editing)</span>
+                                                    <span className="text-[10px] sm:text-xs font-normal text-[#C9A961] ml-1 sm:ml-2">(Editing)</span>
                                                 )}
                                             </span>
                                             {!isEditor && (
                                                 <button
                                                     onClick={() => setShowPasswordPrompt(true)}
-                                                    className={`text-[10px] sm:text-xs font-normal ${theme.textMuted} hover:text-[#9f7aea] transition-colors flex items-center gap-1`}
+                                                    className={`text-[10px] sm:text-xs font-normal ${theme.textMuted} hover:text-[#C9A961] transition-colors flex items-center gap-1`}
                                                 >
                                                     <Edit2 className="w-3 h-3" />
                                                     <span className="hidden sm:inline">Adjust weights</span>
@@ -5678,12 +5678,12 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                 ...prev,
                                                                 power: Math.max(0, Math.min(100, parseInt(e.target.value) || 0))
                                                             }))}
-                                                            className="w-8 sm:w-14 text-sm sm:text-lg font-bold text-[#4318ff] bg-transparent border border-[#4318ff]/30 rounded px-0.5 sm:px-1 text-center"
+                                                            className="w-8 sm:w-14 text-sm sm:text-lg font-bold text-[#DC143C] bg-transparent border border-[#DC143C]/30 rounded px-0.5 sm:px-1 text-center"
                                                         />
-                                                        <span className="text-sm sm:text-lg font-bold text-[#4318ff]">%</span>
+                                                        <span className="text-sm sm:text-lg font-bold text-[#DC143C]">%</span>
                                                     </div>
                                                 ) : (
-                                                    <div className="text-sm sm:text-lg font-bold text-[#4318ff] text-center">{activityWeights.power}%</div>
+                                                    <div className="text-sm sm:text-lg font-bold text-[#DC143C] text-center">{activityWeights.power}%</div>
                                                 )}
                                                 <div className={`text-[9px] sm:text-xs ${theme.textMuted} text-center`}>Power</div>
                                             </div>
@@ -5741,12 +5741,12 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                                 ...prev,
                                                                 mob: Math.max(0, Math.min(100, parseInt(e.target.value) || 0))
                                                             }))}
-                                                            className="w-8 sm:w-14 text-sm sm:text-lg font-bold text-[#9f7aea] bg-transparent border border-[#9f7aea]/30 rounded px-0.5 sm:px-1 text-center"
+                                                            className="w-8 sm:w-14 text-sm sm:text-lg font-bold text-[#C9A961] bg-transparent border border-[#C9A961]/30 rounded px-0.5 sm:px-1 text-center"
                                                         />
-                                                        <span className="text-sm sm:text-lg font-bold text-[#9f7aea]">%</span>
+                                                        <span className="text-sm sm:text-lg font-bold text-[#C9A961]">%</span>
                                                     </div>
                                                 ) : (
-                                                    <div className="text-sm sm:text-lg font-bold text-[#9f7aea] text-center">{activityWeights.mob}%</div>
+                                                    <div className="text-sm sm:text-lg font-bold text-[#C9A961] text-center">{activityWeights.mob}%</div>
                                                 )}
                                                 <div className={`text-[9px] sm:text-xs ${theme.textMuted} text-center`}>Mob</div>
                                             </div>
@@ -5756,16 +5756,16 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                     {/* Activity Leaderboard with Stacked Bars */}
                                     <div className={`${theme.card} border rounded-xl p-3 sm:p-4`}>
                                         <h3 className="font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
-                                            <BarChart3 className="w-4 h-4 text-[#4318ff]" />
+                                            <BarChart3 className="w-4 h-4 text-[#DC143C]" />
                                             <span className="hidden sm:inline">Activity Leaderboard (Top 20)</span>
                                             <span className="sm:hidden">Top 20</span>
                                         </h3>
                                         <div className={`text-[10px] sm:text-xs ${theme.textMuted} mb-3 sm:mb-4 flex items-center gap-2 sm:gap-4 flex-wrap`}>
                                             <span className="flex items-center gap-1"><span className="w-3 h-3 rounded" style={{backgroundColor: '#f56565'}}></span> KP</span>
-                                            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded" style={{backgroundColor: '#4318ff'}}></span> Power</span>
+                                            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded" style={{backgroundColor: '#DC143C'}}></span> Power</span>
                                             <span className="flex items-center gap-1"><span className="w-3 h-3 rounded" style={{backgroundColor: '#f6ad55'}}></span> Honor</span>
                                             <span className="flex items-center gap-1"><span className="w-3 h-3 rounded" style={{backgroundColor: '#01b574'}}></span> AoO</span>
-                                            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded" style={{backgroundColor: '#9f7aea'}}></span> Mob</span>
+                                            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded" style={{backgroundColor: '#C9A961'}}></span> Mob</span>
                                         </div>
                                         <div className="space-y-2">
                                             {scoresArray.slice(0, 20).map((member, idx) => {
@@ -5841,7 +5841,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                             />
                                                             <div
                                                                 className="h-full transition-all"
-                                                                style={{ width: `${powerContrib}%`, backgroundColor: '#4318ff' }}
+                                                                style={{ width: `${powerContrib}%`, backgroundColor: '#DC143C' }}
                                                             />
                                                             <div
                                                                 className="h-full transition-all"
@@ -5853,7 +5853,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                             />
                                                             <div
                                                                 className="h-full transition-all"
-                                                                style={{ width: `${mobContrib}%`, backgroundColor: '#9f7aea' }}
+                                                                style={{ width: `${mobContrib}%`, backgroundColor: '#C9A961' }}
                                                             />
                                                         </div>
                                                         <span className={`text-xs sm:text-sm font-medium w-6 sm:w-8 text-right ${
@@ -5902,7 +5902,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
 
                                         return (
                                             <div
-                                                className={`fixed z-[99999] ${theme.card} border rounded-lg p-3 shadow-xl w-[200px] ${pinnedActivityMember ? 'border-[#4318ff] border-2' : 'border-[#4318ff]/30'}`}
+                                                className={`fixed z-[99999] ${theme.card} border rounded-lg p-3 shadow-xl w-[200px] ${pinnedActivityMember ? 'border-[#DC143C] border-2' : 'border-[#DC143C]/30'}`}
                                                 style={{ left: x, top: y, cursor: pinnedActivityMember ? 'move' : 'default' }}
                                                 onMouseEnter={() => {
                                                     if (activityHoverTimeoutRef.current) {
@@ -5955,7 +5955,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                     </div>
                                                     <div className="flex justify-between">
                                                         <span className="flex items-center gap-1">
-                                                            <span className="w-2 h-2 rounded" style={{backgroundColor: '#4318ff'}}></span> Power
+                                                            <span className="w-2 h-2 rounded" style={{backgroundColor: '#DC143C'}}></span> Power
                                                         </span>
                                                         <span className="font-medium">{b.powerPercentile.toFixed(0)}% <span className={theme.textMuted}>({powerContrib.toFixed(1)}pts)</span></span>
                                                     </div>
@@ -5973,7 +5973,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                     </div>
                                                     <div className="flex justify-between">
                                                         <span className="flex items-center gap-1">
-                                                            <span className="w-2 h-2 rounded" style={{backgroundColor: '#9f7aea'}}></span> Mob
+                                                            <span className="w-2 h-2 rounded" style={{backgroundColor: '#C9A961'}}></span> Mob
                                                         </span>
                                                         <span className="font-medium">{b.mobPercentile.toFixed(0)}% <span className={theme.textMuted}>({mobContrib.toFixed(1)}pts)</span></span>
                                                     </div>
@@ -6058,7 +6058,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                         {/* Mobilization Score Distribution */}
                                         <div className={`${theme.card} border rounded-xl p-4 relative`}>
                                             <h3 className="font-semibold mb-4 flex items-center gap-2">
-                                                <TrendingUp className="w-4 h-4 text-[#9f7aea]" />
+                                                <TrendingUp className="w-4 h-4 text-[#C9A961]" />
                                                 Mobilization Rankings
                                             </h3>
                                             {membersWithMob.length === 0 ? (
@@ -6134,7 +6134,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                         if (!bucket || bucket.members.length === 0) return null;
 
                                         const isPinned = pinnedBucket?.type === activeBucket.type && pinnedBucket?.label === activeBucket.label;
-                                        const borderColor = isAoo ? '#01b574' : '#9f7aea';
+                                        const borderColor = isAoo ? '#01b574' : '#C9A961';
 
                                         // Calculate position with viewport bounds
                                         const cardWidth = 300;
@@ -6349,7 +6349,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                 <button
                                                     key={d}
                                                     onClick={() => { setAfkWindowDays(d); setAfkPage(0); }}
-                                                    className={`px-2 py-0.5 text-xs rounded ${afkWindowDays === d ? 'bg-[#4318ff] text-white' : `${theme.textMuted} hover:text-[var(--foreground)]`}`}
+                                                    className={`px-2 py-0.5 text-xs rounded ${afkWindowDays === d ? 'bg-[#DC143C] text-white' : `${theme.textMuted} hover:text-[var(--foreground)]`}`}
                                                 >
                                                     {d}d
                                                 </button>
@@ -6383,7 +6383,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                             <button
                                                 key={f}
                                                 onClick={() => { setAfkFilter(f); setAfkPage(0); }}
-                                                className={`px-3 py-1 text-xs rounded-full ${afkFilter === f ? 'bg-[#4318ff] text-white' : `bg-[var(--background-secondary)] ${theme.textMuted} hover:text-[var(--foreground)]`}`}
+                                                className={`px-3 py-1 text-xs rounded-full ${afkFilter === f ? 'bg-[#DC143C] text-white' : `bg-[var(--background-secondary)] ${theme.textMuted} hover:text-[var(--foreground)]`}`}
                                             >
                                                 {f === 'all' ? 'All' : f === 'low' ? 'Low' : f === 'likely_afk' ? 'Likely AFK' : 'AFK'}
                                                 {f !== 'all' && ` (${f === 'low' ? lowCount : f === 'likely_afk' ? likelyAfkCount : afkCount})`}

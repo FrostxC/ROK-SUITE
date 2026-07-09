@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Cinzel, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/supabase/auth-context";
 import { ThemeProvider } from "@/lib/theme-context";
@@ -10,9 +10,18 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { rtlLocales, type Locale } from '@/lib/i18n/config';
 
-const geistSans = Geist({
+// Body font — clean geometric sans, mapped onto the existing sans variable so
+// every page inherits it without further changes.
+const bodySans = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+// Display font — sharp authoritative serif for kingdom name, headings, titles.
+const displaySerif = Cinzel({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 const geistMono = Geist_Mono({
@@ -56,7 +65,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${bodySans.variable} ${displaySerif.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
           <LocaleAutoDetect />

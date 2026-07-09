@@ -20,7 +20,7 @@ export function getTheme() {
     sidebarHover: 'hover:bg-[var(--background-hover)]',
     badge: {
       solo: 'bg-sky-500/20 text-sky-500',
-      alliance: 'bg-violet-500/20 text-violet-500',
+      alliance: 'bg-violet-500/20 text-[var(--gold)]',
       'coop-pve': 'bg-emerald-500/20 text-emerald-500',
       pvp: 'bg-red-500/20 text-red-500',
       continuous: 'bg-amber-500/20 text-amber-500',

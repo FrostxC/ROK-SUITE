@@ -332,7 +332,7 @@ export function UploadWizard() {
         textMuted: 'text-[var(--text-secondary)]',
         input: 'bg-[var(--background-card)] border-[var(--border)] text-[var(--foreground)]',
         button: 'bg-[var(--background-card)] hover:opacity-80 text-[var(--foreground)] border border-[var(--border)]',
-        buttonPrimary: 'bg-gradient-to-r from-[#4318ff] to-[#9f7aea] hover:opacity-90 text-white',
+        buttonPrimary: 'bg-gradient-to-r from-[#DC143C] to-[#C9A961] hover:opacity-90 text-white',
     };
 
     // Merge stats

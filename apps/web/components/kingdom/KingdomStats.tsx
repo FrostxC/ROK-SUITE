@@ -685,7 +685,7 @@ export default function KingdomStats({
           </a>
           <a
             href="/kingdom/cross-season"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-violet-500/15 border border-violet-500/30 text-violet-300 text-sm font-medium hover:bg-violet-500/25 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[var(--gold)]/15 border border-violet-500/30 text-violet-300 text-sm font-medium hover:bg-violet-500/25 transition-colors"
             title="Cross-season scan uploads + cross-season player browser"
           >
             Cross-season →
@@ -2372,7 +2372,7 @@ function SearchAllKingdomsView() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter') void runSearch(); }}
             placeholder="Player name or gov_id…"
-            className="w-full pl-9 pr-3 py-2 rounded-lg bg-[var(--background-card)] border border-[var(--border)] text-[var(--foreground)] text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#4318ff]"
+            className="w-full pl-9 pr-3 py-2 rounded-lg bg-[var(--background-card)] border border-[var(--border)] text-[var(--foreground)] text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#DC143C]"
           />
         </div>
         <button

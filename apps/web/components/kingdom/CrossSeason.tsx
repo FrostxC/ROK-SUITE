@@ -182,7 +182,7 @@ function CrossSeasonInner() {
           <ArrowLeft size={12} /> Back to Kingdom Stats
         </Link>
         <h1 className="text-2xl font-bold text-[var(--foreground)] flex items-center gap-2">
-          <Users size={26} className="text-violet-400" />
+          <Users size={26} className="text-[var(--gold)]" />
           Cross-season scans
         </h1>
         <p className="text-sm text-[var(--text-muted)] mt-1">
@@ -253,7 +253,7 @@ function CrossSeasonInner() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search name / gov id / KD…"
-                className="w-full pl-8 pr-3 py-2 rounded-lg bg-[var(--background-card)] border border-[var(--border)] text-sm text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#4318ff]"
+                className="w-full pl-8 pr-3 py-2 rounded-lg bg-[var(--background-card)] border border-[var(--border)] text-sm text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#DC143C]"
               />
             </div>
 

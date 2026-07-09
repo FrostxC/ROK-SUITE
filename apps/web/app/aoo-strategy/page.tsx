@@ -34,7 +34,7 @@ const AOOInteractiveMap = dynamic(() => import('@/components/aoo-strategy/AOOInt
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center min-h-[400px]">
-      <div className="w-5 h-5 border border-[#4318ff] border-t-transparent rounded-full animate-spin"></div>
+      <div className="w-5 h-5 border border-[#DC143C] border-t-transparent rounded-full animate-spin"></div>
     </div>
   ),
 });
@@ -1316,7 +1316,7 @@ function TeamBuilderTab({
                             <select
                                 value={builderAlliance}
                                 onChange={(e) => setBuilderAlliance(e.target.value)}
-                                className={`px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm font-medium ${theme.input} min-w-[100px] sm:min-w-[140px] border-2 border-[#4318ff]/50`}
+                                className={`px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm font-medium ${theme.input} min-w-[100px] sm:min-w-[140px] border-2 border-[#DC143C]/50`}
                                 disabled={builderStep !== 'select'}
                             >
                                 <option value="all">{t('all')}</option>
@@ -1335,7 +1335,7 @@ function TeamBuilderTab({
                                         onClick={() => setTeamCount(n as 1 | 2 | 3)}
                                         className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg text-sm sm:text-base font-semibold transition-colors ${
                                             teamCount === n
-                                                ? 'bg-[#4318ff] text-white ring-2 ring-[#4318ff]/50'
+                                                ? 'bg-[#DC143C] text-white ring-2 ring-[#DC143C]/50'
                                                 : `${theme.tag} hover:opacity-80`
                                         }`}
                                         disabled={builderStep !== 'select'}
@@ -1406,11 +1406,11 @@ function TeamBuilderTab({
 
                 {/* Step indicator */}
                 <div className="flex items-center gap-1 sm:gap-3 mb-5 text-sm flex-wrap">
-                    <span className={`px-2.5 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm ${builderStep === 'select' ? 'bg-[#4318ff] text-white' : theme.tag}`}>
+                    <span className={`px-2.5 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm ${builderStep === 'select' ? 'bg-[#DC143C] text-white' : theme.tag}`}>
                         {t('step1')}
                     </span>
                     <span className={`text-base sm:text-lg ${theme.textMuted}`}>→</span>
-                    <span className={`px-2.5 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm ${builderStep === 'distribute' ? 'bg-[#4318ff] text-white' : theme.tag}`}>
+                    <span className={`px-2.5 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm ${builderStep === 'distribute' ? 'bg-[#DC143C] text-white' : theme.tag}`}>
                         {t('step2')}
                     </span>
                 </div>
@@ -1481,7 +1481,7 @@ function TeamBuilderTab({
                                 onClick={() => setShowAddForm(!showAddForm)}
                                 className={`px-3 sm:px-5 py-1.5 sm:py-2.5 text-xs sm:text-base font-semibold rounded-lg transition-colors ${
                                     showAddForm
-                                        ? 'bg-[#4318ff] text-white'
+                                        ? 'bg-[#DC143C] text-white'
                                         : 'bg-green-600 text-white hover:bg-green-500'
                                 }`}
                             >
@@ -1499,8 +1499,8 @@ function TeamBuilderTab({
 
                         {/* Add Member Form */}
                         {showAddForm && (
-                            <div className={`p-4 mb-4 rounded-lg border ${theme.border} bg-[#4318ff]/10`}>
-                                <h4 className="text-sm font-medium text-[#9f7aea] mb-3">{t('addMemberTitle')}</h4>
+                            <div className={`p-4 mb-4 rounded-lg border ${theme.border} bg-[#DC143C]/10`}>
+                                <h4 className="text-sm font-medium text-[#C9A961] mb-3">{t('addMemberTitle')}</h4>
                                 <p className={`text-xs ${theme.textMuted} mb-3`}>
                                     {t('addMemberHint')}
                                 </p>
@@ -1557,7 +1557,7 @@ function TeamBuilderTab({
                                     <button
                                         onClick={handleAddMember}
                                         disabled={!newMemberName.trim()}
-                                        className={`px-4 py-2 text-sm rounded-lg ${newMemberName.trim() ? 'bg-[#4318ff] text-white hover:bg-[#4318ff]/80' : 'bg-gray-600 text-gray-400 cursor-not-allowed'}`}
+                                        className={`px-4 py-2 text-sm rounded-lg ${newMemberName.trim() ? 'bg-[#DC143C] text-white hover:bg-[#DC143C]/80' : 'bg-gray-600 text-gray-400 cursor-not-allowed'}`}
                                     >
                                         {t('addMemberButton')}
                                     </button>
@@ -1582,7 +1582,7 @@ function TeamBuilderTab({
                                         setNewMemberName(searchTerm);
                                         setShowAddForm(true);
                                     }}
-                                    className="px-4 py-2 text-sm rounded-lg bg-[#4318ff] text-white hover:bg-[#4318ff]/80"
+                                    className="px-4 py-2 text-sm rounded-lg bg-[#DC143C] text-white hover:bg-[#DC143C]/80"
                                 >
                                     {t('addAsNew', { term: searchTerm })}
                                 </button>
@@ -1604,7 +1604,7 @@ function TeamBuilderTab({
                                                     ? filter === 'confirmed' ? 'bg-green-600 text-white'
                                                     : filter === 'maybe' ? 'bg-yellow-600 text-white'
                                                     : filter === 'none' ? 'bg-gray-600 text-white'
-                                                    : 'bg-[#4318ff] text-white'
+                                                    : 'bg-[#DC143C] text-white'
                                                     : 'bg-[var(--background-secondary)] text-[var(--text-muted)] hover:bg-[var(--background-hover)]'
                                             }`}
                                         >
@@ -1798,7 +1798,7 @@ function TeamBuilderTab({
                                 disabled={isActiveLocked}
                                 title={isActiveLocked ? `Team ${activeTeam} is locked — unfreeze it to distribute` : ''}
                                 className={`flex-1 sm:flex-none sm:w-auto px-6 sm:px-8 py-3 rounded-lg font-semibold text-white text-base sm:text-lg ${
-                                    isActiveLocked ? 'bg-[#4318ff]/40 cursor-not-allowed' : 'bg-[#4318ff] hover:bg-[#4318ff]/80'
+                                    isActiveLocked ? 'bg-[#DC143C]/40 cursor-not-allowed' : 'bg-[#DC143C] hover:bg-[#DC143C]/80'
                                 }`}
                             >
                                 {isActiveLocked ? `🔒 T${activeTeam} Locked` : t('distributeToLanes')}
@@ -1855,7 +1855,7 @@ function TeamBuilderTab({
                                     disabled={isActiveLocked}
                                     title={isActiveLocked ? `Team ${activeTeam} is locked — unfreeze it to redistribute` : ''}
                                     className={`flex-1 sm:flex-none px-3 py-2 sm:py-1.5 rounded-lg text-xs sm:text-sm font-medium text-white ${
-                                        isActiveLocked ? 'bg-[#4318ff]/40 cursor-not-allowed' : 'bg-[#4318ff] hover:bg-[#4318ff]/80'
+                                        isActiveLocked ? 'bg-[#DC143C]/40 cursor-not-allowed' : 'bg-[#DC143C] hover:bg-[#DC143C]/80'
                                     }`}
                                 >
                                     {isActiveLocked ? '🔒 Locked' : t('reBalance')}
@@ -2042,7 +2042,7 @@ function TeamBuilderTab({
                                                         setSelectedTeleportFirst(newSet);
                                                     }}
                                                     className={`flex-shrink-0 w-5 h-5 rounded flex items-center justify-center text-xs ${
-                                                        selectedTeleportFirst.has(player.name) ? 'bg-[#4318ff] text-white'
+                                                        selectedTeleportFirst.has(player.name) ? 'bg-[#DC143C] text-white'
                                                         : selectedTeleportFirst.size >= 8 ? 'bg-white/5 cursor-not-allowed'
                                                         : 'bg-white/20'
                                                     }`}
@@ -2053,7 +2053,7 @@ function TeamBuilderTab({
                                                 </button>
                                                 {/* Name + power. Name gets flex-1 so it can use all remaining width. */}
                                                 <div className="flex-1 min-w-0">
-                                                    <button onClick={() => openPlayer(player.name)} title="View player details" className={`block w-full text-sm text-left truncate hover:underline cursor-pointer hover:text-[#4318ff] ${
+                                                    <button onClick={() => openPlayer(player.name)} title="View player details" className={`block w-full text-sm text-left truncate hover:underline cursor-pointer hover:text-[#DC143C] ${
                                                         selectedRallyLeads[zone] === player.name ? 'font-bold text-yellow-400'
                                                         : selectedRallyLeadsSecondary[zone] === player.name ? 'font-bold text-yellow-400'
                                                         : selectedGarrisonLeads[zone] === player.name ? 'font-bold text-cyan-400'
@@ -2116,7 +2116,7 @@ function TeamBuilderTab({
                             <div className="flex flex-wrap gap-2">
                                 {(suggestedZones[0] || []).map((player) => (
                                     <div key={player.name} className="flex items-center gap-2 px-3 py-1.5 rounded bg-[var(--background-secondary)]">
-                                        <button onClick={() => openPlayer(player.name)} title="View player details" className={`text-sm hover:underline cursor-pointer hover:text-[#4318ff] ${theme.text}`}>{player.name}</button>
+                                        <button onClick={() => openPlayer(player.name)} title="View player details" className={`text-sm hover:underline cursor-pointer hover:text-[#DC143C] ${theme.text}`}>{player.name}</button>
                                         <span className={`text-xs ${theme.textMuted}`}>{formatPower(player.power)}</span>
                                         <select
                                             value={0}
@@ -2159,7 +2159,7 @@ function TeamBuilderTab({
                             <div className="flex flex-wrap gap-2">
                                 {(suggestedZones[-1] || []).map((player) => (
                                     <div key={player.name} className="flex items-center gap-2 px-3 py-1.5 rounded bg-[var(--background-secondary)]">
-                                        <button onClick={() => openPlayer(player.name)} title="View player details" className={`text-sm hover:underline cursor-pointer hover:text-[#4318ff] ${theme.text}`}>{player.name}</button>
+                                        <button onClick={() => openPlayer(player.name)} title="View player details" className={`text-sm hover:underline cursor-pointer hover:text-[#DC143C] ${theme.text}`}>{player.name}</button>
                                         <span className={`text-xs ${theme.textMuted}`}>{formatPower(player.power)}</span>
                                         <select
                                             value={-1}
@@ -2409,7 +2409,7 @@ function ConfirmForEveryoneButton({ onConfirm }: { onConfirm: () => void }) {
             className={`w-full sm:w-auto px-4 sm:px-6 py-3 sm:py-2 rounded-lg text-sm font-medium transition-colors ${
                 confirmed
                     ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                    : 'text-white bg-[#4318ff] hover:bg-[#4318ff]/80'
+                    : 'text-white bg-[#DC143C] hover:bg-[#DC143C]/80'
             }`}
             title="Save this lineup to the shared plan so anyone with the link sees the same thing"
         >
@@ -3314,16 +3314,16 @@ export default function AooStrategyPage() {
         card: 'bg-[var(--background-card)] border-[var(--border)] backdrop-blur-xl',
         text: 'text-[var(--foreground)]',
         textMuted: 'text-[var(--text-secondary)]',
-        textAccent: 'text-[#4318ff]',
+        textAccent: 'text-[#DC143C]',
         border: 'border-[var(--border)]',
         input: 'bg-[var(--background-card)] border-[var(--border)] text-[var(--foreground)] placeholder-[var(--text-muted)]',
         button: 'bg-[var(--background-card)] hover:opacity-80 text-[var(--foreground)] border border-[var(--border)]',
-        buttonPrimary: 'bg-gradient-to-r from-[#4318ff] to-[#9f7aea] hover:opacity-90 text-white',
+        buttonPrimary: 'bg-gradient-to-r from-[#DC143C] to-[#C9A961] hover:opacity-90 text-white',
         tag: 'bg-[var(--background-secondary)] text-[var(--text-secondary)]',
-        tagActive: 'bg-[#4318ff] text-white',
+        tagActive: 'bg-[#DC143C] text-white',
         dropdown: 'bg-[var(--background-card)] border-[var(--border)]',
         dropdownHover: 'hover:bg-[var(--background-hover)]',
-        tabActive: 'text-[#4318ff] border-[#4318ff] bg-[#4318ff]/5',
+        tabActive: 'text-[#DC143C] border-[#DC143C] bg-[#DC143C]/5',
         tabInactive: 'text-[var(--text-secondary)] border-transparent hover:text-[var(--foreground)] hover:bg-[var(--background-hover)]',
     };
 
@@ -3332,7 +3332,7 @@ export default function AooStrategyPage() {
             <AppSidebar>
                 <div className={`min-h-screen ${theme.bg} ${theme.text} flex items-center justify-center`}>
                     <div className="flex items-center gap-3">
-                        <div className="w-5 h-5 border border-[#4318ff] border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-5 h-5 border border-[#DC143C] border-t-transparent rounded-full animate-spin"></div>
                         <span className={theme.textMuted}>{t('header.loading')}</span>
                     </div>
                 </div>
@@ -3479,7 +3479,7 @@ export default function AooStrategyPage() {
                             onClick={() => setActiveTab('registration')}
                             className={`px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 border-b-2 -mb-[1px] ${
                                 activeTab === 'registration'
-                                    ? 'text-[#4318ff] border-[#4318ff] bg-[#4318ff]/5'
+                                    ? 'text-[#DC143C] border-[#DC143C] bg-[#DC143C]/5'
                                     : 'text-[var(--text-secondary)] border-transparent hover:text-[var(--foreground)] hover:bg-[var(--background-hover)]'
                             }`}
                         >
@@ -3489,7 +3489,7 @@ export default function AooStrategyPage() {
                             onClick={() => setActiveTab('builder')}
                             className={`px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 border-b-2 -mb-[1px] ${
                                 activeTab === 'builder'
-                                    ? 'text-[#4318ff] border-[#4318ff] bg-[#4318ff]/5'
+                                    ? 'text-[#DC143C] border-[#DC143C] bg-[#DC143C]/5'
                                     : 'text-[var(--text-secondary)] border-transparent hover:text-[var(--foreground)] hover:bg-[var(--background-hover)]'
                             }`}
                         >
@@ -3499,7 +3499,7 @@ export default function AooStrategyPage() {
                             onClick={() => setActiveTab('map')}
                             className={`px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 border-b-2 -mb-[1px] ${
                                 activeTab === 'map'
-                                    ? 'text-[#4318ff] border-[#4318ff] bg-[#4318ff]/5'
+                                    ? 'text-[#DC143C] border-[#DC143C] bg-[#DC143C]/5'
                                     : 'text-[var(--text-secondary)] border-transparent hover:text-[var(--foreground)] hover:bg-[var(--background-hover)]'
                             }`}
                         >
@@ -3509,7 +3509,7 @@ export default function AooStrategyPage() {
                             onClick={() => setActiveTab('battleday')}
                             className={`px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 border-b-2 -mb-[1px] ${
                                 activeTab === 'battleday'
-                                    ? 'text-[#4318ff] border-[#4318ff] bg-[#4318ff]/5'
+                                    ? 'text-[#DC143C] border-[#DC143C] bg-[#DC143C]/5'
                                     : 'text-[var(--text-secondary)] border-transparent hover:text-[var(--foreground)] hover:bg-[var(--background-hover)]'
                             }`}
                         >
@@ -3871,13 +3871,13 @@ export default function AooStrategyPage() {
              *  plans don't break, but no UI references them anymore. */}
             {false && (
                 <div className="max-w-7xl mx-auto p-4 md:p-6">
-                    <section className={`${theme.card} border border-[#4318ff] rounded-xl mb-6 p-4`}>
-                        <h2 className={`text-sm font-semibold uppercase tracking-wider mb-4 text-[#9f7aea]`}>📋 {ts('overview')}</h2>
+                    <section className={`${theme.card} border border-[#DC143C] rounded-xl mb-6 p-4`}>
+                        <h2 className={`text-sm font-semibold uppercase tracking-wider mb-4 text-[#C9A961]`}>📋 {ts('overview')}</h2>
 
                         {/* Key Rules */}
                         <div className={`grid md:grid-cols-2 gap-4 mb-4`}>
-                            <div className="p-3 rounded-lg bg-[#4318ff]/10 border border-[#4318ff]/20">
-                                <h3 className="font-bold text-[#9f7aea] text-sm mb-2">📌 {ts('important')}</h3>
+                            <div className="p-3 rounded-lg bg-[#DC143C]/10 border border-[#DC143C]/20">
+                                <h3 className="font-bold text-[#C9A961] text-sm mb-2">📌 {ts('important')}</h3>
                                 <ul className={`text-xs space-y-1 ${theme.text}`}>
                                     <li>• {ts('rules.laneAssignment')}</li>
                                     <li>• {ts('rules.rushObelisk')}</li>
@@ -3913,7 +3913,7 @@ export default function AooStrategyPage() {
                                         onChange={(e) => setNotes(e.target.value)}
                                         onBlur={() => saveData({ notes })}
                                         placeholder={ts('notesPlaceholder')}
-                                        className={`w-full min-h-[150px] px-3 py-2 rounded-lg border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#4318ff] resize-y font-mono text-sm`}
+                                        className={`w-full min-h-[150px] px-3 py-2 rounded-lg border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#DC143C] resize-y font-mono text-sm`}
                                     />
                                 ) : (
                                     <div className={`whitespace-pre-wrap font-mono text-sm ${theme.text}`}>
@@ -3940,7 +3940,7 @@ export default function AooStrategyPage() {
                                     <input type="text" value={playerSearch} onChange={(e) => { setPlayerSearch(e.target.value); setShowDropdown(true); }}
                                         onFocus={() => !useCustomName && setShowDropdown(true)}
                                         placeholder={useCustomName ? ts('enterCustomName') : ts('searchRoster')}
-                                        className={`w-full px-3 py-2 rounded-lg border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#4318ff]`} />
+                                        className={`w-full px-3 py-2 rounded-lg border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#DC143C]`} />
                                     {showDropdown && !useCustomName && filteredRoster.length > 0 && (
                                         <div className={`absolute z-10 w-full mt-1 ${theme.dropdown} border rounded-lg shadow-lg max-h-48 overflow-y-auto`}>
                                             {filteredRoster.slice(0, 10).map(name => (
@@ -3957,7 +3957,7 @@ export default function AooStrategyPage() {
                                 </div>
                                 <div className="w-48">
                                     <select value={newPlayerTeam} onChange={(e) => setNewPlayerTeam(Number(e.target.value))}
-                                        className={`w-full px-3 py-2 rounded-lg border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#4318ff]`}>
+                                        className={`w-full px-3 py-2 rounded-lg border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#DC143C]`}>
                                         <option value={1}>{ts('topLane')} ({getTeamPlayers(1).length})</option>
                                         <option value={2}>{ts('midLane')} ({getTeamPlayers(2).length})</option>
                                         <option value={3}>{ts('bottomLane')} ({getTeamPlayers(3).length})</option>
@@ -4102,7 +4102,7 @@ export default function AooStrategyPage() {
                                                 <h3 className={`font-semibold ${zoneColor.text}`}>{teamInfo.name}</h3>
                                                 <button
                                                     onClick={() => copyZoneToClipboard(teamNum)}
-                                                    className={`px-2 py-0.5 rounded text-xs font-medium transition-colors ${copySuccess === teamNum ? 'bg-[#4318ff] text-white' : theme.tag} hover:opacity-80`}
+                                                    className={`px-2 py-0.5 rounded text-xs font-medium transition-colors ${copySuccess === teamNum ? 'bg-[#DC143C] text-white' : theme.tag} hover:opacity-80`}
                                                     title={`Copy ${teamInfo.name} roster`}
                                                 >
                                                     {copySuccess === teamNum ? '✓' : '📋'}
@@ -4117,7 +4117,7 @@ export default function AooStrategyPage() {
                                         </div>
                                         {isEditor ? (
                                             <input type="text" value={teamInfo.description} onChange={(e) => updateTeamDescription(teamNum - 1, e.target.value)}
-                                                placeholder={ts('roleDescription')} className={`mt-2 w-full px-2 py-1 rounded text-sm border ${theme.input} focus:outline-none focus:ring-1 focus:ring-[#4318ff]`} />
+                                                placeholder={ts('roleDescription')} className={`mt-2 w-full px-2 py-1 rounded text-sm border ${theme.input} focus:outline-none focus:ring-1 focus:ring-[#DC143C]`} />
                                         ) : (
                                             <p className={`text-sm ${theme.textAccent} mt-1`}>{teamInfo.description || '—'}</p>
                                         )}
@@ -4133,7 +4133,7 @@ export default function AooStrategyPage() {
                                                             {player.tags.includes('Confirmed') && (
                                                                 <span className="w-2 h-2 rounded-full bg-green-500" title="Confirmed" />
                                                             )}
-                                                            <button onClick={() => openPlayer(player.name)} className="font-medium text-sm hover:underline cursor-pointer hover:text-[#4318ff]" title="View player details">{player.name}</button>
+                                                            <button onClick={() => openPlayer(player.name)} className="font-medium text-sm hover:underline cursor-pointer hover:text-[#DC143C]" title="View player details">{player.name}</button>
                                                             {(player.power || powerByName[player.name]) && (
                                                                 <span className={`text-xs ${theme.textMuted}`}>
                                                                     {formatPower(player.power || powerByName[player.name])}
@@ -4184,7 +4184,7 @@ export default function AooStrategyPage() {
                                 <input 
                                     type="text" 
                                     placeholder={ts('addSubPlaceholder')}
-                                    className={`flex-1 px-3 py-2 rounded-lg border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#4318ff]`}
+                                    className={`flex-1 px-3 py-2 rounded-lg border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#DC143C]`}
                                     onKeyPress={(e) => {
                                         if (e.key === 'Enter') {
                                             const input = e.target as HTMLInputElement;

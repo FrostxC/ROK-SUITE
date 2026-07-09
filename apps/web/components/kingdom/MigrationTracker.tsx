@@ -1053,7 +1053,7 @@ function PlayerCard({ player, isOfficer, override, onOverride, previousNames }: 
         </div>
         <div className="flex items-center gap-1.5 shrink-0">
           {player.is_migrant && reviewable && (
-            <span className="px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-violet-500/10 text-violet-400 border border-violet-500/30">Migrant</span>
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-[var(--gold)]/10 text-[var(--gold)] border border-violet-500/30">Migrant</span>
           )}
           <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${colors.bg} ${colors.text} border ${colors.border}`}>
             {icon}
@@ -1231,7 +1231,7 @@ function PlayerRow({ player, isOfficer, override, onOverride, previousNames }: {
             {STATUS_LABELS[status] || status}
           </span>
           {player.is_migrant && reviewable && (
-            <span className="px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-violet-500/10 text-violet-400 border border-violet-500/30">Migrant</span>
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-[var(--gold)]/10 text-[var(--gold)] border border-violet-500/30">Migrant</span>
           )}
         </div>
       </td>

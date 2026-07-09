@@ -246,7 +246,7 @@ function fmtMClamped(n: number) {
 // Status palette is intentionally distinct from the KP cell palette (green/amber/red).
 // This way the Score color matches the Status pill color and there's no collision.
 const STATUS_STYLES: Record<Status, string> = {
-  EXCELLENT: 'bg-violet-500/15 text-violet-400 border-violet-500/30',
+  EXCELLENT: 'bg-[var(--gold)]/15 text-[var(--gold)] border-violet-500/30',
   APPROVED: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
   GOOD: 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30',
   REJECTED: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
@@ -255,7 +255,7 @@ const STATUS_STYLES: Record<Status, string> = {
 
 /** Tailwind text-only class for each status — used to color the Score column to match the pill. */
 const STATUS_TEXT: Record<Status, string> = {
-  EXCELLENT: 'text-violet-400',
+  EXCELLENT: 'text-[var(--gold)]',
   APPROVED: 'text-cyan-400',
   GOOD: 'text-indigo-400',
   REJECTED: 'text-rose-400',
@@ -788,7 +788,7 @@ function DkpPageInner() {
                 onClick={() => setScoringMode('bands')}
                 className={`px-3 py-1.5 text-xs font-medium transition-colors ${
                   scoringMode === 'bands'
-                    ? 'bg-[#4318ff] text-white'
+                    ? 'bg-[#DC143C] text-white'
                     : 'bg-[var(--background-card)] text-[var(--text-muted)] hover:text-[var(--foreground)]'
                 }`}
               >
@@ -799,7 +799,7 @@ function DkpPageInner() {
                 onClick={() => setScoringMode('simple')}
                 className={`px-3 py-1.5 text-xs font-medium transition-colors ${
                   scoringMode === 'simple'
-                    ? 'bg-[#4318ff] text-white'
+                    ? 'bg-[#DC143C] text-white'
                     : 'bg-[var(--background-card)] text-[var(--text-muted)] hover:text-[var(--foreground)]'
                 }`}
               >
@@ -1154,7 +1154,7 @@ function DkpPageInner() {
                       onClick={handleDeploy}
                       disabled={!isDirty || deploying}
                       title={t('config.deployHint')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#4318ff] text-white text-xs font-medium hover:bg-[#3a14e0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#DC143C] text-white text-xs font-medium hover:bg-[#3a14e0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                     >
                       <Rocket size={12} />
                       {deploying ? t('config.deploying') : t('config.deploy')}
@@ -1237,7 +1237,7 @@ function DkpPageInner() {
                         onClick={() => setConfig((c) => ({ ...c, rankedMode: 'topN' }))}
                         className={`px-4 py-2 text-sm font-medium transition-colors ${
                           config.rankedMode === 'topN'
-                            ? 'bg-[#4318ff] text-white'
+                            ? 'bg-[#DC143C] text-white'
                             : 'bg-[var(--background-card)] text-[var(--text-muted)] hover:text-[var(--foreground)]'
                         }`}
                       >
@@ -1248,7 +1248,7 @@ function DkpPageInner() {
                         onClick={() => setConfig((c) => ({ ...c, rankedMode: 'minPower' }))}
                         className={`px-4 py-2 text-sm font-medium transition-colors ${
                           config.rankedMode === 'minPower'
-                            ? 'bg-[#4318ff] text-white'
+                            ? 'bg-[#DC143C] text-white'
                             : 'bg-[var(--background-card)] text-[var(--text-muted)] hover:text-[var(--foreground)]'
                         }`}
                       >
@@ -1365,7 +1365,7 @@ function DkpPageInner() {
                   {/* Step 4: Score */}
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="flex-shrink-0 w-7 h-7 rounded-full bg-violet-500/15 text-violet-400 flex items-center justify-center text-xs font-bold">4</span>
+                      <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[var(--gold)]/15 text-[var(--gold)] flex items-center justify-center text-xs font-bold">4</span>
                       <h4 className="text-sm font-semibold text-[var(--foreground)]">{t('guide.step4Title')}</h4>
                     </div>
                     <p className="text-sm text-[var(--text-secondary)] ml-9">{t('guide.step4Body')}</p>
@@ -1547,7 +1547,7 @@ function DkpPageInner() {
               type="checkbox"
               checked={showGovId}
               onChange={(e) => setShowGovId(e.target.checked)}
-              className="accent-[#4318ff]"
+              className="accent-[#DC143C]"
             />
             Gov ID
           </label>
@@ -1557,7 +1557,7 @@ function DkpPageInner() {
               type="checkbox"
               checked={hideUnranked}
               onChange={(e) => setHideUnranked(e.target.checked)}
-              className="accent-[#4318ff]"
+              className="accent-[#DC143C]"
             />
             Hide unranked
             <Tooltip content={
@@ -1743,7 +1743,7 @@ function DkpPageInner() {
                     <button
                       onClick={handleDeploy}
                       disabled={!isDirty || deploying}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#4318ff] text-white text-xs font-medium hover:bg-[#3a14e0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#DC143C] text-white text-xs font-medium hover:bg-[#3a14e0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                     >
                       <Rocket size={12} />
                       {deploying ? 'Deploying…' : 'Confirm for everyone'}
@@ -1806,7 +1806,7 @@ function DkpPageInner() {
                     type="checkbox"
                     checked={simpleHideOutsideTop}
                     onChange={(e) => setSimpleHideOutsideTop(e.target.checked)}
-                    className="accent-[#4318ff]"
+                    className="accent-[#DC143C]"
                   />
                   Top {config.rankedTopN}
                 </label>
@@ -1828,7 +1828,7 @@ function DkpPageInner() {
                     type="checkbox"
                     checked={showGovId}
                     onChange={(e) => setShowGovId(e.target.checked)}
-                    className="accent-[#4318ff]"
+                    className="accent-[#DC143C]"
                   />
                   Gov ID
                 </label>
@@ -2489,7 +2489,7 @@ function OfficerBadge() {
               {error && <p className="text-xs text-red-400">{error}</p>}
               <button
                 type="submit"
-                className="w-full px-3 py-2 rounded-lg bg-[#4318ff] text-white text-sm font-medium hover:bg-[#3a14e0] transition-colors"
+                className="w-full px-3 py-2 rounded-lg bg-[#DC143C] text-white text-sm font-medium hover:bg-[#3a14e0] transition-colors"
               >
                 {t('submit')}
               </button>
@@ -2609,7 +2609,7 @@ function UploadPanel({
         <button
           onClick={handleProcess}
           disabled={!statsFile || busy}
-          className="px-4 py-2 rounded-lg bg-[#4318ff] text-white text-sm font-medium hover:bg-[#3a14e0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 rounded-lg bg-[#DC143C] text-white text-sm font-medium hover:bg-[#3a14e0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           {busy ? t('processing') : t('process')}
         </button>
@@ -2675,7 +2675,7 @@ function SummaryCard({
   // Match the status pill palette so the summary cards visually pair with the table.
   const toneClass =
     tone === 'excellent'
-      ? 'text-violet-400'
+      ? 'text-[var(--gold)]'
       : tone === 'approved'
         ? 'text-cyan-400'
         : tone === 'good'
@@ -3000,7 +3000,7 @@ function FormulaRow({
         value={Math.round(value)}
         disabled={disabled}
         onChange={(e) => onChange(parseInt(e.target.value, 10))}
-        className="flex-1 accent-[#4318ff] disabled:cursor-not-allowed h-2"
+        className="flex-1 accent-[#DC143C] disabled:cursor-not-allowed h-2"
       />
       <input
         type="number"

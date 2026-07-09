@@ -450,7 +450,7 @@ export function ZeroListTab({ isOfficer, isAdmin, actorName }: Props) {
         {guideOpen && (
           <div className="px-4 pb-4 pt-1 border-t border-[var(--border)] text-sm text-[var(--text-secondary)] space-y-4">
             <p className="text-xs text-[var(--text-muted)]">
-              The Zero List is the <strong>kingdom-wide kill queue</strong>. It&apos;s a single continuous list — no deadline, no exception workflow. Power members come here to grab coords and attack. Admins manage who&apos;s on it. Cycle cases marked <em>To Zero</em> automatically appear here too (with a <span className="inline-block px-1 py-0 rounded text-[9px] font-semibold border bg-violet-500/15 text-violet-400 border-violet-500/30">from cycle</span> badge) — no manual sync needed.
+              The Zero List is the <strong>kingdom-wide kill queue</strong>. It&apos;s a single continuous list — no deadline, no exception workflow. Power members come here to grab coords and attack. Admins manage who&apos;s on it. Cycle cases marked <em>To Zero</em> automatically appear here too (with a <span className="inline-block px-1 py-0 rounded text-[9px] font-semibold border bg-[var(--gold)]/15 text-[var(--gold)] border-violet-500/30">from cycle</span> badge) — no manual sync needed.
             </p>
             <p className="text-xs text-[var(--text-muted)]">
               <strong>Delay</strong> button (officer / admin) puts an entry on hold for a chosen number of hours so the player has a chance to leave voluntarily. While delayed, the row is <strong>hidden from the power tier</strong> and shows an amber <em>delayed · Nh left</em> badge to officers/admins. Click <strong>Resume</strong> to lift the delay early.
@@ -650,7 +650,7 @@ export function ZeroListTab({ isOfficer, isAdmin, actorName }: Props) {
                           type="checkbox"
                           checked={mailFields[key]}
                           onChange={() => toggleMailField(key)}
-                          className="w-3.5 h-3.5 rounded border-[var(--border)] bg-[var(--background-secondary)] accent-[#4318ff]"
+                          className="w-3.5 h-3.5 rounded border-[var(--border)] bg-[var(--background-secondary)] accent-[#DC143C]"
                         />
                         {MAIL_FIELD_LABELS[key]}
                       </label>
@@ -677,7 +677,7 @@ export function ZeroListTab({ isOfficer, isAdmin, actorName }: Props) {
                     className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors border ${
                       openedMail
                         ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
-                        : 'bg-[#4318ff]/15 text-[#a89dff] border-[#4318ff]/40 hover:bg-[#4318ff]/25 disabled:opacity-50 disabled:cursor-not-allowed'
+                        : 'bg-[#DC143C]/15 text-[#a89dff] border-[#DC143C]/40 hover:bg-[#DC143C]/25 disabled:opacity-50 disabled:cursor-not-allowed'
                     }`}
                     title="Open RoK Mail pre-filled — excepted players are excluded automatically"
                   >
@@ -875,7 +875,7 @@ function ZeroListRow({
             {STATE_LABELS[c.state]}
           </span>
           {c.source_kind === 'cycle' && (
-            <span className="inline-block px-1.5 py-0.5 rounded-full text-[9px] font-semibold border bg-violet-500/15 text-violet-400 border-violet-500/30" title="Auto-carried from a Cycle. Resolve via the Cycle tab or via actions on this row.">
+            <span className="inline-block px-1.5 py-0.5 rounded-full text-[9px] font-semibold border bg-[var(--gold)]/15 text-[var(--gold)] border-violet-500/30" title="Auto-carried from a Cycle. Resolve via the Cycle tab or via actions on this row.">
               from cycle
             </span>
           )}

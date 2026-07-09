@@ -482,7 +482,7 @@ export default function KpPushEventPage() {
             onClick={() => setActiveTab('overview')}
             className={`px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold transition-all flex items-center gap-2 whitespace-nowrap flex-shrink-0 border-b-2 -mb-[1px] ${
               activeTab === 'overview'
-                ? 'text-[#4318ff] border-[#4318ff] bg-[#4318ff]/5'
+                ? 'text-[#DC143C] border-[#DC143C] bg-[#DC143C]/5'
                 : 'text-[var(--text-secondary)] border-transparent hover:text-[var(--foreground)] hover:bg-[var(--background-hover)]'
             }`}
           >
@@ -493,7 +493,7 @@ export default function KpPushEventPage() {
             onClick={() => setActiveTab('analytics')}
             className={`px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold transition-all flex items-center gap-2 whitespace-nowrap flex-shrink-0 border-b-2 -mb-[1px] ${
               activeTab === 'analytics'
-                ? 'text-[#4318ff] border-[#4318ff] bg-[#4318ff]/5'
+                ? 'text-[#DC143C] border-[#DC143C] bg-[#DC143C]/5'
                 : 'text-[var(--text-secondary)] border-transparent hover:text-[var(--foreground)] hover:bg-[var(--background-hover)]'
             }`}
           >
@@ -1167,7 +1167,7 @@ export default function KpPushEventPage() {
 
                                           return (
                                             <tr key={snap.id || snapIdx} className="border-b border-[var(--border)]/30">
-                                              <td className="px-2 py-1 text-[#9f7aea]">
+                                              <td className="px-2 py-1 text-[#C9A961]">
                                                 {formatDate(snap.snapshot_date)}
                                               </td>
                                               <td className={`px-2 py-1 text-right text-[#01b574] ${powerCarry ? carryoverClass : ''}`}>
@@ -1466,7 +1466,7 @@ export default function KpPushEventPage() {
 
                                               return (
                                                 <tr key={snap.id || snapIdx} className="border-b border-[var(--border)]/30">
-                                                  <td className="px-2 py-1 text-[#9f7aea]">
+                                                  <td className="px-2 py-1 text-[#C9A961]">
                                                     {formatDate(snap.snapshot_date)}
                                                   </td>
                                                   <td className={`px-2 py-1 text-right text-[#01b574] ${powerCarry ? carryoverClass : ''}`}>

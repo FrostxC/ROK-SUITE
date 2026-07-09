@@ -49,7 +49,7 @@ export default function ApplyPage() {
         {/* Hero — submit view only; admins reviewing don't need the recruitment pitch */}
         {!showReview && (
           <section className="mb-6 sm:mb-8 text-center">
-            <div className="inline-flex p-3 rounded-2xl bg-gradient-to-br from-[#4318ff] to-[#9f7aea] shadow-lg shadow-[#4318ff]/25 mb-4">
+            <div className="inline-flex p-3 rounded-2xl bg-gradient-to-br from-[#DC143C] to-[#C9A961] shadow-lg shadow-[#DC143C]/25 mb-4">
               <Shield className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-semibold text-[var(--foreground)] tracking-tight mb-2">
@@ -107,7 +107,7 @@ function TabButton({ active, onClick, icon, label }: TabButtonProps) {
       onClick={onClick}
       className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
         active
-          ? 'bg-gradient-to-r from-[#4318ff] to-[#7c3aed] text-white shadow-lg shadow-[#4318ff]/20'
+          ? 'bg-gradient-to-r from-[#DC143C] to-[#8B0000] text-white shadow-lg shadow-[#DC143C]/20'
           : 'text-[var(--text-secondary)] hover:text-[var(--foreground)]'
       }`}
     >

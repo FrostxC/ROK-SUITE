@@ -66,7 +66,7 @@ const FLAGGED_MIGRATION_STATUSES = new Set(['ILLEGAL', 'PENDING', 'INACTIVE']);
 const STATUS_STYLES: Record<AssignmentStatus, { bg: string; text: string; icon: React.ReactNode }> = {
   STAY: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', icon: <Check size={12} /> },
   MOVE: { bg: 'bg-sky-500/10', text: 'text-sky-500', icon: <ArrowRight size={12} /> },
-  INCOMING: { bg: 'bg-violet-500/10', text: 'text-violet-500', icon: <ArrowRight size={12} /> },
+  INCOMING: { bg: 'bg-[var(--gold)]/10', text: 'text-[var(--gold)]', icon: <ArrowRight size={12} /> },
   ILLEGAL: { bg: 'bg-red-500/10', text: 'text-red-500', icon: <ShieldX size={12} /> },
   UNASSIGNED: { bg: 'bg-gray-500/10', text: 'text-gray-400', icon: <HelpCircle size={12} /> },
 };

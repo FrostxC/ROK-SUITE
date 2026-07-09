@@ -546,7 +546,7 @@ export function GlobalCandidatesPanel({ isAdmin, actorName }: Props) {
                 <select
                   value={growerScanKey}
                   onChange={(e) => setGrowerScanKey(e.target.value)}
-                  className="px-2 py-1 rounded-md bg-[var(--background-secondary)] border border-[var(--border)] text-xs text-[var(--foreground)] normal-case tracking-normal focus:outline-none focus:border-[#4318ff]"
+                  className="px-2 py-1 rounded-md bg-[var(--background-secondary)] border border-[var(--border)] text-xs text-[var(--foreground)] normal-case tracking-normal focus:outline-none focus:border-[#DC143C]"
                 >
                   {sameKindScans.filter((s) => `${s.kind}:${s.id}` !== `${scans[0]?.kind}:${scans[0]?.id}`).map((s) => (
                     <option key={`${s.kind}:${s.id}`} value={`${s.kind}:${s.id}`}>{s.label}</option>
@@ -578,7 +578,7 @@ export function GlobalCandidatesPanel({ isAdmin, actorName }: Props) {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search name / gov id / alliance…"
-              className="w-full pl-8 pr-3 py-1.5 rounded-md bg-[var(--background-secondary)] border border-[var(--border)] text-xs text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#4318ff]"
+              className="w-full pl-8 pr-3 py-1.5 rounded-md bg-[var(--background-secondary)] border border-[var(--border)] text-xs text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#DC143C]"
             />
           </div>
 
@@ -650,7 +650,7 @@ export function GlobalCandidatesPanel({ isAdmin, actorName }: Props) {
                 onChange={(e) => setBulkNote(e.target.value)}
                 placeholder="e.g. attacking MNG members during peace, refused to leave, etc."
                 rows={3}
-                className="w-full px-2 py-1.5 rounded-md bg-[var(--background-secondary)] border border-[var(--border)] text-xs text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#4318ff] resize-y"
+                className="w-full px-2 py-1.5 rounded-md bg-[var(--background-secondary)] border border-[var(--border)] text-xs text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#DC143C] resize-y"
               />
               <div className="text-[10px] text-[var(--text-muted)]">
                 Any auto-flags (illegal / grower / migrant decision) are appended as metadata.

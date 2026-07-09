@@ -1,21 +1,27 @@
 @import "tailwindcss";
 
 /**
- * Modern dark/light theme
- * Clean, professional design inspired by ROKstats
+ * ANCIENT DARK KINGDOM theme — ANGMAR, Kingdom 23
+ * Dark fantasy war-room · blood crimson · aged gold · carved stone.
  */
 
-/* Default to dark theme, then override with .light class */
+/* Default (and canonical) theme. */
 .dark {
-  /* Background colors — stepped for clear visual hierarchy */
-  --background: #080c16;
-  --background-secondary: #0f1629;
-  --background-card: #161e35;
-  --background-hover: #1e2847;
+  /* Background colors — near-black, never pure black */
+  --background: #0A0A0B;
+  --background-secondary: #111113;
+  --background-card: #141416;
+  --background-hover: #1B1B1E;
 
-  /* Primary gradient colors */
-  --primary: #4318ff;
-  --primary-light: #9f7aea;
+  /* Blood crimson — power moments only */
+  --primary: #DC143C;
+  --primary-light: #8B0000;
+
+  /* Aged gold — titles, borders, rank highlights */
+  --gold: #C9A961;
+  --gold-dim: rgba(201, 169, 97, 0.15);
+  --crimson: #DC143C;
+  --crimson-deep: #8B0000;
 
   /* Info/accent */
   --info: #0ea5e9;
@@ -26,62 +32,60 @@
   --success-light: #34d399;
 
   /* Warning */
-  --warning: #f59e0b;
+  --warning: #C9A961;
 
   /* Error */
   --error: #ef4444;
 
-  /* Text colors */
-  --foreground: #f9fafb;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  /* Text colors — warm parchment whites */
+  --foreground: #F2EFE6;
+  --text-secondary: #A39E92;
+  --text-muted: #6E6A60;
 
-  /* Border — visible enough to separate cards */
-  --border: rgba(255, 255, 255, 0.12);
-  --border-hover: rgba(255, 255, 255, 0.2);
+  /* Border — aged gold at 15% */
+  --border: rgba(201, 169, 97, 0.15);
+  --border-hover: rgba(201, 169, 97, 0.32);
 
-  /* Card shadow — subtle depth cue */
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --card-shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.5);
+  /* Card shadow — deep throne-room shadows */
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  --card-shadow-hover: 0 10px 34px rgba(0, 0, 0, 0.65), 0 0 22px rgba(220, 20, 60, 0.07);
 }
 
+/* "Light" theme intentionally stays dark (graphite lift) — the kingdom has no
+   daylight mode. The toggle still works; it only lifts the blacks slightly. */
 .light {
-  /* Background colors - slightly gray for better contrast */
-  --background: #e9ecef;
-  --background-secondary: #dee2e6;
-  --background-card: #ffffff;
-  --background-hover: #f8f9fa;
+  --background: #131315;
+  --background-secondary: #1A1A1D;
+  --background-card: #1F1F23;
+  --background-hover: #27272C;
 
-  /* Primary gradient colors */
-  --primary: #4318ff;
-  --primary-light: #9f7aea;
+  --primary: #DC143C;
+  --primary-light: #8B0000;
 
-  /* Info/accent */
+  --gold: #C9A961;
+  --gold-dim: rgba(201, 169, 97, 0.15);
+  --crimson: #DC143C;
+  --crimson-deep: #8B0000;
+
   --info: #0ea5e9;
   --info-light: #38bdf8;
 
-  /* Success */
   --success: #10b981;
   --success-light: #34d399;
 
-  /* Warning */
-  --warning: #f59e0b;
+  --warning: #C9A961;
 
-  /* Error */
   --error: #ef4444;
 
-  /* Text colors */
-  --foreground: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
+  --foreground: #F2EFE6;
+  --text-secondary: #ABA69A;
+  --text-muted: #787468;
 
-  /* Border - stronger for light mode */
-  --border: rgba(0, 0, 0, 0.12);
-  --border-hover: rgba(0, 0, 0, 0.2);
+  --border: rgba(201, 169, 97, 0.18);
+  --border-hover: rgba(201, 169, 97, 0.36);
 
-  /* Card shadow for light mode */
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  --card-shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 22px rgba(220, 20, 60, 0.06);
 }
 
 @theme inline {
@@ -123,13 +127,13 @@ html {
 
 /* Selection color */
 ::selection {
-  background: rgba(67, 24, 255, 0.3);
+  background: rgba(220, 20, 60, 0.35);
   color: white;
 }
 
 /* Focus styles */
 *:focus-visible {
-  outline: 2px solid rgba(67, 24, 255, 0.5);
+  outline: 2px solid rgba(201, 169, 97, 0.55);
   outline-offset: 2px;
 }
 
@@ -165,7 +169,7 @@ html {
 .card {
   background: var(--background-card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: var(--card-shadow);
 }
 
@@ -189,7 +193,7 @@ html {
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, #4318ff 0%, #9f7aea 100%);
+  background: linear-gradient(135deg, #C9A961 0%, #DC143C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -197,7 +201,7 @@ html {
 
 /* Subtle glow effects */
 .glow-primary {
-  box-shadow: 0 0 30px rgba(67, 24, 255, 0.1);
+  box-shadow: 0 0 30px rgba(220, 20, 60, 0.12);
 }
 
 .glow-info {
@@ -227,8 +231,8 @@ html {
 }
 
 .btn-primary:hover {
-  background: #3614cc;
-  box-shadow: 0 4px 12px rgba(67, 24, 255, 0.3);
+  background: #8B0000;
+  box-shadow: 0 4px 14px rgba(139, 0, 0, 0.45);
 }
 
 .btn-secondary {
@@ -246,7 +250,7 @@ html {
 .table-container {
   background: var(--background-card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -286,7 +290,7 @@ html {
 .tab-active {
   background: var(--primary);
   color: white;
-  box-shadow: 0 2px 8px rgba(67, 24, 255, 0.25);
+  box-shadow: 0 2px 10px rgba(139, 0, 0, 0.4);
 }
 
 /* Input styles */
@@ -302,7 +306,7 @@ html {
 
 .input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(67, 24, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.12);
 }
 
 .input::placeholder {
@@ -322,8 +326,8 @@ html {
 }
 
 .badge-primary {
-  background: rgba(67, 24, 255, 0.15);
-  color: #9f7aea;
+  background: rgba(220, 20, 60, 0.14);
+  color: #C9A961;
 }
 
 .badge-success {
@@ -382,7 +386,7 @@ html, body {
 /* Touch-friendly tap highlight */
 @media (hover: none) {
   button, a {
-    -webkit-tap-highlight-color: rgba(67, 24, 255, 0.15);
+    -webkit-tap-highlight-color: rgba(220, 20, 60, 0.15);
   }
 }
 
@@ -407,4 +411,140 @@ html, body {
 
 .transition-slow {
   transition: all 0.3s ease;
+}
+
+/* ======================================
+   ANCIENT DARK KINGDOM — design layer
+   ====================================== */
+
+/* Display serif for headings — carved in stone */
+h1, h2 {
+  font-family: var(--font-display), 'Cinzel', serif;
+  letter-spacing: 0.03em;
+}
+
+.font-display {
+  font-family: var(--font-display), 'Cinzel', serif;
+}
+
+/* Subtle grain/noise overlay across the whole site */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* Frosted dark glass panel with aged-gold hairline */
+.glass-card {
+  background: rgba(17, 17, 19, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(201, 169, 97, 0.15);
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.glass-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(220, 20, 60, 0.45);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.6), 0 0 24px rgba(220, 20, 60, 0.12);
+}
+
+/* Ornamental section divider — thin lines meeting a rotated diamond */
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.divider-ornament::before,
+.divider-ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.35), transparent);
+}
+.divider-ornament .divider-gem {
+  width: 7px;
+  height: 7px;
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, #C9A961, #8B0000);
+  box-shadow: 0 0 8px rgba(201, 169, 97, 0.4);
+  flex-shrink: 0;
+}
+
+/* Hero title — gold-to-crimson carved gradient */
+.hero-title {
+  font-family: var(--font-display), 'Cinzel', serif;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 0.95;
+  background: linear-gradient(180deg, #E8DCBE 0%, #C9A961 42%, #A2323F 88%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 80px rgba(220, 20, 60, 0.25);
+}
+
+/* Uppercase wide-tracked section label */
+.section-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+}
+
+/* Entrance animation — fade up w/ slight scale (staggered via inline delay) */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(22px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.anim-rise {
+  opacity: 0;
+  animation: riseIn 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+/* Ember particles — hero only */
+@keyframes emberRise {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  8% { opacity: var(--ember-o, 0.7); }
+  100% { transform: translateY(-92vh) translateX(var(--ember-x, 20px)) scale(0.25); opacity: 0; }
+}
+.ember {
+  position: absolute;
+  bottom: -4px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #E8C77B 0%, #DC143C 65%, transparent 100%);
+  filter: blur(0.4px);
+  animation: emberRise linear infinite;
+  pointer-events: none;
+}
+
+/* Scroll indicator pulse */
+@keyframes scrollPulse {
+  0%, 100% { transform: translateY(0); opacity: 0.85; }
+  50% { transform: translateY(8px); opacity: 0.3; }
+}
+.scroll-indicator { animation: scrollPulse 1.8s ease-in-out infinite; }
+
+/* Slow atmospheric drift for hero fog layers */
+@keyframes fogDrift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-2.5%, 1.5%, 0); }
+}
+.fog-layer { animation: fogDrift 26s ease-in-out infinite; will-change: transform; }
+
+/* Respect users who prefer reduced motion; keep mobile light */
+@media (prefers-reduced-motion: reduce) {
+  .anim-rise { animation: none; opacity: 1; }
+  .ember, .fog-layer, .scroll-indicator { animation: none; }
+}
+@media (max-width: 640px) {
+  .ember { display: none; }
 }

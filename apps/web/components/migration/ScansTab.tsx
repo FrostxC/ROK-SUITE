@@ -183,7 +183,7 @@ export function ScansTab({ isOfficer, isAdmin, actorName }: Props) {
               onClick={() => setSubTab(t.id)}
               className={`px-3 py-2 text-xs font-medium border-b-2 -mb-px transition-colors flex items-center gap-1.5 flex-shrink-0 whitespace-nowrap ${
                 subTab === t.id
-                  ? 'border-[#4318ff] text-[var(--foreground)]'
+                  ? 'border-[#DC143C] text-[var(--foreground)]'
                   : 'border-transparent text-[var(--text-muted)] hover:text-[var(--foreground)]'
               }`}
             >
@@ -841,7 +841,7 @@ function MigrantsPanel({ scans, actorName }: { scans: ScanRef[]; actorName: stri
           <button
             onClick={() => void fetchFromSheet()}
             disabled={fetching}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#4318ff] text-white text-xs font-medium hover:bg-[#3a14e0] disabled:opacity-60"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#DC143C] text-white text-xs font-medium hover:bg-[#3a14e0] disabled:opacity-60"
           >
             <RotateCcw size={12} className={fetching ? 'animate-spin' : ''} />
             {fetching ? 'Fetching…' : csvRows ? 'Refresh from sheet' : 'Fetch from Google Sheet'}
@@ -1064,7 +1064,7 @@ function LocationPanel({ scans }: { scans: ScanRef[] }) {
           Saved separately from kingdom scans (in <code className="text-[var(--text-secondary)]">location_scans</code>). The latest one is auto-applied to <em>Find Candidates</em> rows so the Top 400 list shows coordinates. Location scans and kingdom (Davide) scans are <strong>different things</strong> — they don&apos;t replace each other and this won&apos;t appear in Browse / Compare.
         </p>
         <div className="flex flex-wrap items-center gap-3">
-          <label className="px-3 py-1.5 rounded-lg bg-[#4318ff] text-white text-xs font-medium hover:bg-[#3a14e0] cursor-pointer disabled:opacity-60">
+          <label className="px-3 py-1.5 rounded-lg bg-[#DC143C] text-white text-xs font-medium hover:bg-[#3a14e0] cursor-pointer disabled:opacity-60">
             <input
               type="file"
               accept=".csv,text/csv"

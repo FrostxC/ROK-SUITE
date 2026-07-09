@@ -101,7 +101,7 @@ export function Combobox({
   };
 
   const inputBase =
-    'w-full rounded-lg border px-3 py-2.5 pr-9 text-base sm:text-sm outline-none transition-colors focus:ring-2 focus:ring-[#4318ff]/40';
+    'w-full rounded-lg border px-3 py-2.5 pr-9 text-base sm:text-sm outline-none transition-colors focus:ring-2 focus:ring-[#DC143C]/40';
   const borderClass = invalid
     ? 'border-red-500/60'
     : 'border-[var(--border)]';

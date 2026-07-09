@@ -125,7 +125,7 @@ export default function AssignmentPanel({
           disabled={!allianceId}
           className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
           style={{
-            backgroundColor: allianceId ? '#4318ff' : 'var(--background-hover)',
+            backgroundColor: allianceId ? '#DC143C' : 'var(--background-hover)',
             color: allianceId ? 'white' : 'var(--text-muted)',
             cursor: allianceId ? 'pointer' : 'not-allowed',
           }}

@@ -276,7 +276,7 @@ export function EquipmentScanner({ onClose, onImport }: EquipmentScannerProps) {
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
       case 'legendary': return 'text-[#ffb547] bg-[#ffb547]/20';
-      case 'epic': return 'text-[#9f7aea] bg-[#9f7aea]/20';
+      case 'epic': return 'text-[#C9A961] bg-[#C9A961]/20';
       case 'elite': return 'text-[#21d4fd] bg-[#0075ff]/20';
       case 'advanced': return 'text-[#01b574] bg-[#01b574]/20';
       default: return 'text-[#a0aec0] bg-[#a0aec0]/20';

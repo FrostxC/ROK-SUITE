@@ -1101,7 +1101,7 @@ function SeasonPicker({ season, onChange }: { season: Season; onChange: (s: Seas
         onChange={(e) => onChange(e.target.value as Season)}
         className={`px-3 py-2 rounded-lg border text-sm normal-case tracking-normal focus:outline-none ${
           season === 'cross'
-            ? 'bg-violet-500/15 border-violet-500/40 text-violet-200'
+            ? 'bg-[var(--gold)]/15 border-[var(--crimson)]/40 text-violet-200'
             : 'bg-[var(--background-card)] border-[var(--border)] text-[var(--foreground)]'
         }`}
       >

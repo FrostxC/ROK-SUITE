@@ -62,7 +62,7 @@ export function LanguageSwitcher({ collapsed = false, dropdownDown = false }: La
                 }}
                 className={`w-full px-4 py-2 text-left text-sm transition-colors ${
                   locale === currentLocale
-                    ? 'bg-[#4318ff]/10 text-[#4318ff] font-medium'
+                    ? 'bg-[#DC143C]/10 text-[#DC143C] font-medium'
                     : 'text-[var(--text-secondary)] hover:bg-[var(--background-secondary)] hover:text-[var(--foreground)]'
                 }`}
               >

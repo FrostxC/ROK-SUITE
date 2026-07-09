@@ -61,19 +61,19 @@ export function AppSidebar({ children }: AppSidebarProps) {
     {
       // Kingdom section (no title, top level)
       items: [
-        { labelKey: 'home', href: '/', icon: <Home size={20} />, hoverColor: 'group-hover:text-violet-400', hoverBg: 'hover:bg-violet-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#4318ff] to-[#7c3aed]' },
-        { labelKey: 'calendar', href: '/calendar', icon: <Calendar size={20} />, hoverColor: 'group-hover:text-rose-500', hoverBg: 'hover:bg-rose-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-rose-500 to-pink-500' },
-        { labelKey: 'allianceCalculator', href: '/alliance-calculator', icon: <Calculator size={20} />, hoverColor: 'group-hover:text-amber-500', hoverBg: 'hover:bg-amber-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-amber-500 to-orange-500' },
-        { labelKey: 'calculators', href: '/calculators', icon: <Sigma size={20} />, hoverColor: 'group-hover:text-violet-400', hoverBg: 'hover:bg-violet-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-violet-500 to-purple-500' },
-        { labelKey: 'commanders', href: '/commanders', icon: <Users size={20} />, hoverColor: 'group-hover:text-teal-400', hoverBg: 'hover:bg-teal-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-emerald-500 to-teal-500' },
-        { labelKey: 'rokMail', href: '/rok-mail', icon: <ScrollText size={20} />, hoverColor: 'group-hover:text-pink-500', hoverBg: 'hover:bg-pink-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-pink-500 to-fuchsia-500' },
-        { labelKey: 'dkp', href: '/dkp', icon: <Trophy size={20} />, hoverColor: 'group-hover:text-yellow-500', hoverBg: 'hover:bg-yellow-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-yellow-500 to-amber-500' },
-        { labelKey: 'migration', href: '/migration', icon: <ClipboardList size={20} />, hoverColor: 'group-hover:text-orange-500', hoverBg: 'hover:bg-orange-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-orange-500 to-rose-500' },
-        { labelKey: 'aooPlanner', href: '/aoo-strategy', icon: <Swords size={20} />, hoverColor: 'group-hover:text-emerald-500', hoverBg: 'hover:bg-emerald-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-emerald-500 to-teal-500' },
-        { labelKey: 'mge', href: '/mge', icon: <Shield size={20} />, hoverColor: 'group-hover:text-amber-500', hoverBg: 'hover:bg-amber-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-amber-500 to-yellow-500' },
-        { labelKey: 'kingdomStats', href: '/kingdom/kingdom-stats', icon: <BarChart3 size={20} />, hoverColor: 'group-hover:text-green-500', hoverBg: 'hover:bg-green-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-green-500 to-emerald-500' },
-        { labelKey: 'kvkMap', href: '/kvk-map', icon: <Map size={20} />, hoverColor: 'group-hover:text-orange-500', hoverBg: 'hover:bg-orange-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-orange-500 to-red-500' },
-        { labelKey: 'applyLeader', href: '/apply', icon: <UserPlus size={20} />, hoverColor: 'group-hover:text-violet-400', hoverBg: 'hover:bg-violet-500/10', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-violet-500 to-purple-500' },
+        { labelKey: 'home', href: '/', icon: <Home size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'calendar', href: '/calendar', icon: <Calendar size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'allianceCalculator', href: '/alliance-calculator', icon: <Calculator size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'calculators', href: '/calculators', icon: <Sigma size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'commanders', href: '/commanders', icon: <Users size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'rokMail', href: '/rok-mail', icon: <ScrollText size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'dkp', href: '/dkp', icon: <Trophy size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'migration', href: '/migration', icon: <ClipboardList size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'aooPlanner', href: '/aoo-strategy', icon: <Swords size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'mge', href: '/mge', icon: <Shield size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'kingdomStats', href: '/kingdom/kingdom-stats', icon: <BarChart3 size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'kvkMap', href: '/kvk-map', icon: <Map size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'applyLeader', href: '/apply', icon: <UserPlus size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
       ],
     },
   ];
@@ -103,12 +103,12 @@ export function AppSidebar({ children }: AppSidebarProps) {
     <>
       {/* Logo — links to home */}
       <Link href="/" className={`flex items-center gap-3 px-4 py-5 border-b border-[var(--border)] hover:bg-[var(--background-hover)] transition-colors ${isCollapsed ? 'justify-center' : ''}`}>
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#4318ff] to-[#9f7aea] flex items-center justify-center shadow-lg shadow-[#4318ff]/25 flex-shrink-0">
+        <div className="w-9 h-9 rounded-[8px] bg-gradient-to-br from-[#8B0000] to-[#1A0507] border border-[var(--gold)]/30 flex items-center justify-center shadow-lg shadow-[#8B0000]/30 flex-shrink-0">
           <Shield className="w-5 h-5 text-white" />
         </div>
         {!isCollapsed && (
           <div className="min-w-0">
-            <h1 className="text-base font-semibold text-[var(--foreground)] truncate">{t('siteTitle')}</h1>
+            <h1 className="font-display text-base font-bold tracking-[0.1em] uppercase text-[var(--gold)] truncate">{t('siteTitle')}</h1>
             <p className="text-[10px] text-[var(--text-muted)] truncate">{t('siteSubtitle')}</p>
           </div>
         )}
@@ -138,7 +138,7 @@ export function AppSidebar({ children }: AppSidebarProps) {
                     href={item.href}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group relative ${
                       active
-                        ? `${item.activeBg || 'bg-[#4318ff]'} ${item.activeColor || 'text-white'} shadow-lg`
+                        ? `${item.activeBg || 'bg-[#DC143C]'} ${item.activeColor || 'text-white'} shadow-lg`
                         : `text-[var(--text-secondary)] ${item.hoverBg || 'hover:bg-[var(--background-secondary)]'}`
                     } ${isCollapsed ? 'justify-center' : ''}`}
                     title={isCollapsed ? t(item.labelKey) : undefined}
@@ -148,7 +148,7 @@ export function AppSidebar({ children }: AppSidebarProps) {
                     </span>
                     {!isCollapsed && (
                       <>
-                        <span className={`flex-1 truncate ${!active && item.hoverColor ? item.hoverColor : ''}`}>{t(item.labelKey)}</span>
+                        <span className={`flex-1 truncate uppercase tracking-[0.13em] text-[11.5px] font-semibold ${!active && item.hoverColor ? item.hoverColor : ''}`}>{t(item.labelKey)}</span>
                         {item.badgeKey && (
                           <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full uppercase tracking-wider ${item.badgeColor}`}>
                             {t(item.badgeKey)}
@@ -192,7 +192,7 @@ export function AppSidebar({ children }: AppSidebarProps) {
     <div className="min-h-screen bg-[var(--background)] flex">
       {/* Desktop Sidebar */}
       <aside
-        className={`hidden lg:flex flex-col fixed left-0 top-0 h-screen bg-[var(--background-card)] border-r border-[var(--border)] transition-all duration-300 z-40 ${
+        className={`hidden lg:flex flex-col fixed left-0 top-0 h-screen bg-[var(--background-card)]/75 backdrop-blur-xl border-r border-[var(--border)] transition-all duration-300 z-40 ${
           isCollapsed ? 'w-[72px]' : 'w-64'
         }`}
       >
@@ -208,7 +208,7 @@ export function AppSidebar({ children }: AppSidebarProps) {
       </aside>
 
       {/* Mobile Header */}
-      <header className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-[var(--background-card)] border-b border-[var(--border)] flex items-center justify-between px-4 z-50">
+      <header className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-[var(--background-card)]/80 backdrop-blur-xl border-b border-[var(--gold)]/20 flex items-center justify-between px-4 z-50">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsMobileOpen(true)}
@@ -217,10 +217,10 @@ export function AppSidebar({ children }: AppSidebarProps) {
             <Menu size={20} />
           </button>
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#4318ff] to-[#9f7aea] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-[8px] bg-gradient-to-br from-[#8B0000] to-[#1A0507] border border-[var(--gold)]/30 flex items-center justify-center">
               <Shield className="w-4 h-4 text-white" />
             </div>
-            <span className="text-sm font-semibold text-[var(--foreground)]">{t('siteTitle')}</span>
+            <span className="font-display text-sm font-bold tracking-[0.1em] uppercase text-[var(--gold)]">{t('siteTitle')}</span>
           </Link>
         </div>
         <div className="flex items-center gap-1">

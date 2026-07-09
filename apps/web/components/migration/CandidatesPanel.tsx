@@ -253,7 +253,7 @@ export function CandidatesPanel({ isAdmin, actorName }: Props) {
           value={globalSearch}
           onChange={(e) => setGlobalSearch(e.target.value)}
           placeholder="Search across all candidates (name, gov id, alliance) — auto-opens matching cards…"
-          className="w-full pl-9 pr-3 py-2 rounded-lg bg-[var(--background-card)] border border-[var(--border)] text-sm text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#4318ff]"
+          className="w-full pl-9 pr-3 py-2 rounded-lg bg-[var(--background-card)] border border-[var(--border)] text-sm text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#DC143C]"
         />
       </div>
 
@@ -644,7 +644,7 @@ function CandidateTable({ rows, isAdmin, actorName, reasonPrefix, onChange, sear
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, gov id, or alliance…"
-            className="flex-1 px-2 py-1 rounded-md bg-[var(--background-secondary)] border border-[var(--border)] text-xs text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#4318ff]"
+            className="flex-1 px-2 py-1 rounded-md bg-[var(--background-secondary)] border border-[var(--border)] text-xs text-[var(--foreground)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#DC143C]"
           />
           {search && (
             <span className="text-[11px] text-[var(--text-muted)] tabular-nums">

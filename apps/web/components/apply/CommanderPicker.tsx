@@ -30,7 +30,7 @@ const RARITY_RANK: Record<CommanderReference['rarity'], number> = {
 
 const RARITY_STYLES: Record<CommanderReference['rarity'], string> = {
   legendary: 'text-amber-400',
-  epic: 'text-violet-400',
+  epic: 'text-[var(--gold)]',
   elite: 'text-blue-400',
   advanced: 'text-emerald-400',
 };
@@ -255,7 +255,7 @@ export function CommanderPicker({
                       key={c.id}
                       onClick={() => handlePick(c)}
                       className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 text-left hover:bg-[var(--background-secondary)] transition-colors ${
-                        isSelected ? 'bg-[#4318ff]/10' : ''
+                        isSelected ? 'bg-[#DC143C]/10' : ''
                       }`}
                     >
                       <div className="min-w-0 flex-1">

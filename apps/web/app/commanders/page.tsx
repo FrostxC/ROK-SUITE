@@ -36,7 +36,7 @@ const TROOP_COLOR: Record<string, string> = {
   Infantry: 'text-sky-400',
   Cavalry: 'text-emerald-400',
   Archer: 'text-rose-400',
-  Leadership: 'text-violet-400',
+  Leadership: 'text-[var(--gold)]',
   Mixed: 'text-amber-400',
 };
 

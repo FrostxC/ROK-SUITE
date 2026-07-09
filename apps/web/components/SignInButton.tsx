@@ -219,7 +219,7 @@ function SignInModal({ inputRef, pw, error, onChange, onSubmit, onClose }: SignI
               if (e.key === 'Escape') onClose();
             }}
             placeholder="Password"
-            className="w-full px-3 py-2.5 rounded-lg bg-[var(--background-secondary)] border border-[var(--border)] text-[var(--foreground)] text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[#4318ff]/40"
+            className="w-full px-3 py-2.5 rounded-lg bg-[var(--background-secondary)] border border-[var(--border)] text-[var(--foreground)] text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[#DC143C]/40"
             autoComplete="current-password"
           />
           {error && <p className="text-xs text-red-400">{error}</p>}
@@ -227,7 +227,7 @@ function SignInModal({ inputRef, pw, error, onChange, onSubmit, onClose }: SignI
             type="button"
             onClick={onSubmit}
             disabled={!pw}
-            className="w-full px-4 py-2.5 rounded-lg bg-gradient-to-r from-[#4318ff] to-[#7c3aed] text-white text-sm font-medium shadow-lg shadow-[#4318ff]/20 hover:shadow-[#4318ff]/40 transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2.5 rounded-lg bg-gradient-to-r from-[#DC143C] to-[#8B0000] text-white text-sm font-medium shadow-lg shadow-[#DC143C]/20 hover:shadow-[#DC143C]/40 transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Sign in
           </button>

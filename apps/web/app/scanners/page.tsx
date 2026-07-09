@@ -173,7 +173,7 @@ export default function ScannersPage() {
           <div className="flex items-center justify-between h-14 sm:h-16">
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="flex items-center gap-2 sm:gap-3">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-[#4318ff] to-[#9f7aea] flex items-center justify-center shadow-lg shadow-[#4318ff]/25">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-[#DC143C] to-[#C9A961] flex items-center justify-center shadow-lg shadow-[#DC143C]/25">
                   <Scan className="w-4 h-4 text-white" />
                 </div>
                 <div>
@@ -191,8 +191,8 @@ export default function ScannersPage() {
         {/* Hero Section */}
         <div className="mb-12">
           <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-4 h-4 text-[#9f7aea]" />
-            <span className="text-xs font-medium text-[#9f7aea] uppercase tracking-wider">Analysis Tools</span>
+            <Sparkles className="w-4 h-4 text-[#C9A961]" />
+            <span className="text-xs font-medium text-[#C9A961] uppercase tracking-wider">Analysis Tools</span>
           </div>
           <h2 className="text-3xl font-bold text-white mb-3">
             Screenshot Scanners
@@ -205,10 +205,10 @@ export default function ScannersPage() {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
           {/* Commander JSON Import Card */}
-          <div className="group relative p-5 rounded-xl bg-[rgba(6,11,40,0.94)] backdrop-blur-xl border border-white/5 hover:border-[#4318ff]/30 transition-all">
+          <div className="group relative p-5 rounded-xl bg-[rgba(6,11,40,0.94)] backdrop-blur-xl border border-white/5 hover:border-[#DC143C]/30 transition-all">
             <div className="flex items-start gap-4">
-              <div className="p-2.5 rounded-lg bg-[#4318ff]/10">
-                <FileJson className="w-5 h-5 text-[#9f7aea]" />
+              <div className="p-2.5 rounded-lg bg-[#DC143C]/10">
+                <FileJson className="w-5 h-5 text-[#C9A961]" />
               </div>
               <div className="flex-1">
                 <h3 className="text-sm font-semibold text-white mb-1">Import Commanders</h3>
@@ -224,7 +224,7 @@ export default function ScannersPage() {
                 />
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#4318ff]/10 hover:bg-[#4318ff]/20 text-[#9f7aea] text-xs font-medium transition-colors"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#DC143C]/10 hover:bg-[#DC143C]/20 text-[#C9A961] text-xs font-medium transition-colors"
                 >
                   <Upload className="w-3.5 h-3.5" />
                   Choose File
@@ -326,7 +326,7 @@ export default function ScannersPage() {
                           {scanner.status}
                         </span>
                         {scanner.stats && (
-                          <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#4318ff]/20 text-[#9f7aea]">
+                          <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#DC143C]/20 text-[#C9A961]">
                             {scanner.stats}
                           </span>
                         )}
@@ -351,32 +351,32 @@ export default function ScannersPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex gap-3">
-              <div className="w-6 h-6 rounded-full bg-[#4318ff]/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-xs font-semibold text-[#9f7aea]">1</span>
+              <div className="w-6 h-6 rounded-full bg-[#DC143C]/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-semibold text-[#C9A961]">1</span>
               </div>
               <p className="text-sm text-[#a0aec0]">
                 Use full-resolution screenshots without cropping
               </p>
             </div>
             <div className="flex gap-3">
-              <div className="w-6 h-6 rounded-full bg-[#4318ff]/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-xs font-semibold text-[#9f7aea]">2</span>
+              <div className="w-6 h-6 rounded-full bg-[#DC143C]/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-semibold text-[#C9A961]">2</span>
               </div>
               <p className="text-sm text-[#a0aec0]">
                 Ensure all text and stats are fully visible
               </p>
             </div>
             <div className="flex gap-3">
-              <div className="w-6 h-6 rounded-full bg-[#4318ff]/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-xs font-semibold text-[#9f7aea]">3</span>
+              <div className="w-6 h-6 rounded-full bg-[#DC143C]/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-semibold text-[#C9A961]">3</span>
               </div>
               <p className="text-sm text-[#a0aec0]">
                 Review and adjust detected values before saving
               </p>
             </div>
             <div className="flex gap-3">
-              <div className="w-6 h-6 rounded-full bg-[#4318ff]/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-xs font-semibold text-[#9f7aea]">4</span>
+              <div className="w-6 h-6 rounded-full bg-[#DC143C]/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-semibold text-[#C9A961]">4</span>
               </div>
               <p className="text-sm text-[#a0aec0]">
                 Or import commanders directly via JSON file

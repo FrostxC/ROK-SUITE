@@ -494,10 +494,10 @@ function MigrationPageInner() {
         <section className="mb-4 rounded-xl bg-violet-500/5 border border-violet-500/30 overflow-hidden">
           <button
             onClick={toggleOrientation}
-            className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-violet-500/10 transition-colors"
+            className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-[var(--gold)]/10 transition-colors"
           >
             <div className="flex items-center gap-2">
-              <BookOpen size={14} className="text-violet-400" />
+              <BookOpen size={14} className="text-[var(--gold)]" />
               <span className="text-sm font-semibold text-[var(--foreground)]">First time here? Read this.</span>
               {!orientationOpen && <span className="text-[11px] text-[var(--text-muted)]">click to expand</span>}
             </div>
@@ -588,7 +588,7 @@ function MigrationPageInner() {
               onClick={() => setTab(t.id)}
               className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors flex-shrink-0 whitespace-nowrap ${
                 tab === t.id
-                  ? 'border-[#4318ff] text-[var(--foreground)]'
+                  ? 'border-[#DC143C] text-[var(--foreground)]'
                   : 'border-transparent text-[var(--text-muted)] hover:text-[var(--foreground)]'
               }`}
             >
@@ -656,7 +656,7 @@ function MigrationPageInner() {
               <>
                 <button
                   onClick={() => setShowNewCycle(true)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#4318ff] text-white text-xs font-medium hover:bg-[#3a14e0] transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#DC143C] text-white text-xs font-medium hover:bg-[#3a14e0] transition-colors"
                 >
                   <Plus size={12} /> New cycle
                 </button>
@@ -1027,7 +1027,7 @@ function SessionBadge() {
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoFocus className="mt-1 w-full px-3 py-2 rounded-lg bg-[var(--background-secondary)] border border-[var(--border)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[var(--foreground)]/30" />
               </div>
               {error && <p className="text-xs text-red-400">{error}</p>}
-              <button type="submit" className="w-full px-3 py-2 rounded-lg bg-[#4318ff] text-white text-sm font-medium hover:bg-[#3a14e0] transition-colors">Submit</button>
+              <button type="submit" className="w-full px-3 py-2 rounded-lg bg-[#DC143C] text-white text-sm font-medium hover:bg-[#3a14e0] transition-colors">Submit</button>
             </form>
           </div>
         </div>
@@ -1089,7 +1089,7 @@ function EditCycleDialog({
             <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className="mt-1 w-full px-3 py-2 rounded-lg bg-[var(--background-secondary)] border border-[var(--border)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[var(--foreground)]/30" />
           </div>
           {err && <p className="text-xs text-red-400">{err}</p>}
-          <button disabled={busy} type="submit" className="w-full px-3 py-2 rounded-lg bg-[#4318ff] text-white text-sm font-medium hover:bg-[#3a14e0] disabled:opacity-60 transition-colors">
+          <button disabled={busy} type="submit" className="w-full px-3 py-2 rounded-lg bg-[#DC143C] text-white text-sm font-medium hover:bg-[#3a14e0] disabled:opacity-60 transition-colors">
             {busy ? 'Saving…' : 'Save changes'}
           </button>
         </form>
@@ -1148,14 +1148,14 @@ function NewCycleDialog({
             <input type="datetime-local" value={deadlineStr} onChange={(e) => setDeadlineStr(e.target.value)} required className="mt-1 w-full px-3 py-2 rounded-lg bg-[var(--background-secondary)] border border-[var(--border)] text-sm font-mono text-[var(--foreground)] [color-scheme:dark] focus:outline-none focus:border-[var(--foreground)]/30" />
           </div>
           <label className="flex items-start gap-2 text-xs text-[var(--text-secondary)] cursor-pointer">
-            <input type="checkbox" checked={snapshot} onChange={(e) => setSnapshot(e.target.checked)} className="mt-0.5 accent-[#4318ff]" />
+            <input type="checkbox" checked={snapshot} onChange={(e) => setSnapshot(e.target.checked)} className="mt-0.5 accent-[#DC143C]" />
             <span>
               Snapshot the currently flagged DKP players ({defaultFlaggedCount}) as cases.
               <span className="block text-[var(--text-muted)] mt-0.5">Uncheck to start with an empty cycle.</span>
             </span>
           </label>
           {err && <p className="text-xs text-red-400">{err}</p>}
-          <button disabled={busy} type="submit" className="w-full px-3 py-2 rounded-lg bg-[#4318ff] text-white text-sm font-medium hover:bg-[#3a14e0] disabled:opacity-60 transition-colors">
+          <button disabled={busy} type="submit" className="w-full px-3 py-2 rounded-lg bg-[#DC143C] text-white text-sm font-medium hover:bg-[#3a14e0] disabled:opacity-60 transition-colors">
             {busy ? 'Creating…' : 'Create cycle'}
           </button>
         </form>
@@ -1470,7 +1470,7 @@ function CaseRow({
                   rows={2}
                 />
                 <div className="flex gap-1 mt-1">
-                  <button onClick={() => wrap(() => updateCaseNotes(c.id, notesVal.trim() || null))} className="px-2 py-1 text-[11px] rounded bg-[#4318ff] text-white">Save</button>
+                  <button onClick={() => wrap(() => updateCaseNotes(c.id, notesVal.trim() || null))} className="px-2 py-1 text-[11px] rounded bg-[#DC143C] text-white">Save</button>
                   <button onClick={() => { setNotesOpen(false); setNotesVal(c.notes ?? ''); }} className="px-2 py-1 text-[11px] rounded text-[var(--text-muted)]">Cancel</button>
                 </div>
               </>
@@ -1600,7 +1600,7 @@ function RequestExceptionDialog({
           <button
             disabled={busy || !reason.trim()}
             onClick={async () => { setBusy(true); try { await onSubmit(reason.trim(), suggestion); } finally { setBusy(false); } }}
-            className="flex-1 px-3 py-2 rounded-lg bg-[#4318ff] text-white text-sm font-medium hover:bg-[#3a14e0] disabled:opacity-60 transition-colors"
+            className="flex-1 px-3 py-2 rounded-lg bg-[#DC143C] text-white text-sm font-medium hover:bg-[#3a14e0] disabled:opacity-60 transition-colors"
           >
             {busy ? 'Submitting…' : 'Submit request'}
           </button>

@@ -78,7 +78,7 @@ const buildings: Building[] = [
 const teamColors: Record<number, { bg: string; text: string }> = {
   1: { bg: '#2563EB', text: 'white' },
   2: { bg: '#D97706', text: 'white' },
-  3: { bg: '#7C3AED', text: 'white' },
+  3: { bg: '#8B0000', text: 'white' },
 };
 
 // Map a building id to its structure category, then render a recognizable icon
@@ -502,7 +502,7 @@ export default function AOOInteractiveMap({ initialAssignments, onSave, initialD
                       ))}
                       <button
                         onClick={() => setArrowMode((a) => !a)}
-                        className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm ${arrowMode ? 'bg-[#4318ff]/20 text-[#4318ff]' : `${theme.bgSecondary} ${theme.textSecondary} border ${theme.border}`}`}
+                        className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm ${arrowMode ? 'bg-[#DC143C]/20 text-[#DC143C]' : `${theme.bgSecondary} ${theme.textSecondary} border ${theme.border}`}`}
                         title="Toggle arrowhead"
                       >
                         {arrowMode ? <ArrowRight size={14} /> : <Minus size={14} />}
@@ -517,7 +517,7 @@ export default function AOOInteractiveMap({ initialAssignments, onSave, initialD
                     <button
                       key={p}
                       onClick={() => setDrawPhase(p)}
-                      className={`px-2.5 py-1 rounded-lg text-sm font-medium ${drawPhase === p ? 'bg-[#4318ff] text-white' : `${theme.bgSecondary} ${theme.textSecondary} border ${theme.border}`}`}
+                      className={`px-2.5 py-1 rounded-lg text-sm font-medium ${drawPhase === p ? 'bg-[#DC143C] text-white' : `${theme.bgSecondary} ${theme.textSecondary} border ${theme.border}`}`}
                     >
                       {p}
                     </button>

@@ -144,7 +144,7 @@ export default function StrategySelector({
                 <button
                   onClick={handleSave}
                   className="px-2 py-0.5 rounded text-[10px] font-medium"
-                  style={{ backgroundColor: '#4318ff', color: 'white' }}
+                  style={{ backgroundColor: '#DC143C', color: 'white' }}
                 >
                   Save
                 </button>

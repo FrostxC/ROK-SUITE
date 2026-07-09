@@ -210,7 +210,7 @@ export default function WarRoomHeader({
           <button
             onClick={handleLogin}
             className="px-3 py-1 rounded-md text-xs font-medium"
-            style={{ backgroundColor: '#4318ff', color: 'white' }}
+            style={{ backgroundColor: '#DC143C', color: 'white' }}
           >
             Enter
           </button>

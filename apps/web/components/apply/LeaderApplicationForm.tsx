@@ -291,7 +291,7 @@ export function LeaderApplicationForm() {
   }
 
   const inputBase =
-    'w-full rounded-lg border px-3 py-2.5 text-base sm:text-sm outline-none transition-colors focus:ring-2 focus:ring-[#4318ff]/40';
+    'w-full rounded-lg border px-3 py-2.5 text-base sm:text-sm outline-none transition-colors focus:ring-2 focus:ring-[#DC143C]/40';
   const inputStyle = {
     backgroundColor: 'var(--background-secondary)',
     borderColor: 'var(--border)',
@@ -302,9 +302,9 @@ export function LeaderApplicationForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6 pb-32 sm:pb-6" noValidate>
       {/* What you'll need — short orientation for first-time visitors */}
-      <section className="rounded-2xl bg-[#4318ff]/5 border border-[#4318ff]/20 p-4 sm:p-5">
+      <section className="rounded-2xl bg-[#DC143C]/5 border border-[#DC143C]/20 p-4 sm:p-5">
         <div className="flex items-start gap-3">
-          <div className="p-1.5 rounded-lg bg-[#4318ff]/10 text-[#a78bfa] flex-shrink-0">
+          <div className="p-1.5 rounded-lg bg-[#DC143C]/10 text-[#a78bfa] flex-shrink-0">
             <Info className="w-4 h-4" />
           </div>
           <div className="min-w-0 flex-1">
@@ -522,7 +522,7 @@ export function LeaderApplicationForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-gradient-to-r from-[#4318ff] to-[#7c3aed] text-white font-medium text-sm shadow-lg shadow-[#4318ff]/20 hover:shadow-[#4318ff]/40 transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-gradient-to-r from-[#DC143C] to-[#8B0000] text-white font-medium text-sm shadow-lg shadow-[#DC143C]/20 hover:shadow-[#DC143C]/40 transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Send className="w-4 h-4" />
           {submitting ? tCommon('loading') : t('submit')}
@@ -566,7 +566,7 @@ function RoleCard({
   t,
 }: RoleCardProps) {
   const selectBase =
-    'w-full rounded-lg border px-3 py-2.5 text-base sm:text-sm outline-none focus:ring-2 focus:ring-[#4318ff]/40 appearance-none';
+    'w-full rounded-lg border px-3 py-2.5 text-base sm:text-sm outline-none focus:ring-2 focus:ring-[#DC143C]/40 appearance-none';
   const selectStyle = {
     backgroundColor: 'var(--background-secondary)',
     borderColor: 'var(--border)',

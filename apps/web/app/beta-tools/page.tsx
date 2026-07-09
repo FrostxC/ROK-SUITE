@@ -19,9 +19,9 @@ export default function BetaToolsPage() {
       title: t('scanners.title'),
       description: t('scanners.description'),
       icon: Scan,
-      gradient: 'from-[#4318ff] to-[#9f7aea]',
-      shadowColor: 'shadow-[#4318ff]/25',
-      hoverBorder: 'hover:border-[#4318ff]/50',
+      gradient: 'from-[#DC143C] to-[#C9A961]',
+      shadowColor: 'shadow-[#DC143C]/25',
+      hoverBorder: 'hover:border-[#DC143C]/50',
     },
     {
       href: '/sunset-canyon',

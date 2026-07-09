@@ -711,7 +711,7 @@ export function CommanderScanner({ onClose, onImport, preloadedCommanders }: Com
                   {detected.filter(d => d.status === 'accepted' && d.matchedCommander).map((d, i) => (
                     <div key={i} className="flex items-center gap-2 text-sm">
                       <Check className="w-4 h-4 text-[#01b574]" />
-                      <span className={d.matchedCommander?.rarity === 'legendary' ? 'text-[#ffb547]' : 'text-[#9f7aea]'}>
+                      <span className={d.matchedCommander?.rarity === 'legendary' ? 'text-[#ffb547]' : 'text-[#C9A961]'}>
                         {d.matchedCommander?.name}
                       </span>
                       <span className="text-[#718096]">Lv.{d.level} {'★'.repeat(d.stars)}</span>

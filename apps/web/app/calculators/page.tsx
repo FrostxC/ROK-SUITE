@@ -30,7 +30,7 @@ function fmtNum(n: number): string {
 const cardClass =
   'bg-[var(--background-card)] border border-[var(--border)] rounded-2xl p-5';
 const inputClass =
-  'w-full bg-[var(--background-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-[var(--foreground)] text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/40';
+  'w-full bg-[var(--background-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-[var(--foreground)] text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A961]/40';
 const labelClass = 'text-xs text-[var(--text-muted)] mb-1 block';
 
 // ---------------------------------------------------------------------------
@@ -101,7 +101,7 @@ function SpeedupCalc() {
       <div className="space-y-5">
         <div className={cardClass}>
           <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Total speedup time</div>
-          <div className="text-3xl font-bold text-violet-400 mt-1">{fmtDuration(totalMinutes)}</div>
+          <div className="text-3xl font-bold text-[var(--gold)] mt-1">{fmtDuration(totalMinutes)}</div>
           <div className="text-xs text-[var(--text-muted)] mt-1">
             {fmtNum(totalMinutes)} minutes · {(totalMinutes / 1440).toFixed(1)} days
           </div>
@@ -181,7 +181,7 @@ function ResourceCalc() {
         <div className="text-3xl font-bold text-amber-400 mt-1">{fmtNum(deficit)}</div>
         <div className="h-px bg-[var(--border)] my-4" />
         <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Gathering time</div>
-        <div className="text-3xl font-bold text-violet-400 mt-1">{fmtDuration(hours * 60)}</div>
+        <div className="text-3xl font-bold text-[var(--gold)] mt-1">{fmtDuration(hours * 60)}</div>
         <div className="text-xs text-[var(--text-muted)] mt-1">
           at {fmtNum(totalRate)} RSS/hour across {marches || 0} marches
         </div>
@@ -249,7 +249,7 @@ function ActionPointsCalc() {
         <div className="text-2xl font-bold text-amber-400 mt-1">{fmtNum(remaining)} AP</div>
         <div className="h-px bg-[var(--border)] my-4" />
         <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Time to reach target</div>
-        <div className="text-3xl font-bold text-violet-400 mt-1">{remaining > 0 ? fmtDuration(regenMinutes) : 'Done!'}</div>
+        <div className="text-3xl font-bold text-[var(--gold)] mt-1">{remaining > 0 ? fmtDuration(regenMinutes) : 'Done!'}</div>
       </div>
     </div>
   );
@@ -299,7 +299,7 @@ function VipCalc() {
         <div className="text-3xl font-bold text-amber-400 mt-1">VIP {current}</div>
         <div className="h-px bg-[var(--border)] my-4" />
         <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Points to VIP {current + 1}</div>
-        <div className="text-2xl font-bold text-violet-400 mt-1">{nextEntry ? fmtNum(toNext) : 'Max'}</div>
+        <div className="text-2xl font-bold text-[var(--gold)] mt-1">{nextEntry ? fmtNum(toNext) : 'Max'}</div>
         <div className="h-px bg-[var(--border)] my-4" />
         <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Points to VIP {target}</div>
         <div className="text-2xl font-bold text-emerald-400 mt-1">{toTarget > 0 ? fmtNum(toTarget) : 'Reached!'}</div>
@@ -340,10 +340,10 @@ function SculptureCalc() {
       </div>
       <div className={cardClass}>
         <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Sculptures still needed</div>
-        <div className="text-3xl font-bold text-violet-400 mt-1">{fmtNum(remaining)}</div>
+        <div className="text-3xl font-bold text-[var(--gold)] mt-1">{fmtNum(remaining)}</div>
         <div className="text-xs text-[var(--text-muted)] mt-1">of {fmtNum(total)} total</div>
         <div className="mt-4 h-3 rounded-full bg-[var(--background-secondary)] overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500" style={{ width: `${pct}%` }} />
+          <div className="h-full bg-gradient-to-r from-[#8B0000] to-[#DC143C]" style={{ width: `${pct}%` }} />
         </div>
         <div className="text-xs text-[var(--text-muted)] mt-1">{pct.toFixed(1)}% maxed</div>
       </div>
@@ -381,7 +381,7 @@ function TomeCalc() {
       </div>
       <div className={cardClass}>
         <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Total commander XP</div>
-        <div className="text-3xl font-bold text-violet-400 mt-1">{fmtNum(totalXp)}</div>
+        <div className="text-3xl font-bold text-[var(--gold)] mt-1">{fmtNum(totalXp)}</div>
         <div className="h-px bg-[var(--border)] my-4" />
         <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Toward a maxed commander (lvl 60)</div>
         <div className="mt-2 h-3 rounded-full bg-[var(--background-secondary)] overflow-hidden">
@@ -415,7 +415,7 @@ export default function CalculatorsPage() {
     <AppSidebar>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex items-center gap-3 mb-1">
-          <Calculator className="w-6 h-6 text-violet-400" />
+          <Calculator className="w-6 h-6 text-[var(--gold)]" />
           <h1 className="text-2xl font-bold text-[var(--foreground)]">Calculators</h1>
         </div>
         <p className="text-sm text-[var(--text-muted)] mb-6">
@@ -432,7 +432,7 @@ export default function CalculatorsPage() {
                 onClick={() => setTab(t.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                   active
-                    ? 'bg-gradient-to-r from-[#4318ff] to-[#7c3aed] text-white shadow-lg'
+                    ? 'bg-gradient-to-r from-[#DC143C] to-[#8B0000] text-white shadow-lg'
                     : 'text-[var(--text-secondary)] hover:bg-[var(--background-secondary)] border border-[var(--border)]'
                 }`}
               >

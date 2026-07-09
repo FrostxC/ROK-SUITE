@@ -10,9 +10,9 @@
 export const colors = {
   // Primary gradient colors
   primary: {
-    main: '#4318ff',
-    light: '#9f7aea',
-    gradient: 'linear-gradient(135deg, #4318ff 0%, #9f7aea 100%)',
+    main: '#DC143C',
+    light: '#C9A961',
+    gradient: 'linear-gradient(135deg, #DC143C 0%, #C9A961 100%)',
   },
 
   // Info/accent
@@ -83,14 +83,14 @@ export const visionTheme = {
   // Cards - glassmorphism style
   card: 'rounded-xl bg-[rgba(6,11,40,0.94)] border border-white/10 backdrop-blur-xl',
   cardHover: 'hover:bg-[rgba(10,14,35,0.98)] hover:border-white/20 transition-all duration-300',
-  cardGlow: 'shadow-lg shadow-[#4318ff]/5',
+  cardGlow: 'shadow-lg shadow-[#DC143C]/5',
 
   // Interactive cards
-  cardInteractive: 'rounded-xl bg-[rgba(6,11,40,0.94)] border border-white/10 backdrop-blur-xl hover:border-[#4318ff]/50 hover:shadow-lg hover:shadow-[#4318ff]/10 transition-all duration-300 cursor-pointer',
+  cardInteractive: 'rounded-xl bg-[rgba(6,11,40,0.94)] border border-white/10 backdrop-blur-xl hover:border-[#DC143C]/50 hover:shadow-lg hover:shadow-[#DC143C]/10 transition-all duration-300 cursor-pointer',
 
   // Gradient cards
   cardGradient: {
-    primary: 'rounded-xl bg-gradient-to-r from-[#4318ff]/20 to-[#9f7aea]/20 border border-[#4318ff]/30',
+    primary: 'rounded-xl bg-gradient-to-r from-[#DC143C]/20 to-[#C9A961]/20 border border-[#DC143C]/30',
     info: 'rounded-xl bg-gradient-to-r from-[#0075ff]/20 to-[#21d4fd]/20 border border-[#0075ff]/30',
     success: 'rounded-xl bg-gradient-to-r from-[#01b574]/20 to-[#c9fbd5]/20 border border-[#01b574]/30',
     warning: 'rounded-xl bg-gradient-to-r from-[#ffb547]/20 to-[#ffd97a]/20 border border-[#ffb547]/30',
@@ -102,7 +102,7 @@ export const visionTheme = {
     primary: 'text-white',
     secondary: 'text-[#a0aec0]',
     muted: 'text-[#718096]',
-    gradient: 'bg-gradient-to-r from-[#4318ff] to-[#9f7aea] bg-clip-text text-transparent',
+    gradient: 'bg-gradient-to-r from-[#DC143C] to-[#C9A961] bg-clip-text text-transparent',
   },
 
   // Headings
@@ -116,7 +116,7 @@ export const visionTheme = {
 
   // Buttons
   button: {
-    primary: 'px-4 py-2 rounded-lg bg-gradient-to-r from-[#4318ff] to-[#9f7aea] text-white font-medium hover:opacity-90 transition-opacity shadow-lg shadow-[#4318ff]/25',
+    primary: 'px-4 py-2 rounded-lg bg-gradient-to-r from-[#DC143C] to-[#C9A961] text-white font-medium hover:opacity-90 transition-opacity shadow-lg shadow-[#DC143C]/25',
     secondary: 'px-4 py-2 rounded-lg bg-[rgba(6,11,40,0.94)] border border-white/10 text-white font-medium hover:bg-white/5 transition-colors',
     ghost: 'px-4 py-2 rounded-lg text-[#a0aec0] hover:text-white hover:bg-white/5 transition-colors',
     success: 'px-4 py-2 rounded-lg bg-gradient-to-r from-[#01b574] to-[#01b574] text-white font-medium hover:opacity-90 transition-opacity shadow-lg shadow-[#01b574]/25',
@@ -124,11 +124,11 @@ export const visionTheme = {
   },
 
   // Inputs
-  input: 'w-full px-4 py-3 rounded-lg bg-[rgba(6,11,40,0.94)] border border-white/10 text-white placeholder-[#718096] focus:border-[#4318ff]/50 focus:ring-2 focus:ring-[#4318ff]/20 focus:outline-none transition-all',
+  input: 'w-full px-4 py-3 rounded-lg bg-[rgba(6,11,40,0.94)] border border-white/10 text-white placeholder-[#718096] focus:border-[#DC143C]/50 focus:ring-2 focus:ring-[#DC143C]/20 focus:outline-none transition-all',
 
   // Badges
   badge: {
-    primary: 'px-2 py-0.5 rounded-full bg-[#4318ff]/20 text-[#9f7aea] text-xs font-medium',
+    primary: 'px-2 py-0.5 rounded-full bg-[#DC143C]/20 text-[#C9A961] text-xs font-medium',
     info: 'px-2 py-0.5 rounded-full bg-[#0075ff]/20 text-[#21d4fd] text-xs font-medium',
     success: 'px-2 py-0.5 rounded-full bg-[#01b574]/20 text-[#01b574] text-xs font-medium',
     warning: 'px-2 py-0.5 rounded-full bg-[#ffb547]/20 text-[#ffb547] text-xs font-medium',
@@ -137,7 +137,7 @@ export const visionTheme = {
 
   // Icon containers
   iconBox: {
-    primary: 'p-3 rounded-xl bg-gradient-to-br from-[#4318ff] to-[#9f7aea] shadow-lg shadow-[#4318ff]/25',
+    primary: 'p-3 rounded-xl bg-gradient-to-br from-[#DC143C] to-[#C9A961] shadow-lg shadow-[#DC143C]/25',
     info: 'p-3 rounded-xl bg-gradient-to-br from-[#0075ff] to-[#21d4fd] shadow-lg shadow-[#0075ff]/25',
     success: 'p-3 rounded-xl bg-gradient-to-br from-[#01b574] to-[#01b574] shadow-lg shadow-[#01b574]/25',
     warning: 'p-3 rounded-xl bg-gradient-to-br from-[#ffb547] to-[#ffd97a] shadow-lg shadow-[#ffb547]/25',
@@ -150,7 +150,7 @@ export const visionTheme = {
   // Sidebar
   sidebar: 'bg-[rgba(6,11,40,0.94)] border-r border-white/5',
   sidebarItem: 'px-4 py-3 rounded-lg text-[#a0aec0] hover:text-white hover:bg-white/5 transition-colors',
-  sidebarItemActive: 'px-4 py-3 rounded-lg bg-gradient-to-r from-[#4318ff]/20 to-transparent text-white border-l-2 border-[#4318ff]',
+  sidebarItemActive: 'px-4 py-3 rounded-lg bg-gradient-to-r from-[#DC143C]/20 to-transparent text-white border-l-2 border-[#DC143C]',
 
   // Modal/Overlay
   overlay: 'fixed inset-0 bg-black/60 backdrop-blur-sm z-50',
@@ -176,11 +176,11 @@ export const visionTheme = {
   // Progress/Loading
   progress: {
     track: 'h-2 rounded-full bg-white/10',
-    bar: 'h-2 rounded-full bg-gradient-to-r from-[#4318ff] to-[#9f7aea]',
+    bar: 'h-2 rounded-full bg-gradient-to-r from-[#DC143C] to-[#C9A961]',
   },
 
   // Links
-  link: 'text-[#4318ff] hover:text-[#9f7aea] transition-colors',
+  link: 'text-[#DC143C] hover:text-[#C9A961] transition-colors',
   linkMuted: 'text-[#718096] hover:text-white transition-colors',
 };
 
