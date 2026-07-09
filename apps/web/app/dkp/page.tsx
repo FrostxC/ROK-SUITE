@@ -209,6 +209,7 @@ function mergeConfig(base: Config, partial: Partial<Config> | null | undefined):
       ? { ...base.simpleFormula, ...partial.simpleFormula }
       : base.simpleFormula,
     simpleMultiplier: partial.simpleMultiplier ?? base.simpleMultiplier,
+    simpleMinDeadsPct: partial.simpleMinDeadsPct ?? base.simpleMinDeadsPct,
   };
 }
 
@@ -345,7 +346,7 @@ function DkpPageInner() {
   const [statusFilter, setStatusFilter] = useState<Status | 'ALL'>('ALL');
   const [hideUnranked, setHideUnranked] = useState(true);
   const [scoringMode, setScoringMode] = useState<'bands' | 'simple'>('simple');
-  const [simpleSortKey, setSimpleSortKey] = useState<'name' | 'power' | 'dkp' | 'ratio' | 'status' | 't4Kills' | 't5Kills' | 't4Deaths' | 't5Deaths' | 'kp' | 'flagged'>('dkp');
+  const [simpleSortKey, setSimpleSortKey] = useState<'name' | 'power' | 'dkp' | 'ratio' | 'status' | 't4Kills' | 't5Kills' | 't4Deaths' | 't5Deaths' | 'minDeads' | 'kp' | 'flagged'>('dkp');
   const [simpleSortDir, setSimpleSortDir] = useState<'asc' | 'desc'>('desc');
   const [simpleHideOutsideTop, setSimpleHideOutsideTop] = useState(false);
   const [simpleMinPowerInput, setSimpleMinPowerInput] = useState('');
@@ -475,9 +476,12 @@ function DkpPageInner() {
       const target = p.power * config.simpleMultiplier;
       const ratio = p.power > 0 ? dkp / p.power : 0;
       const pass = dkp >= target;
-      return { ...p, simpleDkp: dkp, simpleTarget: target, simpleRatio: ratio, simpleStatus: pass ? ('PASS' as const) : ('BELOW' as const) };
+      const minDeads = p.power * (config.simpleMinDeadsPct / 100);
+      const totalDeaths = (p.t4Deaths ?? 0) + (p.t5Deaths ?? 0);
+      const deadsPass = totalDeaths >= minDeads;
+      return { ...p, simpleDkp: dkp, simpleTarget: target, simpleRatio: ratio, simpleStatus: pass ? ('PASS' as const) : ('BELOW' as const), simpleMinDeads: minDeads, simpleTotalDeaths: totalDeaths, simpleDeadsPass: deadsPass };
     });
-  }, [players, config.simpleFormula, config.simpleMultiplier]);
+  }, [players, config.simpleFormula, config.simpleMultiplier, config.simpleMinDeadsPct]);
 
   // Top-N gov IDs by power — used to hide accounts outside the top N in the simple view.
   const simpleTopNIds = useMemo(() => {
@@ -508,6 +512,7 @@ function DkpPageInner() {
         case 't5Kills': return (a.t5Kills - b.t5Kills) * dir;
         case 't4Deaths': return (a.t4Deaths - b.t4Deaths) * dir;
         case 't5Deaths': return (a.t5Deaths - b.t5Deaths) * dir;
+        case 'minDeads': return ((a.simpleTotalDeaths - a.simpleMinDeads) - (b.simpleTotalDeaths - b.simpleMinDeads)) * dir;
         case 'kp': return (a.totalKP - b.totalKP) * dir;
         case 'flagged': {
           const af = flaggedForMigration.has(a.characterId) ? 1 : 0;
@@ -1732,7 +1737,7 @@ function DkpPageInner() {
                     )}
                   </div>
                   <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
-                    DKP = T4K·{config.simpleFormula.t4Kill} + T5K·{config.simpleFormula.t5Kill} + T4D·{config.simpleFormula.t4Death} + T5D·{config.simpleFormula.t5Death}. Pass when DKP ≥ power × {config.simpleMultiplier}.
+                    DKP = T4K·{config.simpleFormula.t4Kill} + T5K·{config.simpleFormula.t5Kill} + T4D·{config.simpleFormula.t4Death} + T5D·{config.simpleFormula.t5Death}. Pass when DKP ≥ power × {config.simpleMultiplier}. Min deads = {config.simpleMinDeadsPct}% of power.
                   </p>
                 </div>
               </div>
@@ -1761,7 +1766,7 @@ function DkpPageInner() {
                 </div>
 
                 {/* Weights grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-6 gap-3">
                   {(['t4Kill', 't5Kill', 't4Death', 't5Death'] as const).map((k) => {
                     const labels: Record<typeof k, string> = { t4Kill: 'T4 kill', t5Kill: 'T5 kill', t4Death: 'T4 death', t5Death: 'T5 death' } as const;
                     return (
@@ -1780,6 +1785,14 @@ function DkpPageInner() {
                     <NumberDraftInput
                       value={config.simpleMultiplier}
                       onChange={(v) => setConfig((c) => ({ ...c, simpleMultiplier: v }))}
+                      className="w-full px-2 py-1.5 rounded-lg bg-[var(--background-secondary)] border border-[var(--border)] text-sm tabular-nums text-[var(--foreground)] focus:outline-none focus:border-[var(--foreground)]/30"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-[var(--text-muted)] mb-1">Min deads (% of power)</label>
+                    <NumberDraftInput
+                      value={config.simpleMinDeadsPct}
+                      onChange={(v) => setConfig((c) => ({ ...c, simpleMinDeadsPct: v }))}
                       className="w-full px-2 py-1.5 rounded-lg bg-[var(--background-secondary)] border border-[var(--border)] text-sm tabular-nums text-[var(--foreground)] focus:outline-none focus:border-[var(--foreground)]/30"
                     />
                   </div>
@@ -1875,6 +1888,7 @@ function DkpPageInner() {
                         { key: 't5Kills' as const, label: 'T5K', align: 'text-right', hide: 'hidden md:table-cell' },
                         { key: 't4Deaths' as const, label: 'T4D', align: 'text-right', hide: 'hidden md:table-cell' },
                         { key: 't5Deaths' as const, label: 'T5D', align: 'text-right', hide: 'hidden md:table-cell' },
+                        { key: 'minDeads' as const, label: 'Deads / Min', align: 'text-right', hide: '' },
                         { key: 'kp' as const, label: 'KP', align: 'text-right', hide: 'hidden lg:table-cell' },
                         { key: 'dkp' as const, label: 'DKP', align: 'text-right', hide: '' },
                         { key: 'ratio' as const, label: 'Ratio', align: 'text-right', hide: '' },
@@ -1943,6 +1957,12 @@ function DkpPageInner() {
                         <td className="hidden md:table-cell px-2 sm:px-3 py-2 text-right font-mono tabular-nums text-[var(--text-muted)]">
                           {fmtM(p.t5Deaths)}
                         </td>
+                        <td className="px-2 sm:px-3 py-2 text-right font-mono tabular-nums">
+                          <span className={p.simpleDeadsPass ? 'text-green-400' : 'text-rose-400'}>
+                            {fmtM(p.simpleTotalDeaths)}
+                          </span>
+                          <span className="text-[var(--text-muted)]"> / {fmtM(Math.round(p.simpleMinDeads))}</span>
+                        </td>
                         <td className="hidden lg:table-cell px-2 sm:px-3 py-2 text-right font-mono tabular-nums text-[var(--text-muted)]">
                           {fmtM(p.totalKP)}
                         </td>
@@ -1969,7 +1989,7 @@ function DkpPageInner() {
                     ))}
                     {simpleFiltered.length === 0 && (
                       <tr>
-                        <td colSpan={isOfficer ? 12 : 9} className="px-3 py-8 text-center text-sm text-[var(--text-muted)]">
+                        <td colSpan={isOfficer ? 13 : 10} className="px-3 py-8 text-center text-sm text-[var(--text-muted)]">
                           {loadingDefault ? t('filters.loading') : t('filters.noPlayers')}
                         </td>
                       </tr>

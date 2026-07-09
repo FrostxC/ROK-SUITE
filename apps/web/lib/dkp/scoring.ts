@@ -56,6 +56,8 @@ export interface Config {
   rankedMinPower: number;
   simpleFormula: SimpleFormula;
   simpleMultiplier: number;
+  /** Required minimum deads as a percentage of the player's power (e.g. 0.5 = 0.5%). */
+  simpleMinDeadsPct: number;
 }
 
 export type Status = 'EXCELLENT' | 'APPROVED' | 'GOOD' | 'REJECTED' | 'UNRANKED';
@@ -137,6 +139,7 @@ export const DEFAULT_CONFIG: Config = {
   rankedMinPower: 15_000_000,
   simpleFormula: { ...DEFAULT_SIMPLE_FORMULA },
   simpleMultiplier: 2,
+  simpleMinDeadsPct: 0.5,
 };
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
