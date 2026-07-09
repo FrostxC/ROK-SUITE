@@ -10,7 +10,7 @@ export const OUR_SEED_KDS = [
   3909,
   3915,
   3922,
-  3923,
+  3709,
   3924,
 ] as const;
 

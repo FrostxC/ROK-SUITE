@@ -56,7 +56,7 @@ export default function AlliancePage() {
           <h1 className="text-3xl font-bold">Alliance</h1>
         </div>
         <p className={theme.textMuted}>
-          How we do things in Angmar Nazgul Guards. Protocols, schedules, and policies
+          How we do things in Emberfall. Protocols, schedules, and policies
           specific to our alliance.
         </p>
       </div>

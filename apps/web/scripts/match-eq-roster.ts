@@ -73,9 +73,9 @@ async function main() {
   const rokstatsCSV = readFileSync('data/PlayersRanking_20260204_084018.csv', 'utf-8');
   const rokstatsRaw = parseCSV(rokstatsCSV);
 
-  // Filter to kingdom 3923 and build lookup maps
-  const rokstats = rokstatsRaw.filter(r => r.KD === '3923');
-  console.log(`ROKstats K3923: ${rokstats.length} players\n`);
+  // Filter to kingdom 3709 and build lookup maps
+  const rokstats = rokstatsRaw.filter(r => r.KD === '3709');
+  console.log(`ROKstats K3709: ${rokstats.length} players\n`);
 
   // Build lookup maps
   const rokstatsByName = new Map<string, Record<string, string>>();

@@ -124,7 +124,7 @@ export function ScansTab({ isOfficer, isAdmin, actorName }: Props) {
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Recipe — Refresh coords on the Zero List before a war</div>
               <ol className="space-y-1 text-xs list-decimal pl-5">
-                <li>You need a fresh location-CSV file (the format with x/y columns — e.g. <code className="text-[var(--text-secondary)]">scan_3923.csv</code>).</li>
+                <li>You need a fresh location-CSV file (the format with x/y columns — e.g. <code className="text-[var(--text-secondary)]">scan_3709.csv</code>).</li>
                 <li>Click the <strong>Location Upload</strong> sub-tab.</li>
                 <li>Click <strong>Choose CSV</strong>, pick the file. Leave &quot;Save as kingdom scan&quot; checked unless you have a reason not to.</li>
                 <li>Wait. You&apos;ll get a green message when it&apos;s done (e.g. &quot;Updated 47 zero-list entries&quot;).</li>
@@ -136,7 +136,7 @@ export function ScansTab({ isOfficer, isAdmin, actorName }: Props) {
               <div className="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">When to use each sub-tab</div>
               <ul className="text-xs space-y-2 list-disc pl-5">
                 <li><strong>Find Candidates</strong> — 95% of the time. The default. Use this unless you have a specific reason not to.</li>
-                <li><strong>Location Upload</strong> — when you have a fresh location CSV (e.g. <code className="text-[var(--text-secondary)]">scan_3923.csv</code>) and want coords on the Zero List. The CSV is processed in-browser and not saved — re-upload whenever you want a fresh refresh.</li>
+                <li><strong>Location Upload</strong> — when you have a fresh location CSV (e.g. <code className="text-[var(--text-secondary)]">scan_3709.csv</code>) and want coords on the Zero List. The CSV is processed in-browser and not saved — re-upload whenever you want a fresh refresh.</li>
                 <li><strong>Browse Scan</strong> — when you want to manually scroll through the whole kingdom (e.g. you&apos;re looking for someone specific by name).</li>
                 <li><strong>Compare</strong> — when you want to drill into one specific scan-pair and see the raw growers/shrinkers/new/departed split. Find Candidates already does this in cards 1 and 2 — Compare is just a manual override.</li>
                 <li><strong>Migrant CSV</strong> — when you want to see <em>everyone</em> in the top-N joined with the migrant sheet, including approved (Yes) people. Find Candidates filters Yes out automatically — Migrant CSV doesn&apos;t.</li>
@@ -148,7 +148,7 @@ export function ScansTab({ isOfficer, isAdmin, actorName }: Props) {
               <ul className="text-xs space-y-1.5 list-disc pl-5">
                 <li><strong>Auto-scrape</strong> (in the Browse / Compare picker) — daily snapshot from the official Lilith API. Always fresh. Power, KP, CH level only. <em>No coords, no alliance, no kill breakdown.</em></li>
                 <li><strong>Kingdom scan</strong> (a.k.a. Davide scan, in the Browse / Compare picker) — the rich power/stats snapshot uploaded via <em>/kingdom/migration-tracker</em>. Has kills, deaths, gathered, helps. Sometimes coords too if a location CSV was merged in at upload time.</li>
-                <li><strong>Location scan</strong> (Location Upload sub-tab only — <em>not</em> in the Browse / Compare picker) — coordinate-focused CSV like <code className="text-[var(--text-secondary)]">scan_3923.csv</code>. Used purely to refresh coords on the Zero List. Ephemeral — not saved.</li>
+                <li><strong>Location scan</strong> (Location Upload sub-tab only — <em>not</em> in the Browse / Compare picker) — coordinate-focused CSV like <code className="text-[var(--text-secondary)]">scan_3709.csv</code>. Used purely to refresh coords on the Zero List. Ephemeral — not saved.</li>
               </ul>
             </div>
 
@@ -1058,7 +1058,7 @@ function LocationPanel({ scans }: { scans: ScanRef[] }) {
       <section className="rounded-xl bg-[var(--background-card)] border border-[var(--border)] p-6">
         <h3 className="text-sm font-semibold text-[var(--foreground)] mb-2">Upload location scan CSV</h3>
         <p className="text-sm text-[var(--text-secondary)] mb-2">
-          Drop a location-scan CSV (e.g. <code className="text-[var(--text-secondary)]">scan_3923.csv</code>). Matches by Gov ID and pushes coordinates + last-seen power + alliance to every Zero List entry. <strong>Only updates existing rows</strong> — doesn&apos;t add or remove anyone.
+          Drop a location-scan CSV (e.g. <code className="text-[var(--text-secondary)]">scan_3709.csv</code>). Matches by Gov ID and pushes coordinates + last-seen power + alliance to every Zero List entry. <strong>Only updates existing rows</strong> — doesn&apos;t add or remove anyone.
         </p>
         <p className="text-xs text-[var(--text-muted)] mb-4">
           Saved separately from kingdom scans (in <code className="text-[var(--text-secondary)]">location_scans</code>). The latest one is auto-applied to <em>Find Candidates</em> rows so the Top 400 list shows coordinates. Location scans and kingdom (Davide) scans are <strong>different things</strong> — they don&apos;t replace each other and this won&apos;t appear in Browse / Compare.

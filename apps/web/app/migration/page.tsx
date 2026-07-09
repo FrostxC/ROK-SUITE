@@ -508,7 +508,7 @@ function MigrationPageInner() {
               <div>
                 <div className="text-xs font-semibold uppercase tracking-wider text-violet-300 mb-2">What is this page?</div>
                 <p className="text-xs">
-                  This is where Angmar leadership decides who shouldn&apos;t be in Kingdom 23 and tracks them through to leaving (emigrating) or being zeroed (attacked until their power drops to ~0). It works by:
+                  This is where Emberfall leadership decides who shouldn&apos;t be in Kingdom 3709 and tracks them through to leaving (emigrating) or being zeroed (attacked until their power drops to ~0). It works by:
                 </p>
                 <ol className="text-xs mt-2 space-y-1 list-decimal pl-5">
                   <li><strong>Identifying targets</strong> — by looking at scans, comparing them, or cross-referencing the migrant-application sheet</li>
@@ -549,7 +549,7 @@ function MigrationPageInner() {
                   <div><strong>Scan</strong> — a snapshot of who&apos;s in the kingdom and what their stats are. Different scan types have different fields.</div>
                   <div><strong>Auto-scrape</strong> — daily scan pulled by a script from the Lilith API. Always fresh but no coords / kills / alliance.</div>
                   <div><strong>Kingdom (Davide) scan</strong> — power/stats snapshot uploaded via Migration Tracker. Has kills, deaths, gathered.</div>
-                  <div><strong>Location scan</strong> — coordinate-focused CSV (e.g. <code className="text-[var(--text-secondary)]">scan_3923.csv</code>). Only used to refresh Zero List coords; not saved.</div>
+                  <div><strong>Location scan</strong> — coordinate-focused CSV (e.g. <code className="text-[var(--text-secondary)]">scan_3709.csv</code>). Only used to refresh Zero List coords; not saved.</div>
                   <div><strong>Gov ID</strong> — governor ID, the unique number for each player. Names can change; gov IDs don&apos;t.</div>
                   <div><strong>Cycle</strong> — a time-bound emigration round (e.g. &quot;April 2026&quot;) with a deadline.</div>
                   <div><strong>Zero List</strong> — the continuous, no-deadline kingdom-wide kill queue.</div>

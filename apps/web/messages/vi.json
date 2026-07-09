@@ -27,12 +27,12 @@
     "language": "Ngôn ngữ"
   },
   "nav": {
-    "siteTitle": "Vương quốc 23",
-    "siteSubtitle": "Được chỉ huy bởi Vệ binh Angmar Nazgul",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "Trang chủ",
     "calendar": "Lịch",
     "roster": "Danh sách",
-    "angmar": "tiếng Anh",
+    "angmar": "Emberfall",
     "events": "Sự kiện",
     "rokMail": "Thư Hàn Quốc",
     "mge": "MGE",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "Vương quốc 23 • Vương quốc trỗi dậy",
-    "title": "ANGMAR",
-    "subtitle": "Vệ binh Nazgul",
-    "builtFor": "Công cụ liên minh Kingdom 23",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "Công cụ Vương quốc",
       "guides": "Hướng dẫn & Tài liệu",
@@ -77,7 +77,7 @@
         "badge": "Thành viên"
       },
       "events": {
-        "title": "Sự kiện Anmar",
+        "title": "Emberfall Events",
         "description": "Kết quả sự kiện, thứ hạng thử thách và theo dõi cạnh tranh",
         "badge": "Kết quả"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "Tài liệu",
-      "copyright": "Vương quốc 23 • Vương quốc trỗi dậy"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "Tính năng thử nghiệm",
     "warningBody": "Những công cụ này đang ở giai đoạn thử nghiệm và có thể có lỗi hoặc tính năng chưa hoàn chỉnh. Chúng được chia sẻ cho mục đích thử nghiệm và phản hồi.",
     "betaBadge": "bản thử nghiệm",
-    "footerBrand": "Đội cận vệ Angmar Nazgul • Sự trỗi dậy của các vương quốc",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "Có phản hồi? Hãy cho chúng tôi biết trên Discord"
   },
   "dkp": {
-    "kingdomLabel": "Vương quốc 3923",
-    "title": "Điểm 3923 Vương quốc DKP",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "Đang tải…",
     "sourcePrefix": "Nguồn: {file}",
     "sourceWithHonor": "Nguồn: {file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "Đăng xuất",
       "signIn": "Cán bộ đăng nhập",
-      "signInTitle": "Sĩ quan Angmar đăng nhập",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "Mật khẩu không chính xác",
       "yourName": "Tên của bạn (tùy chọn)",
       "password": "Mật khẩu sĩ quan",

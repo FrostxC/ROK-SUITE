@@ -1802,7 +1802,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                 </li>
                                 <li className="flex items-start gap-2">
                                     <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#DC143C] text-white text-xs flex items-center justify-center font-bold">2</span>
-                                    <span>Filter by kingdom <strong className="text-[var(--foreground)]">3923</strong> using the filter options</span>
+                                    <span>Filter by kingdom <strong className="text-[var(--foreground)]">3709</strong> using the filter options</span>
                                 </li>
                                 <li className="flex items-start gap-2">
                                     <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#DC143C] text-white text-xs flex items-center justify-center font-bold">3</span>
@@ -2022,7 +2022,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                 className={`px-3 py-2 rounded-lg text-sm border ${theme.input} focus:outline-none focus:ring-2 focus:ring-[#DC143C]`}
                             >
                                 <option value="">All Groups</option>
-                                {isEditor && <option value="angmar-og">Angmar Core</option>}
+                                {isEditor && <option value="angmar-og">Emberfall Core</option>}
                                 <option value="inactive">Inactive</option>
                                 <option value="quit">Quit</option>
                             </select>
@@ -2416,7 +2416,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                                                 {member.governor_id && <NameHistoryBadge previousNames={nameHistory.get(member.governor_id) || []} size="sm" />}
                                             </span>
                                             {isEditor && member.tags?.includes('angmar-og') && (
-                                                <span className="ml-1 sm:ml-2 px-1 sm:px-1.5 py-0.5 text-[8px] sm:text-[10px] font-semibold rounded bg-amber-500/20 text-amber-400" title="Angmar Core">ANG</span>
+                                                <span className="ml-1 sm:ml-2 px-1 sm:px-1.5 py-0.5 text-[8px] sm:text-[10px] font-semibold rounded bg-amber-500/20 text-amber-400" title="Emberfall Core">ANG</span>
                                             )}
                                             {member.tags?.includes('inactive') && (
                                                 <span className="ml-0.5 sm:ml-1 px-1 sm:px-1.5 py-0.5 text-[8px] sm:text-[10px] font-semibold rounded bg-gray-500/20 text-gray-400" title="Inactive">AFK</span>
@@ -6764,7 +6764,7 @@ export function RosterContent({ tab = 'roster' }: RosterContentProps) {
                 })()}
 
                 <footer className={`mt-8 pt-4 border-t ${theme.border} text-center`}>
-                    <p className={`text-xs ${theme.textMuted}`}>Angmar Nazgul Guards - Rise of Kingdoms</p>
+                    <p className={`text-xs ${theme.textMuted}`}>Emberfall - Rise of Kingdoms</p>
                     <p className={`text-[10px] ${theme.textMuted} mt-1 opacity-50`}>
                         Use CSV import to update roster data
                     </p>

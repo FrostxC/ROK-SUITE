@@ -27,12 +27,12 @@
     "language": "Sprache"
   },
   "nav": {
-    "siteTitle": "Königreich 23",
-    "siteSubtitle": "Angeführt von Angmar Nazgul Guards",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "Heim",
     "calendar": "Kalender",
     "roster": "Dienstplan",
-    "angmar": "Angmar",
+    "angmar": "Emberfall",
     "events": "Veranstaltungen",
     "rokMail": "RoK-Mail",
     "mge": "MGE",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "Königreich 23 • Aufstieg der Königreiche",
-    "title": "ANGMAR",
-    "subtitle": "Nazgul-Wächter",
-    "builtFor": "Kingdom 23 Alliance Tools",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "Königreichswerkzeuge",
       "guides": "Anleitungen und Dokumentation",
@@ -77,7 +77,7 @@
         "badge": "Mitglieder"
       },
       "events": {
-        "title": "Angmar-Veranstaltungen",
+        "title": "Emberfall Events",
         "description": "Veranstaltungsergebnisse, Challenge-Ranglisten und Wettbewerbsverfolgung",
         "badge": "Ergebnisse"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "Dokumentation",
-      "copyright": "Königreich 23 • Aufstieg der Königreiche"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "Experimentelle Funktionen",
     "warningBody": "Diese Tools sind experimentell und können Fehler oder unvollständige Funktionen aufweisen. Sie werden zu Test- und Feedbackzwecken weitergegeben.",
     "betaBadge": "Beta",
-    "footerBrand": "Angmar Nazgul-Wachen • Aufstieg der Königreiche",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "Haben Sie Feedback? Lass es uns auf Discord wissen"
   },
   "dkp": {
-    "kingdomLabel": "Königreich 3923",
-    "title": "3923 Kingdom DKP-Score",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "Laden…",
     "sourcePrefix": "Quelle: {file}",
     "sourceWithHonor": "Quelle: {file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "Abmelden",
       "signIn": "Melden Sie sich an",
-      "signInTitle": "Angmar-Offizier meldet sich an",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "Falsches Passwort",
       "yourName": "Ihr Name (optional)",
       "password": "Offizierspasswort",

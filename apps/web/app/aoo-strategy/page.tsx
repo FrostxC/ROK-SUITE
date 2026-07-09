@@ -90,7 +90,7 @@ const ALLIANCES = ['ANG', '23KK', 'KNG', 'EQ'] as const;
 // lib/rok-mail/alliance-descriptions.ts. Empty string = no header line.
 const MAIL_HEADER_PRESETS: Record<string, { label: string; markup: string }> = {
     ANG: {
-        label: 'ANG — Angmar Nazgul Guards',
+        label: 'ANG — Emberfall',
         markup: `<size=30><color=#4d0000>A</color><color=#660000>N</color><color=#800000>G</color><color=#990000>M</color><color=#b30000>A</color><color=#cc0000>R</color> <color=#4d0000>N</color><color=#660000>A</color><color=#800000>Z</color><color=#990000>G</color><color=#b30000>U</color><color=#cc0000>L</color> <color=#e60000>G</color><color=#ff0000>U</color><color=#ff0000>A</color><color=#cc0000>R</color><color=#990000>D</color><color=#800000>S</color></size>`,
     },
     MNG: {
@@ -4224,7 +4224,7 @@ export default function AooStrategyPage() {
                     </section>
 
                     <footer className={`mt-8 pt-4 border-t ${theme.border} text-center`}>
-                        <p className={`text-xs ${theme.textMuted}`}>Angmar • Rise of Kingdoms</p>
+                        <p className={`text-xs ${theme.textMuted}`}>Emberfall • Rise of Kingdoms</p>
                         <p className={`text-[10px] ${theme.textMuted} mt-1 opacity-50`}>🥙 Kebab (BBQ) provides the snacks • Moon provides unsolicited advice</p>
                     </footer>
                 </div>

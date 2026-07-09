@@ -27,12 +27,12 @@
     "language": "语言"
   },
   "nav": {
-    "siteTitle": "王国23",
-    "siteSubtitle": "由安格玛·戒灵卫队领导",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "家",
     "calendar": "日历",
     "roster": "名册",
-    "angmar": "安格玛",
+    "angmar": "Emberfall",
     "events": "活动",
     "rokMail": "韩国邮政",
     "mge": "麦格力",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "王国 23 • 万国崛起",
-    "title": "安格玛",
-    "subtitle": "戒灵卫队",
-    "builtFor": "Kingdom 23 联盟工具",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "王国工具",
       "guides": "指南和文档",
@@ -77,7 +77,7 @@
         "badge": "会员"
       },
       "events": {
-        "title": "安格玛活动",
+        "title": "Emberfall Events",
         "description": "赛事结果、挑战排名和比赛跟踪",
         "badge": "结果"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "文档",
-      "copyright": "王国 23 • 万国崛起"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "实验特点",
     "warningBody": "这些工具是实验性的，可能存在错误或功能不完整。共享它们是为了测试和反馈目的。",
     "betaBadge": "贝塔",
-    "footerBrand": "安格玛·戒灵卫队 • 王国的崛起",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "有反馈吗？请在 Discord 上告诉我们"
   },
   "dkp": {
-    "kingdomLabel": "王国3923",
-    "title": "第3923章 王国DKP分数",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "加载中…",
     "sourcePrefix": "来源：{file}",
     "sourceWithHonor": "来源：{file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "登出",
       "signIn": "官员签到",
-      "signInTitle": "安格玛官员登录",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "密码错误",
       "yourName": "你的名字（可选）",
       "password": "官员密码",

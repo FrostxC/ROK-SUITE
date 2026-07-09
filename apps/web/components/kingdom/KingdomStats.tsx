@@ -43,7 +43,7 @@ const METRICS = [
 const KD_COLORS = ['#818cf8', '#f87171', '#34d399', '#fbbf24', '#fb923c', '#a78bfa', '#22d3ee', '#f472b6', '#a3e635', '#fb7185'];
 
 // Default kingdom to pre-select in the highlight dropdown.
-const DEFAULT_HIGHLIGHT_KD = 3923;
+const DEFAULT_HIGHLIGHT_KD = 3709;
 
 // "T5" floor — players ≥45M power are treated as T5-capable for the recap.
 const T5_POWER_FLOOR = 45_000_000;

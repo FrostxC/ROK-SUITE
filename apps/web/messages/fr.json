@@ -27,12 +27,12 @@
     "language": "Langue"
   },
   "nav": {
-    "siteTitle": "Royaume 23",
-    "siteSubtitle": "Dirigé par les gardes d'Angmar Nazgul",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "Maison",
     "calendar": "Calendrier",
     "roster": "Liste",
-    "angmar": "Angmar",
+    "angmar": "Emberfall",
     "events": "Événements",
     "rokMail": "Courrier de la République de Corée",
     "mge": "MGE",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "Royaume 23 • L'avènement des royaumes",
-    "title": "ANGMAR",
-    "subtitle": "Gardes Nazgul",
-    "builtFor": "Outils d'alliance Kingdom 23",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "Outils du Royaume",
       "guides": "Guides et documentation",
@@ -77,7 +77,7 @@
         "badge": "Membres"
       },
       "events": {
-        "title": "Événements à Angmar",
+        "title": "Emberfall Events",
         "description": "Résultats des événements, classements des défis et suivi des compétitions",
         "badge": "Résultats"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "Documentation",
-      "copyright": "Royaume 23 • L'avènement des royaumes"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "Fonctionnalités expérimentales",
     "warningBody": "Ces outils sont expérimentaux et peuvent présenter des bugs ou des fonctionnalités incomplètes. Ils sont partagés à des fins de tests et de commentaires.",
     "betaBadge": "Bêta",
-    "footerBrand": "Gardes d'Angmar Nazgul • L'avènement des royaumes",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "Vous avez des commentaires ? Faites-le-nous savoir sur Discord"
   },
   "dkp": {
-    "kingdomLabel": "Royaume 3923",
-    "title": "3923 Score DKP du Royaume",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "Chargement…",
     "sourcePrefix": "Source : {file}",
     "sourceWithHonor": "Source : {file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "se déconnecter",
       "signIn": "Connexion de l'agent",
-      "signInTitle": "Connexion d'un officier d'Angmar",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "Mot de passe incorrect",
       "yourName": "Votre nom (facultatif)",
       "password": "Mot de passe officier",

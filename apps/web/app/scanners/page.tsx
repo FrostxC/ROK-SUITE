@@ -388,7 +388,7 @@ export default function ScannersPage() {
         {/* Footer */}
         <footer className="mt-16 pt-6 border-t border-white/5 text-center">
           <p className="text-xs text-[#718096]">
-            Angmar Nazgul Guards • Rise of Kingdoms
+            Emberfall • Rise of Kingdoms
           </p>
         </footer>
       </main>

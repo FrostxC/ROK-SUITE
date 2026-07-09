@@ -27,12 +27,12 @@
     "language": "لغة"
   },
   "nav": {
-    "siteTitle": "المملكة 23",
-    "siteSubtitle": "بقيادة حراس أنجمار نازجول",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "بيت",
     "calendar": "تقويم",
     "roster": "قائمة",
-    "angmar": "أنجمار",
+    "angmar": "Emberfall",
     "events": "الأحداث",
     "rokMail": "بريد روك",
     "mge": "MGE",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "المملكة 23 • صعود الممالك",
-    "title": "أنجمار",
-    "subtitle": "حراس نازجول",
-    "builtFor": "المملكة 23 أدوات التحالف",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "أدوات المملكة",
       "guides": "الأدلة والتوثيق",
@@ -77,7 +77,7 @@
         "badge": "أعضاء"
       },
       "events": {
-        "title": "أحداث أنجمار",
+        "title": "Emberfall Events",
         "description": "نتائج الأحداث، وتصنيفات التحدي، وتتبع المنافسة",
         "badge": "نتائج"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "جيثب",
       "documentation": "التوثيق",
-      "copyright": "المملكة 23 • صعود الممالك"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "الميزات التجريبية",
     "warningBody": "هذه الأدوات تجريبية وقد تحتوي على أخطاء أو ميزات غير مكتملة. تتم مشاركتها لأغراض الاختبار والتعليقات.",
     "betaBadge": "بيتا",
-    "footerBrand": "حراس أنجمار نازجول • صعود الممالك",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "هل لديك تعليقات؟ أخبرنا بذلك على الديسكورد"
   },
   "dkp": {
-    "kingdomLabel": "المملكة 3923",
-    "title": "3923 درجة المملكة DKP",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "تحميل…",
     "sourcePrefix": "المصدر: {file}",
     "sourceWithHonor": "المصدر: {file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "تسجيل الخروج",
       "signIn": "تسجيل دخول الضابط",
-      "signInTitle": "ضابط أنجمار تسجيل الدخول",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "كلمة مرور غير صحيحة",
       "yourName": "اسمك (اختياري)",
       "password": "كلمة مرور الضابط",

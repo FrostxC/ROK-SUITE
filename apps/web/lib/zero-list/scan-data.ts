@@ -18,7 +18,7 @@ import type { Scan, ScanPlayer } from '@/lib/kingdom/types';
 import type { Player as DkpPlayer } from '@/app/dkp/data';
 
 /** K23. Other kingdoms exist in seeds_kd but the Zero List is K23-scoped. */
-export const KINGDOM_ID = 3923;
+export const KINGDOM_ID = 3709;
 
 // ─── Scan reads ─────────────────────────────────────────────────────────────
 

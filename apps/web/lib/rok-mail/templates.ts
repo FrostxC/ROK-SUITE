@@ -31,7 +31,7 @@ export const MAIL_TEMPLATES: MailTemplate[] = [
     id: 'ang-mail',
     name: 'Angmar Mail',
     category: 'angmar',
-    description: 'Standard Angmar Nazgul Guards alliance mail format',
+    description: 'Standard Emberfall alliance mail format',
     content: `<size=30px><color=#4d0000>A</color><color=#660000>N</color><color=#800000>G</color><color=#990000>M</color><color=#b30000>A</color><color=#cc0000>R</color> <color=#4d0000>N</color><color=#660000>A</color><color=#800000>Z</color><color=#990000>G</color><color=#b30000>U</color><color=#cc0000>L</color> <color=#e60000>G</color><color=#ff0000>U</color><color=#ff0000>A</color><color=#cc0000>R</color><color=#990000>D</color><color=#800000>S</color></size>
 ►═════════❂❂❂═════════◄
 
@@ -133,8 +133,8 @@ Your message here.
     id: 'kingdom-mail',
     name: 'Kingdom Mail',
     category: 'kingdom',
-    description: 'Standard Kingdom 3923 mail format',
-    content: `<size=30px><color=#4d0000>KINGDOM 3923</color> <color=#cc0000>—</color> <color=#4d0000>A</color><color=#660000>N</color><color=#800000>G</color><color=#990000>M</color><color=#b30000>A</color><color=#cc0000>R</color> <color=#4d0000>N</color><color=#660000>A</color><color=#800000>Z</color><color=#990000>G</color><color=#b30000>U</color><color=#cc0000>L</color> <color=#e60000>G</color><color=#ff0000>U</color><color=#ff0000>A</color><color=#cc0000>R</color><color=#990000>D</color><color=#800000>S</color></size>
+    description: 'Standard Kingdom 3709 mail format',
+    content: `<size=30px><color=#4d0000>KINGDOM 3709</color> <color=#cc0000>—</color> <color=#4d0000>E</color><color=#660000>M</color><color=#800000>B</color><color=#990000>E</color><color=#b30000>R</color><color=#cc0000>F</color><color=#e60000>A</color><color=#ff0000>L</color><color=#cc0000>L</color></size>
 ►═════════❂❂❂═════════◄
 
 <b><color=#ff3333>SUBJECT TITLE HERE</color></b>
@@ -149,7 +149,7 @@ Your message here.
     name: 'Training Buff',
     category: 'kingdom',
     description: 'Kingdom training buff announcement with Duke title stacking',
-    content: `<size=30px><color=#4d0000>KINGDOM 3923</color> <color=#cc0000>—</color> <color=#4d0000>A</color><color=#660000>N</color><color=#800000>G</color><color=#990000>M</color><color=#b30000>A</color><color=#cc0000>R</color> <color=#4d0000>N</color><color=#660000>A</color><color=#800000>Z</color><color=#990000>G</color><color=#b30000>U</color><color=#cc0000>L</color> <color=#e60000>G</color><color=#ff0000>U</color><color=#ff0000>A</color><color=#cc0000>R</color><color=#990000>D</color><color=#800000>S</color></size>
+    content: `<size=30px><color=#4d0000>KINGDOM 3709</color> <color=#cc0000>—</color> <color=#4d0000>E</color><color=#660000>M</color><color=#800000>B</color><color=#990000>E</color><color=#b30000>R</color><color=#cc0000>F</color><color=#e60000>A</color><color=#ff0000>L</color><color=#cc0000>L</color></size>
 ►═════════❂❂❂═════════◄
 
 <b><color=#ff3333>KINGDOM TRAINING BUFF</color></b>
@@ -170,7 +170,7 @@ Stack everything: <color=#ff3333>15% rune</color> + <color=#ff3333>10% KD buff</
     name: 'Research Buff',
     category: 'kingdom',
     description: 'Kingdom research buff announcement with Scientist title stacking',
-    content: `<size=30px><color=#4d0000>KINGDOM 3923</color> <color=#cc0000>—</color> <color=#4d0000>A</color><color=#660000>N</color><color=#800000>G</color><color=#990000>M</color><color=#b30000>A</color><color=#cc0000>R</color> <color=#4d0000>N</color><color=#660000>A</color><color=#800000>Z</color><color=#990000>G</color><color=#b30000>U</color><color=#cc0000>L</color> <color=#e60000>G</color><color=#ff0000>U</color><color=#ff0000>A</color><color=#cc0000>R</color><color=#990000>D</color><color=#800000>S</color></size>
+    content: `<size=30px><color=#4d0000>KINGDOM 3709</color> <color=#cc0000>—</color> <color=#4d0000>E</color><color=#660000>M</color><color=#800000>B</color><color=#990000>E</color><color=#b30000>R</color><color=#cc0000>F</color><color=#e60000>A</color><color=#ff0000>L</color><color=#cc0000>L</color></size>
 ►═════════❂❂❂═════════◄
 
 <b><color=#3399ff>KINGDOM RESEARCH BUFF</color></b>
@@ -191,7 +191,7 @@ Stack everything: <color=#3399ff>15% rune</color> + <color=#3399ff>10% KD buff</
     name: 'Building Buff',
     category: 'kingdom',
     description: 'Kingdom building buff announcement with Architect title stacking',
-    content: `<size=30px><color=#4d0000>KINGDOM 3923</color> <color=#cc0000>—</color> <color=#4d0000>A</color><color=#660000>N</color><color=#800000>G</color><color=#990000>M</color><color=#b30000>A</color><color=#cc0000>R</color> <color=#4d0000>N</color><color=#660000>A</color><color=#800000>Z</color><color=#990000>G</color><color=#b30000>U</color><color=#cc0000>L</color> <color=#e60000>G</color><color=#ff0000>U</color><color=#ff0000>A</color><color=#cc0000>R</color><color=#990000>D</color><color=#800000>S</color></size>
+    content: `<size=30px><color=#4d0000>KINGDOM 3709</color> <color=#cc0000>—</color> <color=#4d0000>E</color><color=#660000>M</color><color=#800000>B</color><color=#990000>E</color><color=#b30000>R</color><color=#cc0000>F</color><color=#e60000>A</color><color=#ff0000>L</color><color=#cc0000>L</color></size>
 ►═════════❂❂❂═════════◄
 
 <b><color=#33cc66>KINGDOM BUILDING BUFF</color></b>

@@ -360,7 +360,7 @@ export async function confirmZeroed(id: string, officerName: string) {
  *  timestamp per gov_id. Cases not present in either are left unchanged. */
 export async function syncZeroListNamesFromLatestScans(): Promise<{ checked: number; renamed: number }> {
   const sb = createClient();
-  const KINGDOM_ID = 3923;
+  const KINGDOM_ID = 3709;
 
   // 1) Pull all migration_cases (zero_list + cycle — both surface in the Zero List view).
   const { data: cases, error: e1 } = await sb

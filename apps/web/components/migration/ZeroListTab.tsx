@@ -76,11 +76,11 @@ function fmtDelayRemaining(iso: string): string {
 // dropdown shows entries top-to-bottom.
 const MAIL_HEADER_PRESETS: Record<string, { label: string; markup: string }> = {
   kingdom: {
-    label: 'Kingdom 3923',
-    markup: `<size=30px><color=#4d0000>KINGDOM 3923</color> <color=#cc0000>—</color> <color=#4d0000>A</color><color=#660000>N</color><color=#800000>G</color><color=#990000>M</color><color=#b30000>A</color><color=#cc0000>R</color> <color=#4d0000>N</color><color=#660000>A</color><color=#800000>Z</color><color=#990000>G</color><color=#b30000>U</color><color=#cc0000>L</color> <color=#e60000>G</color><color=#ff0000>U</color><color=#ff0000>A</color><color=#cc0000>R</color><color=#990000>D</color><color=#800000>S</color></size>`,
+    label: 'Kingdom 3709',
+    markup: `<size=30px><color=#4d0000>KINGDOM 3709</color> <color=#cc0000>—</color> <color=#4d0000>E</color><color=#660000>M</color><color=#800000>B</color><color=#990000>E</color><color=#b30000>R</color><color=#cc0000>F</color><color=#e60000>A</color><color=#ff0000>L</color><color=#cc0000>L</color></size>`,
   },
   ANG: {
-    label: 'ANG — Angmar Nazgul Guards',
+    label: 'ANG — Emberfall',
     markup: `<size=30><color=#4d0000>A</color><color=#660000>N</color><color=#800000>G</color><color=#990000>M</color><color=#b30000>A</color><color=#cc0000>R</color> <color=#4d0000>N</color><color=#660000>A</color><color=#800000>Z</color><color=#990000>G</color><color=#b30000>U</color><color=#cc0000>L</color> <color=#e60000>G</color><color=#ff0000>U</color><color=#ff0000>A</color><color=#cc0000>R</color><color=#990000>D</color><color=#800000>S</color></size>`,
   },
   MNG: {
@@ -492,7 +492,7 @@ export function ZeroListTab({ isOfficer, isAdmin, actorName }: Props) {
               <div className="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Recipe — Admin, fresh coordinates before a war</div>
               <ol className="space-y-1 text-xs list-decimal pl-5">
                 <li>Open <strong>Scans → Location Upload</strong>.</li>
-                <li>Drop your <code className="text-[var(--text-secondary)]">scan_3923.csv</code> file. Leave &quot;Save as kingdom scan&quot; checked.</li>
+                <li>Drop your <code className="text-[var(--text-secondary)]">scan_3709.csv</code> file. Leave &quot;Save as kingdom scan&quot; checked.</li>
                 <li>Within a second, every Zero List entry whose Gov ID is in the file gets fresh coords + power + alliance.</li>
                 <li>Power members can now click coords on this tab and get accurate locations.</li>
               </ol>

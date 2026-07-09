@@ -76,7 +76,7 @@ export const commanderHashes: CommanderHash[] = [
   {
     id: 'centurion',
     name: 'Centurion',
-    phash: 'a94a949b51ad196c9f96869da39c68b6bcd393640f652d92b32de439233e4959',
+    phash: 'a94a949b51ad196c9f96869da39c68b6bcd393640f652d92b32de437093e4959',
     ahash: '01ff01ff00ff01ff3e3f0c9f0eff03ff01f701e700e7007f032000400000f800',
     dhash: '0bb023288fad376ce536d93619b6def6079617de03ce1b46774ec4ceb09c2120',
   },

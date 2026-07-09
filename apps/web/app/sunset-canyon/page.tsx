@@ -750,7 +750,7 @@ export default function SunsetCanyonPage() {
         {/* Footer */}
         <footer className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center border-t border-white/5">
           <p className="text-xs text-[#718096]">
-            Angmar Nazgul Guards • Rise of Kingdoms
+            Emberfall • Rise of Kingdoms
           </p>
           <p className="text-[10px] text-[#718096] mt-1">
             Fueled by kebabs 🥙 • Blessed by Soutz

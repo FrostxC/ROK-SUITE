@@ -15,7 +15,7 @@ import {
 const PUBLIC_CALENDARS = [
     {
         id: '2aed069b30c3f3501b64ef982441f597b833e3db8b855488f734efe1b9552040@group.calendar.google.com',
-        name: 'Angmar Alliance',
+        name: 'Emberfall Alliance',
         color: '#ef4444',
     },
     {
@@ -1248,7 +1248,7 @@ export default function CalendarPage() {
                             </div>
                             <div>
                                 <h1 className="text-xl sm:text-2xl font-semibold tracking-tight">Event Calendar</h1>
-                                <p className="text-xs sm:text-sm text-[var(--text-secondary)] hidden sm:block">Kingdom 23 events and Angmar alliance activities</p>
+                                <p className="text-xs sm:text-sm text-[var(--text-secondary)] hidden sm:block">Kingdom 3709 events and Emberfall alliance activities</p>
                             </div>
                         </div>
                         {isAdmin ? (

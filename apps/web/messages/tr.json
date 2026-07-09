@@ -27,12 +27,12 @@
     "language": "Dil"
   },
   "nav": {
-    "siteTitle": "Krallık 23",
-    "siteSubtitle": "Angmar Nazgul Muhafızları liderliğinde",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "Ev",
     "calendar": "Takvim",
     "roster": "Kadro",
-    "angmar": "Angmar'ın",
+    "angmar": "Emberfall",
     "events": "Olaylar",
     "rokMail": "RoK Postası",
     "mge": "MGE",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "Krallık 23 • Krallıkların Yükselişi",
-    "title": "ANGMAR",
-    "subtitle": "Nazgül Muhafızları",
-    "builtFor": "Krallık 23 İttifak Araçları",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "Krallık Araçları",
       "guides": "Kılavuzlar ve Dokümantasyon",
@@ -77,7 +77,7 @@
         "badge": "Üyeler"
       },
       "events": {
-        "title": "Angmar Etkinlikleri",
+        "title": "Emberfall Events",
         "description": "Etkinlik sonuçları, mücadele sıralamaları ve rekabet takibi",
         "badge": "Sonuçlar"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "Dokümantasyon",
-      "copyright": "Krallık 23 • Krallıkların Yükselişi"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "Deneysel özellikler",
     "warningBody": "Bu araçlar deneyseldir ve hatalar veya eksik özellikler içerebilir. Test ve geri bildirim amacıyla paylaşılırlar.",
     "betaBadge": "Beta",
-    "footerBrand": "Angmar Nazgul Muhafızları • Rise of Kingdoms",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "Geri bildiriminiz var mı? Discord'dan bize bildirin"
   },
   "dkp": {
-    "kingdomLabel": "Krallık 3923",
-    "title": "3923 Krallık DKP Puanı",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "Yükleniyor…",
     "sourcePrefix": "Kaynak: {file}",
     "sourceWithHonor": "Kaynak: {file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "oturumu Kapat",
       "signIn": "Memur giriş yapıyor",
-      "signInTitle": "Angmar subayı oturum aç",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "Yanlış şifre",
       "yourName": "Adınız (isteğe bağlı)",
       "password": "Memur şifresi",

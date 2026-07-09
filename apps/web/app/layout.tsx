@@ -30,8 +30,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ANGMAR - Kingdom 23 - RoK",
-  description: "Angmar Nazgul Guards - Rise of Kingdoms Kingdom 23 alliance tools and battle planning",
+  title: "EMBERFALL — Kingdom 3709 — RoK",
+  description: "Emberfall — Rise of Kingdoms Kingdom 3709 alliance tools and battle planning",
   icons: {
     icon: "/favicon.svg",
   },

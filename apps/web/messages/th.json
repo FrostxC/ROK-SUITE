@@ -27,12 +27,12 @@
     "language": "ภาษา"
   },
   "nav": {
-    "siteTitle": "อาณาจักร 23",
-    "siteSubtitle": "นำโดยองครักษ์อังมาร์ นาซกุล",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "บ้าน",
     "calendar": "ปฏิทิน",
     "roster": "บัญชีรายชื่อ",
-    "angmar": "อังมาร์",
+    "angmar": "Emberfall",
     "events": "กิจกรรม",
     "rokMail": "ร็อคเมล์",
     "mge": "เอ็มจีอี",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "อาณาจักร 23 • กำเนิดอาณาจักร",
-    "title": "อังมาร์",
-    "subtitle": "นาซกุล การ์ด",
-    "builtFor": "เครื่องมือพันธมิตร Kingdom 23",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "เครื่องมืออาณาจักร",
       "guides": "คำแนะนำและเอกสารประกอบ",
@@ -77,7 +77,7 @@
         "badge": "สมาชิก"
       },
       "events": {
-        "title": "เหตุการณ์อังมาร์",
+        "title": "Emberfall Events",
         "description": "ผลการแข่งขัน การจัดอันดับความท้าทาย และการติดตามการแข่งขัน",
         "badge": "ผลลัพธ์"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "เอกสารประกอบ",
-      "copyright": "อาณาจักร 23 • กำเนิดอาณาจักร"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "คุณสมบัติการทดลอง",
     "warningBody": "เครื่องมือเหล่านี้เป็นการทดลองและอาจมีข้อบกพร่องหรือคุณสมบัติที่ไม่สมบูรณ์ มีการใช้ร่วมกันเพื่อการทดสอบและข้อเสนอแนะ",
     "betaBadge": "เบต้า",
-    "footerBrand": "องครักษ์อังมาร์ นาซกุล • กำเนิดอาณาจักร",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "มีข้อเสนอแนะ? แจ้งให้เราทราบบน Discord"
   },
   "dkp": {
-    "kingdomLabel": "ราชอาณาจักร 3923",
-    "title": "3923 คะแนน DKP ของอาณาจักร",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "กำลังโหลด...",
     "sourcePrefix": "ที่มา: {file}",
     "sourceWithHonor": "ที่มา: {file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "ออกจากระบบ",
       "signIn": "เจ้าหน้าที่เข้าระบบ",
-      "signInTitle": "เจ้าหน้าที่ Angmar ลงชื่อเข้าใช้",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "รหัสผ่านไม่ถูกต้อง",
       "yourName": "ชื่อของคุณ (ไม่บังคับ)",
       "password": "รหัสผ่านเจ้าหน้าที่",

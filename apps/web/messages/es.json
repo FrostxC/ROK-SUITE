@@ -27,12 +27,12 @@
     "language": "Idioma"
   },
   "nav": {
-    "siteTitle": "Reino 23",
-    "siteSubtitle": "Liderados por los guardias Angmar Nazgul",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "Hogar",
     "calendar": "Calendario",
     "roster": "Lista",
-    "angmar": "Angmar",
+    "angmar": "Emberfall",
     "events": "Eventos",
     "rokMail": "Correo de Corea del Sur",
     "mge": "MGE",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "Reino 23 • El surgimiento de los reinos",
-    "title": "ANGMAR",
-    "subtitle": "Guardias Nazgul",
-    "builtFor": "Herramientas de la Alianza Kingdom 23",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "Herramientas del Reino",
       "guides": "Guías y documentación",
@@ -77,7 +77,7 @@
         "badge": "Miembros"
       },
       "events": {
-        "title": "Eventos Angmar",
+        "title": "Emberfall Events",
         "description": "Resultados de eventos, clasificaciones de desafíos y seguimiento de competencias",
         "badge": "Resultados"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "Documentación",
-      "copyright": "Reino 23 • El surgimiento de los reinos"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "Funciones experimentales",
     "warningBody": "Estas herramientas son experimentales y pueden tener errores o funciones incompletas. Se comparten con fines de prueba y comentarios.",
     "betaBadge": "Beta",
-    "footerBrand": "Guardias Angmar Nazgul • Rise of Kingdoms",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "¿Tiene comentarios? Háganos saber en Discord"
   },
   "dkp": {
-    "kingdomLabel": "Reino 3923",
-    "title": "Puntuación DKP del Reino 3923",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "Cargando…",
     "sourcePrefix": "Fuente: {file}",
     "sourceWithHonor": "Fuente: {file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "desconectar",
       "signIn": "Oficial de inicio de sesión",
-      "signInTitle": "Oficial de Angmar iniciar sesión",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "Contraseña incorrecta",
       "yourName": "Tu nombre (opcional)",
       "password": "Contraseña de oficial",

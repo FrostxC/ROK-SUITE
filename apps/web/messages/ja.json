@@ -27,12 +27,12 @@
     "language": "言語"
   },
   "nav": {
-    "siteTitle": "キングダム23",
-    "siteSubtitle": "アングマール・ナズグル親衛隊が率いる",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "家",
     "calendar": "カレンダー",
     "roster": "名簿",
-    "angmar": "アングマール",
+    "angmar": "Emberfall",
     "events": "イベント",
     "rokMail": "RoKメール",
     "mge": "MGE",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "キングダム 23 • ライズ オブ キングダム",
-    "title": "アングマール",
-    "subtitle": "ナズグル衛兵",
-    "builtFor": "Kingdom 23 アライアンス ツール",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "王国の道具",
       "guides": "ガイドとドキュメント",
@@ -77,7 +77,7 @@
         "badge": "メンバー"
       },
       "events": {
-        "title": "アングマールのイベント",
+        "title": "Emberfall Events",
         "description": "イベントの結果、チャレンジのランキング、および競争の追跡",
         "badge": "結果"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "ドキュメント",
-      "copyright": "キングダム 23 • ライズ オブ キングダム"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "実験的な機能",
     "warningBody": "これらのツールは実験的なものであり、バグや不完全な機能が含まれている可能性があります。これらはテストとフィードバックの目的で共有されます。",
     "betaBadge": "ベータ",
-    "footerBrand": "アングマール・ナズグル衛兵隊 • ライズ・オブ・キングダム",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "フィードバックがありますか? Discordで知らせてください"
   },
   "dkp": {
-    "kingdomLabel": "キングダム 3923",
-    "title": "3923 キングダム DKP スコア",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "読み込み中…",
     "sourcePrefix": "出典: {file}",
     "sourceWithHonor": "出典: {file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "サインアウト",
       "signIn": "役員のサインイン",
-      "signInTitle": "アングマール役員のサインイン",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "パスワードが間違っています",
       "yourName": "あなたの名前 (オプション)",
       "password": "役員パスワード",

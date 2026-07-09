@@ -27,12 +27,12 @@
     "language": "Язык"
   },
   "nav": {
-    "siteTitle": "Королевство 23",
-    "siteSubtitle": "Под предводительством ангмарских гвардейцев-назгулов.",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "Дом",
     "calendar": "Календарь",
     "roster": "Состав",
-    "angmar": "Ангмар",
+    "angmar": "Emberfall",
     "events": "События",
     "rokMail": "Почта РК",
     "mge": "МГЭ",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "Королевство 23 • Восстание королевств",
-    "title": "АНГМАР",
-    "subtitle": "Назгул Стражи",
-    "builtFor": "Инструменты Альянса Kingdom 23",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "Инструменты Царства",
       "guides": "Руководства и документация",
@@ -77,7 +77,7 @@
         "badge": "Члены"
       },
       "events": {
-        "title": "Ангмарские события",
+        "title": "Emberfall Events",
         "description": "Результаты событий, рейтинги задач и отслеживание соревнований.",
         "badge": "Результаты"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "Документация",
-      "copyright": "Королевство 23 • Восстание королевств"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "Экспериментальные возможности",
     "warningBody": "Эти инструменты являются экспериментальными и могут содержать ошибки или неполные функции. Они доступны для тестирования и обратной связи.",
     "betaBadge": "Бета",
-    "footerBrand": "Ангмарские назгулы-стражи • Rise of Kingdoms",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "Есть отзывы? Дайте нам знать в Discord"
   },
   "dkp": {
-    "kingdomLabel": "Королевство 3923",
-    "title": "3923 Королевство DKP Оценка",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "Загрузка…",
     "sourcePrefix": "Источник: {file}",
     "sourceWithHonor": "Источник: {file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "выход",
       "signIn": "Вход в систему офицера",
-      "signInTitle": "Вход в систему офицера Ангмара",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "Неправильный пароль",
       "yourName": "Ваше имя (необязательно)",
       "password": "Пароль офицера",

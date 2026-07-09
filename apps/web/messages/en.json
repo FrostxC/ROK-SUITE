@@ -27,13 +27,13 @@
     "language": "Language"
   },
   "nav": {
-    "siteTitle": "Kingdom 23",
-    "siteSubtitle": "Led by Angmar Nazgul Guards",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "Home",
     "calendar": "Calendar",
     "roster": "Roster",
     "recognition": "Recognition",
-    "angmar": "Angmar",
+    "angmar": "Emberfall",
     "events": "Events",
     "rokMail": "RoK Mail",
     "mge": "MGE",
@@ -57,10 +57,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "Kingdom 23 • Rise of Kingdoms",
-    "title": "ANGMAR",
-    "subtitle": "Nazgul Guards",
-    "builtFor": "Kingdom 23 Alliance Tools",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "Kingdom Tools",
       "guides": "Guides & Documentation",
@@ -83,7 +83,7 @@
         "badge": "Awards"
       },
       "events": {
-        "title": "Angmar Events",
+        "title": "Emberfall Events",
         "description": "Event results, challenge rankings, and competition tracking",
         "badge": "Results"
       },
@@ -158,7 +158,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "Documentation",
-      "copyright": "Kingdom 23 • Rise of Kingdoms"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -785,12 +785,12 @@
     "subtitle": "Experimental features",
     "warningBody": "These tools are experimental and may have bugs or incomplete features. They're shared for testing and feedback purposes.",
     "betaBadge": "Beta",
-    "footerBrand": "Angmar Nazgul Guards • Rise of Kingdoms",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "Have feedback? Let us know on Discord"
   },
   "dkp": {
-    "kingdomLabel": "Kingdom 3923",
-    "title": "3923 Kingdom DKP Score",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "Loading…",
     "sourcePrefix": "Source: {file}",
     "sourceWithHonor": "Source: {file} + {honor}",
@@ -1029,7 +1029,7 @@
     "officer": {
       "signOut": "Sign out",
       "signIn": "Officer sign in",
-      "signInTitle": "Angmar officer sign in",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "Incorrect password",
       "yourName": "Your name (optional)",
       "password": "Officer password",

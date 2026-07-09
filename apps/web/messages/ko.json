@@ -27,12 +27,12 @@
     "language": "언어"
   },
   "nav": {
-    "siteTitle": "킹덤 23",
-    "siteSubtitle": "앙마르 나즈굴 경비대가 이끄는",
+    "siteTitle": "Emberfall",
+    "siteSubtitle": "Kingdom 3709 · Rise of Kingdoms",
     "home": "집",
     "calendar": "달력",
     "roster": "명단",
-    "angmar": "앙마르",
+    "angmar": "Emberfall",
     "events": "이벤트",
     "rokMail": "한국메일",
     "mge": "MGE",
@@ -56,10 +56,10 @@
     "commanders": "Commanders"
   },
   "home": {
-    "tagline": "킹덤 23 • 라이즈 오브 킹덤즈",
-    "title": "앙마르",
-    "subtitle": "나즈굴 경비대",
-    "builtFor": "킹덤 23 동맹 도구",
+    "tagline": "Kingdom 3709 • Rise of Kingdoms",
+    "title": "EMBERFALL",
+    "subtitle": "Forged in Fire",
+    "builtFor": "Kingdom 3709 Alliance Tools",
     "sections": {
       "interactiveTools": "왕국 도구",
       "guides": "가이드 및 문서",
@@ -77,7 +77,7 @@
         "badge": "회원"
       },
       "events": {
-        "title": "앙마르 이벤트",
+        "title": "Emberfall Events",
         "description": "이벤트 결과, 챌린지 순위, 경쟁 추적",
         "badge": "결과"
       },
@@ -153,7 +153,7 @@
     "footer": {
       "github": "GitHub",
       "documentation": "선적 서류 비치",
-      "copyright": "킹덤 23 • 라이즈 오브 킹덤즈"
+      "copyright": "Kingdom 3709 • Rise of Kingdoms"
     }
   },
   "roster": {
@@ -780,12 +780,12 @@
     "subtitle": "실험적 기능",
     "warningBody": "이러한 도구는 실험적이므로 버그나 불완전한 기능이 있을 수 있습니다. 테스트 및 피드백 목적으로 공유됩니다.",
     "betaBadge": "베타",
-    "footerBrand": "앙마르 나즈굴 경비대 • 라이즈 오브 킹덤즈",
+    "footerBrand": "Emberfall • Kingdom 3709 • Rise of Kingdoms",
     "footerFeedback": "피드백이 있으신가요? Discord에 알려주세요"
   },
   "dkp": {
-    "kingdomLabel": "왕국 3923",
-    "title": "3923 왕국 DKP 점수",
+    "kingdomLabel": "Kingdom 3709",
+    "title": "3709 Kingdom DKP Score",
     "sourceLoading": "로드 중…",
     "sourcePrefix": "출처: {file}",
     "sourceWithHonor": "출처: {file} + {honor}",
@@ -1017,7 +1017,7 @@
     "officer": {
       "signOut": "로그아웃",
       "signIn": "담당자 로그인",
-      "signInTitle": "Angmar 장교 로그인",
+      "signInTitle": "Officer sign in",
       "incorrectPassword": "잘못된 비밀번호",
       "yourName": "귀하의 이름 (선택 사항)",
       "password": "임원 비밀번호",
