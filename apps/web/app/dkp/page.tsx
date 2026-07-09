@@ -232,6 +232,7 @@ const nf = new Intl.NumberFormat('en-US');
 const fmt = (n: number) => nf.format(Math.round(n));
 /** Format large numbers as millions with 2 decimals (e.g. 69_861_875 → "69.86M"). */
 const fmtM = (n: number) => `${(n / 1_000_000).toFixed(2)}M`;
+const fmtK = (n: number) => `${(n / 1_000).toFixed(0)}K`;
 /** Display the final score as a 0–100 number rounded to one decimal. */
 const fmtScore = (n: number) => n.toFixed(1);
 /** Format as millions, clamped to 0. If the raw value is negative, show 0.00M with a warning tooltip. */
@@ -1952,16 +1953,16 @@ function DkpPageInner() {
                           {fmtM(p.t5Kills)}
                         </td>
                         <td className="hidden md:table-cell px-2 sm:px-3 py-2 text-right font-mono tabular-nums text-[var(--text-muted)]">
-                          {fmtM(p.t4Deaths)}
+                          {fmtK(p.t4Deaths)}
                         </td>
                         <td className="hidden md:table-cell px-2 sm:px-3 py-2 text-right font-mono tabular-nums text-[var(--text-muted)]">
-                          {fmtM(p.t5Deaths)}
+                          {fmtK(p.t5Deaths)}
                         </td>
                         <td className="px-2 sm:px-3 py-2 text-right font-mono tabular-nums">
                           <span className={p.simpleDeadsPass ? 'text-green-400' : 'text-rose-400'}>
-                            {fmtM(p.simpleTotalDeaths)}
+                            {fmtK(p.simpleTotalDeaths)}
                           </span>
-                          <span className="text-[var(--text-muted)]"> / {fmtM(Math.round(p.simpleMinDeads))}</span>
+                          <span className="text-[var(--text-muted)]"> / {fmtK(Math.round(p.simpleMinDeads))}</span>
                         </td>
                         <td className="hidden lg:table-cell px-2 sm:px-3 py-2 text-right font-mono tabular-nums text-[var(--text-muted)]">
                           {fmtM(p.totalKP)}
