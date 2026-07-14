@@ -285,11 +285,13 @@ export default function Home() {
               {'EMBERFALL'.split('').map((ch, i) => (
                 <span
                   key={i}
-                  className="hero-letter"
+                  className="hero-letter-wrap"
                   aria-hidden
-                  style={{ animationDelay: `${0.25 + i * 0.09}s` }}
+                  style={{ animationDelay: `${0.28 + i * 0.05}s` }}
                 >
-                  {ch}
+                  <span className="hero-letter" style={{ animationDelay: `${0.25 + i * 0.09}s` }}>
+                    {ch}
+                  </span>
                 </span>
               ))}
               <span className="hero-arrow" aria-hidden>
