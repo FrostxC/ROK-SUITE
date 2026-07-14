@@ -137,9 +137,21 @@ export default function Home() {
     return () => { target.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); };
   }, []);
 
-  // Kingdom stat band — aggregated from the live roster; hidden if unavailable
+  // Kingdom stat band — bundled kingdom dataset paints immediately; the live
+  // roster overwrites it if/when the database responds with data.
   useEffect(() => {
     let cancelled = false;
+    fetch('/data/players_data.json')
+      .then((r) => r.json())
+      .then((players: { power: number; totalKP?: number }[]) => {
+        if (cancelled || !Array.isArray(players) || !players.length) return;
+        setKingdom((k) => k ?? {
+          power: players.reduce((s, p) => s + (p.power || 0), 0),
+          kills: players.reduce((s, p) => s + (p.totalKP || 0), 0),
+          warriors: players.length,
+        });
+      })
+      .catch(() => {});
     (async () => {
       try {
         const supabase = createClient();
@@ -153,11 +165,44 @@ export default function Home() {
           warriors: rows.length,
         });
       } catch {
-        /* stat band simply stays hidden */
+        /* bundled numbers already shown */
       }
     })();
     return () => { cancelled = true; };
   }, []);
+
+  // Crimson scroll-progress bar (the page scrolls inside the AppSidebar <main>)
+  const progressRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const scroller = progressRef.current?.closest('main');
+    if (!scroller) return;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const bar = progressRef.current?.firstElementChild as HTMLElement | null;
+        if (!bar) return;
+        const max = scroller.scrollHeight - scroller.clientHeight;
+        bar.style.width = max > 0 ? `${(scroller.scrollTop / max) * 100}%` : '0%';
+      });
+    };
+    scroller.addEventListener('scroll', onScroll, { passive: true });
+    return () => { scroller.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, []);
+
+  // 3D tilt for tool cards (pointer devices only)
+  const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = `perspective(700px) rotateX(${(-py * 6).toFixed(2)}deg) rotateY(${(px * 8).toFixed(2)}deg) translateY(-3px)`;
+  };
+  const resetTilt = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.transform = '';
+  };
 
   const tools = [
     { href: '/calendar', titleKey: 'tools.calendar.title', descriptionKey: 'tools.calendar.description', icon: Calendar },
@@ -177,6 +222,8 @@ export default function Home() {
   return (
     <AppSidebar>
       <div className="min-h-screen bg-[var(--background)]">
+        {/* Scroll progress */}
+        <div ref={progressRef} className="scroll-progress"><div /></div>
         {/* ============================== HERO ============================== */}
         <section
           ref={heroRef}
@@ -246,7 +293,7 @@ export default function Home() {
             <div className="anim-rise mt-10 flex flex-col sm:flex-row items-center justify-center gap-4" style={{ animationDelay: '0.6s' }}>
               <Link
                 href="/apply"
-                className="group relative px-8 py-3.5 rounded-[8px] font-semibold text-sm tracking-[0.14em] uppercase text-white bg-gradient-to-b from-[#DC143C] to-[#8B0000] border border-[#DC143C]/40 shadow-[0_6px_28px_rgba(139,0,0,0.45)] transition-all duration-300 hover:shadow-[0_8px_40px_rgba(220,20,60,0.55)] hover:-translate-y-0.5"
+                className="shine-sweep group relative px-8 py-3.5 rounded-[8px] font-semibold text-sm tracking-[0.14em] uppercase text-white bg-gradient-to-b from-[#DC143C] to-[#8B0000] border border-[#DC143C]/40 shadow-[0_6px_28px_rgba(139,0,0,0.45)] transition-all duration-300 hover:shadow-[0_8px_40px_rgba(220,20,60,0.55)] hover:-translate-y-0.5"
               >
                 Join the Kingdom
               </Link>
@@ -274,7 +321,7 @@ export default function Home() {
                 { label: 'Kingdom Power', value: kingdom.power },
                 { label: 'Enemies Slain', value: kingdom.kills },
                 { label: 'Sworn Warriors', value: kingdom.warriors },
-              ].map((s) => (
+              ].filter((s) => s.value > 0).map((s) => (
                 <div key={s.label}>
                   <div className="font-display text-4xl sm:text-5xl font-bold text-[var(--gold)] tabular-nums">
                     <CountUp value={s.value} inView={stats.inView} />
@@ -344,7 +391,7 @@ export default function Home() {
               return (
                 <Reveal key={tool.href} delay={0.06 * (i % 3)} className="h-full">
                 <Link href={tool.href} className="block h-full">
-                  <div className="glass-card group p-5 h-full cursor-pointer">
+                  <div className="glass-card tilt-card group p-5 h-full cursor-pointer" onMouseMove={handleTilt} onMouseLeave={resetTilt}>
                     <div className="flex items-start gap-3.5">
                       <div className="p-2.5 rounded-[6px] border border-[var(--gold)]/20 bg-[var(--background-secondary)] text-[var(--gold)] transition-all duration-300 group-hover:border-[var(--crimson)]/50 group-hover:text-[var(--crimson)] group-hover:shadow-[0_0_14px_rgba(220,20,60,0.25)] flex-shrink-0">
                         <Icon className="w-4 h-4" />

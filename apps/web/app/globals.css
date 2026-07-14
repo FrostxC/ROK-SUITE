@@ -598,3 +598,76 @@ body::after {
   .reveal { opacity: 1; transform: none; transition: none; }
   .marquee-track { animation: none; }
 }
+
+/* ======================================
+   MAIN PAGE MOTION PACK
+   ====================================== */
+
+/* Gold light sweep across the hero title (layered gradient, both clipped to text) */
+@keyframes titleShine {
+  0%, 55% { background-position: -220% 0, 0 0; }
+  85%, 100% { background-position: 220% 0, 0 0; }
+}
+.hero-title {
+  background-image:
+    linear-gradient(115deg, transparent 42%, rgba(255, 241, 205, 0.85) 50%, transparent 58%),
+    linear-gradient(180deg, #E8DCBE 0%, #C9A961 42%, #A2323F 88%);
+  background-size: 240% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  animation: titleShine 7s ease-in-out infinite;
+}
+
+/* Crimson scroll progress along the top of the war room scroll */
+.scroll-progress {
+  position: sticky;
+  top: 0;
+  height: 2px;
+  z-index: 60;
+  pointer-events: none;
+}
+.scroll-progress > div {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #8B0000, #DC143C, #C9A961);
+  box-shadow: 0 0 12px rgba(220, 20, 60, 0.5);
+  transition: width 0.08s linear;
+}
+
+/* 3D tilt cards — transform set from JS, this handles the feel */
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.18s ease-out, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Shine sweep on the primary CTA */
+.shine-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.shine-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+}
+.shine-sweep:hover::after { left: 130%; }
+
+/* Divider gems breathe */
+@keyframes gemPulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(201, 169, 97, 0.35); }
+  50% { box-shadow: 0 0 14px rgba(220, 20, 60, 0.55); }
+}
+.divider-gem { animation: gemPulse 3.2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title { animation: none; }
+  .divider-gem { animation: none; }
+  .shine-sweep::after { display: none; }
+  .tilt-card { transition: none; }
+}
