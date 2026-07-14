@@ -603,6 +603,26 @@ body::after {
    MAIN PAGE MOTION PACK
    ====================================== */
 
+/* Letter-by-letter forge-in for the kingdom name. Each letter carries its own
+   copy of the vertical gradient (identical per letter, so the word reads as one
+   continuous carve) and rises from heat-blur into sharpness, staggered. */
+@keyframes letterForge {
+  0% { opacity: 0; transform: translateY(0.35em) scale(1.08); filter: blur(12px); }
+  55% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+.hero-letter {
+  display: inline-block;
+  background: linear-gradient(180deg, #E8DCBE 0%, #C9A961 42%, #A2323F 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 80px rgba(220, 20, 60, 0.25);
+  opacity: 0;
+  animation: letterForge 0.95s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  will-change: transform, filter, opacity;
+}
+
 /* Gold light sweep across the hero title — done as a separate overlay span so
    it can only ADD light on top of the base gradient title, never hide it. */
 @keyframes titleShine {
@@ -674,6 +694,7 @@ body::after {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-shine { display: none; }
+  .hero-letter { animation: none; opacity: 1; }
   .divider-gem { animation: none; }
   .shine-sweep::after { display: none; }
   .tilt-card { transition: none; }

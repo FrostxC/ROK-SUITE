@@ -27,19 +27,20 @@ import { useTranslations } from 'next-intl';
 // Count-up numeral — animates from 0 when scrolled into view
 // ---------------------------------------------------------------------------
 function useInView<T extends HTMLElement>(threshold = 0.3) {
-  const ref = useRef<T>(null);
+  // Callback-ref version: re-attaches the observer whenever the element
+  // actually mounts (conditionally-rendered sections mount late).
+  const [node, setNode] = useState<T | null>(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    if (!node) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
       { threshold }
     );
-    obs.observe(el);
+    obs.observe(node);
     return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
+  }, [node, threshold]);
+  return { ref: setNode, inView };
 }
 
 function CountUp({ value, inView }: { value: number; inView: boolean }) {
@@ -278,10 +279,19 @@ export default function Home() {
               {t('tagline')}
             </p>
             <h1
-              className="hero-title anim-rise relative text-[2.6rem] sm:text-[4.6rem] lg:text-[7rem]"
-              style={{ animationDelay: '0.25s' }}
+              className="hero-title relative text-[2.6rem] sm:text-[4.6rem] lg:text-[7rem]"
+              aria-label="EMBERFALL"
             >
-              EMBERFALL
+              {'EMBERFALL'.split('').map((ch, i) => (
+                <span
+                  key={i}
+                  className="hero-letter"
+                  aria-hidden
+                  style={{ animationDelay: `${0.25 + i * 0.09}s` }}
+                >
+                  {ch}
+                </span>
+              ))}
               <span className="hero-shine" aria-hidden>EMBERFALL</span>
             </h1>
             <p
