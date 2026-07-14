@@ -278,10 +278,11 @@ export default function Home() {
               {t('tagline')}
             </p>
             <h1
-              className="hero-title anim-rise text-[2.6rem] sm:text-[4.6rem] lg:text-[7rem]"
+              className="hero-title anim-rise relative text-[2.6rem] sm:text-[4.6rem] lg:text-[7rem]"
               style={{ animationDelay: '0.25s' }}
             >
               EMBERFALL
+              <span className="hero-shine" aria-hidden>EMBERFALL</span>
             </h1>
             <p
               className="anim-rise mt-5 text-sm sm:text-base tracking-[0.24em] uppercase text-[var(--gold)]/80 font-medium"

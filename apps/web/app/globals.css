@@ -603,17 +603,24 @@ body::after {
    MAIN PAGE MOTION PACK
    ====================================== */
 
-/* Gold light sweep across the hero title (layered gradient, both clipped to text) */
+/* Gold light sweep across the hero title — done as a separate overlay span so
+   it can only ADD light on top of the base gradient title, never hide it. */
 @keyframes titleShine {
-  0%, 55% { background-position: -220% 0, 0 0; }
-  85%, 100% { background-position: 220% 0, 0 0; }
+  0%, 55% { background-position: 220% 0; }
+  85%, 100% { background-position: -220% 0; }
 }
-.hero-title {
-  background-image:
-    linear-gradient(115deg, transparent 42%, rgba(255, 241, 205, 0.85) 50%, transparent 58%),
-    linear-gradient(180deg, #E8DCBE 0%, #C9A961 42%, #A2323F 88%);
-  background-size: 240% 100%, 100% 100%;
+.hero-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  background-image: linear-gradient(115deg, transparent 42%, rgba(255, 243, 210, 0.9) 50%, transparent 58%);
+  background-size: 240% 100%;
   background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   animation: titleShine 7s ease-in-out infinite;
 }
 
@@ -666,7 +673,7 @@ body::after {
 .divider-gem { animation: gemPulse 3.2s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-title { animation: none; }
+  .hero-shine { display: none; }
   .divider-gem { animation: none; }
   .shine-sweep::after { display: none; }
   .tilt-card { transition: none; }
