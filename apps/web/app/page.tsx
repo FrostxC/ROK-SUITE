@@ -296,23 +296,37 @@ export default function Home() {
               ))}
               <span className="hero-arrow" aria-hidden>
                 <span className="hero-arrow-inner">
-                  <svg viewBox="0 0 220 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg viewBox="0 0 220 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                       <linearGradient id="arrowTrail" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0" stopColor="#DC143C" stopOpacity="0" />
                         <stop offset="0.65" stopColor="#E8C77B" stopOpacity="0.55" />
                         <stop offset="1" stopColor="#F5E6C4" stopOpacity="0.95" />
                       </linearGradient>
+                      <radialGradient id="headGlow" cx="0.5" cy="0.5" r="0.5">
+                        <stop offset="0" stopColor="#F5E6C4" stopOpacity="0.65" />
+                        <stop offset="0.5" stopColor="#DC143C" stopOpacity="0.28" />
+                        <stop offset="1" stopColor="#DC143C" stopOpacity="0" />
+                      </radialGradient>
+                      <radialGradient id="trailGlow" cx="0.5" cy="0.5" r="0.5">
+                        <stop offset="0" stopColor="#E8C77B" stopOpacity="0.28" />
+                        <stop offset="1" stopColor="#E8C77B" stopOpacity="0" />
+                      </radialGradient>
                     </defs>
-                    {/* ember trail */}
-                    <rect x="0" y="8.25" width="168" height="1.5" fill="url(#arrowTrail)" />
-                    {/* shaft */}
-                    <rect x="150" y="8" width="52" height="2" rx="1" fill="#E8C77B" />
-                    {/* fletching */}
-                    <path d="M150 9 L141 3.5 L146.5 9 L141 14.5 Z" fill="#C9A961" />
-                    <path d="M158 9 L149 3.5 L154.5 9 L149 14.5 Z" fill="#C9A961" opacity="0.75" />
-                    {/* arrowhead */}
-                    <path d="M202 9 L219 9 M202 4.5 L219 9 L202 13.5 Z" fill="#F5E6C4" />
+                    <g transform="translate(0,5)">
+                      {/* baked glow (replaces CSS drop-shadow filters) */}
+                      <ellipse cx="205" cy="9" rx="26" ry="12" fill="url(#headGlow)" />
+                      <ellipse cx="150" cy="9" rx="70" ry="8" fill="url(#trailGlow)" />
+                      {/* ember trail */}
+                      <rect x="0" y="8.25" width="168" height="1.5" fill="url(#arrowTrail)" />
+                      {/* shaft */}
+                      <rect x="150" y="8" width="52" height="2" rx="1" fill="#E8C77B" />
+                      {/* fletching */}
+                      <path d="M150 9 L141 3.5 L146.5 9 L141 14.5 Z" fill="#C9A961" />
+                      <path d="M158 9 L149 3.5 L154.5 9 L149 14.5 Z" fill="#C9A961" opacity="0.75" />
+                      {/* arrowhead */}
+                      <path d="M202 9 L219 9 M202 4.5 L219 9 L202 13.5 Z" fill="#F5E6C4" />
+                    </g>
                   </svg>
                 </span>
               </span>
