@@ -11,16 +11,42 @@ const AVATAR_BG: Record<string, string> = {
   Mixed: 'bg-gradient-to-br from-amber-500 to-orange-600',
 };
 
+// In-game portrait sprites bundled in /public/commanders (kebab-case names).
+// Prime variants fall back to the base commander's art; unmapped names fall
+// back to a troop-coloured initials badge.
+const nameToSlug = (name: string) =>
+  name
+    .replace(/\s+Prime$/i, '')
+    .toLowerCase()
+    .replace(/æ/g, 'ae')
+    .replace(/[^a-z0-9 -]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+
 function CommanderChip({ name, troop }: { name: string; troop: string }) {
+  const [imgFailed, setImgFailed] = useState(false);
   const initials = name.replace(/[^a-zA-Z ]/g, '').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+  const slug = nameToSlug(name);
   return (
     <span className="inline-flex items-center gap-1.5">
-      <span
-        className={`w-7 h-7 rounded-md ${AVATAR_BG[troop] || 'bg-[var(--background-secondary)]'} text-[10px] font-bold text-white flex items-center justify-center flex-shrink-0`}
-        title={name}
-      >
-        {initials}
-      </span>
+      {!imgFailed ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={`/commanders/${slug}.png`}
+          alt={name}
+          title={name}
+          loading="lazy"
+          onError={() => setImgFailed(true)}
+          className="w-8 h-8 rounded-md object-cover flex-shrink-0 border border-[var(--gold)]/30 bg-[var(--background-secondary)]"
+        />
+      ) : (
+        <span
+          className={`w-8 h-8 rounded-md ${AVATAR_BG[troop] || 'bg-[var(--background-secondary)]'} text-[10px] font-bold text-white flex items-center justify-center flex-shrink-0`}
+          title={name}
+        >
+          {initials}
+        </span>
+      )}
       <span>{name}</span>
     </span>
   );

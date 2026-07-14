@@ -548,3 +548,53 @@ body::after {
 @media (max-width: 640px) {
   .ember { display: none; }
 }
+
+/* ======================================
+   ANIMATED EDITORIAL SECTIONS
+   ====================================== */
+
+/* Scroll-triggered reveal — starts hidden, .in-view releases it */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px) scale(0.99);
+  transition: opacity 0.85s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* War-cry quote */
+.warcry {
+  font-family: var(--font-display), 'Cinzel', serif;
+  font-style: normal;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+.warcry .warcry-accent {
+  color: var(--crimson);
+  text-shadow: 0 0 30px rgba(220, 20, 60, 0.35);
+}
+
+/* Infinite banner marquee — the kingdom's strongest, on parade */
+@keyframes marqueeX {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-band {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marqueeX 38s linear infinite;
+  will-change: transform;
+}
+.marquee-band:hover .marquee-track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .marquee-track { animation: none; }
+}

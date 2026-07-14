@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { AppSidebar } from '@/components/AppSidebar';
 import { createClient, fetchAllRows } from '@/lib/supabase/client';
 import {
@@ -68,6 +68,16 @@ function formatBig(n: number): string {
   return n.toLocaleString();
 }
 
+// Scroll-triggered reveal wrapper — releases children when they enter view
+function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
+  const { ref, inView } = useInView<HTMLDivElement>(0.25);
+  return (
+    <div ref={ref} className={`reveal ${inView ? 'in-view' : ''} ${className}`} style={{ transitionDelay: `${delay}s` }}>
+      {children}
+    </div>
+  );
+}
+
 // Deterministic pseudo-random embers (stable across renders)
 const EMBERS = Array.from({ length: 16 }, (_, i) => {
   const seed = (i * 2654435761) % 1000 / 1000;
@@ -88,22 +98,43 @@ export default function Home() {
   const fogRef = useRef<HTMLDivElement>(null);
   const stats = useInView<HTMLDivElement>(0.35);
   const [kingdom, setKingdom] = useState<{ power: number; kills: number; warriors: number } | null>(null);
+  const [topWarriors, setTopWarriors] = useState<{ name: string; power: number }[]>([]);
 
-  // Parallax — hero background only, rAF-throttled
+  // Top warriors banner — from the bundled kingdom dataset
   useEffect(() => {
+    let cancelled = false;
+    fetch('/data/players_data.json')
+      .then((r) => r.json())
+      .then((players: { username: string; power: number }[]) => {
+        if (cancelled || !Array.isArray(players)) return;
+        const top = [...players]
+          .sort((a, b) => (b.power || 0) - (a.power || 0))
+          .slice(0, 12)
+          .map((p) => ({ name: p.username, power: p.power }));
+        setTopWarriors(top);
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
+
+  // Parallax — hero background only, rAF-throttled. The page scrolls inside the
+  // AppSidebar <main> container (not the window), so listen there.
+  useEffect(() => {
+    const scroller = heroRef.current?.closest('main') ?? null;
+    const target: HTMLElement | Window = scroller || window;
     let raf = 0;
     const onScroll = () => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
         if (fogRef.current) {
-          const y = Math.min(window.scrollY, 900);
+          const y = Math.min(scroller ? scroller.scrollTop : window.scrollY, 900);
           fogRef.current.style.transform = `translateY(${y * 0.28}px)`;
         }
       });
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => { window.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); };
+    target.addEventListener('scroll', onScroll, { passive: true });
+    return () => { target.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); };
   }, []);
 
   // Kingdom stat band — aggregated from the live roster; hidden if unavailable
@@ -255,6 +286,48 @@ export default function Home() {
           </section>
         )}
 
+        {/* ============================ WAR CRY ============================ */}
+        <section className="relative py-24 sm:py-32 px-6 overflow-hidden">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            aria-hidden
+            style={{ background: 'radial-gradient(ellipse 60% 60% at 50% 50%, rgba(139,0,0,0.08), transparent 70%)' }}
+          />
+          <Reveal className="relative max-w-3xl mx-auto text-center">
+            <blockquote className="warcry text-2xl sm:text-4xl text-[var(--foreground)]">
+              &ldquo;Victorious warriors <span className="warcry-accent">win first</span> and then go
+              to war — defeated warriors go to war first and then seek to win.&rdquo;
+            </blockquote>
+            <div className="divider-ornament mt-8 max-w-xs mx-auto">
+              <span className="divider-gem" />
+            </div>
+            <p className="section-label mt-4">Sun Tzu · The Art of War</p>
+          </Reveal>
+        </section>
+
+        {/* ======================= TOP WARRIORS BANNER ======================= */}
+        {topWarriors.length > 0 && (
+          <section className="marquee-band border-y border-[var(--border)] bg-[var(--background-secondary)]/50 py-3.5">
+            <div className="marquee-track">
+              {[0, 1].map((dup) => (
+                <span key={dup} className="inline-flex items-center" aria-hidden={dup === 1}>
+                  {topWarriors.map((w, i) => (
+                    <span key={`${dup}-${i}`} className="inline-flex items-center">
+                      <span className="font-display text-sm font-bold tracking-[0.14em] uppercase text-[var(--gold)]">
+                        {w.name}
+                      </span>
+                      <span className="ml-2 text-xs font-mono text-[var(--text-muted)]">
+                        {formatBig(w.power)}
+                      </span>
+                      <span className="mx-5 w-1.5 h-1.5 rotate-45 bg-gradient-to-br from-[#C9A961] to-[#8B0000] inline-block" />
+                    </span>
+                  ))}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* ============================ WAR ROOM ============================ */}
         <div id="war-room" className="max-w-5xl mx-auto px-6 py-20">
           <div className="divider-ornament mb-4">
@@ -269,11 +342,9 @@ export default function Home() {
             {tools.map((tool, i) => {
               const Icon = tool.icon;
               return (
-                <Link key={tool.href} href={tool.href}>
-                  <div
-                    className="glass-card anim-rise group p-5 h-full cursor-pointer"
-                    style={{ animationDelay: `${0.08 * (i % 6)}s` }}
-                  >
+                <Reveal key={tool.href} delay={0.06 * (i % 3)} className="h-full">
+                <Link href={tool.href} className="block h-full">
+                  <div className="glass-card group p-5 h-full cursor-pointer">
                     <div className="flex items-start gap-3.5">
                       <div className="p-2.5 rounded-[6px] border border-[var(--gold)]/20 bg-[var(--background-secondary)] text-[var(--gold)] transition-all duration-300 group-hover:border-[var(--crimson)]/50 group-hover:text-[var(--crimson)] group-hover:shadow-[0_0_14px_rgba(220,20,60,0.25)] flex-shrink-0">
                         <Icon className="w-4 h-4" />
@@ -289,6 +360,7 @@ export default function Home() {
                     </div>
                   </div>
                 </Link>
+                </Reveal>
               );
             })}
           </div>
