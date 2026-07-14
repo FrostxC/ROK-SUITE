@@ -292,7 +292,28 @@ export default function Home() {
                   {ch}
                 </span>
               ))}
-              <span className="hero-shine" aria-hidden>EMBERFALL</span>
+              <span className="hero-arrow" aria-hidden>
+                <span className="hero-arrow-inner">
+                  <svg viewBox="0 0 220 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="arrowTrail" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" stopColor="#DC143C" stopOpacity="0" />
+                        <stop offset="0.65" stopColor="#E8C77B" stopOpacity="0.55" />
+                        <stop offset="1" stopColor="#F5E6C4" stopOpacity="0.95" />
+                      </linearGradient>
+                    </defs>
+                    {/* ember trail */}
+                    <rect x="0" y="8.25" width="168" height="1.5" fill="url(#arrowTrail)" />
+                    {/* shaft */}
+                    <rect x="150" y="8" width="52" height="2" rx="1" fill="#E8C77B" />
+                    {/* fletching */}
+                    <path d="M150 9 L141 3.5 L146.5 9 L141 14.5 Z" fill="#C9A961" />
+                    <path d="M158 9 L149 3.5 L154.5 9 L149 14.5 Z" fill="#C9A961" opacity="0.75" />
+                    {/* arrowhead */}
+                    <path d="M202 9 L219 9 M202 4.5 L219 9 L202 13.5 Z" fill="#F5E6C4" />
+                  </svg>
+                </span>
+              </span>
             </h1>
             <p
               className="anim-rise mt-5 text-sm sm:text-base tracking-[0.24em] uppercase text-[var(--gold)]/80 font-medium"

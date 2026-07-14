@@ -623,25 +623,37 @@ body::after {
   will-change: transform, filter, opacity;
 }
 
-/* Gold light sweep across the hero title — done as a separate overlay span so
-   it can only ADD light on top of the base gradient title, never hide it. */
-@keyframes titleShine {
-  0%, 55% { background-position: 220% 0; }
-  85%, 100% { background-position: -220% 0; }
+/* An arrow pierces the kingdom name every few seconds — gold shaft, ember
+   trail. Separate overlay layer: it can only add, never hide the title. */
+@keyframes arrowFly {
+  0% { transform: translateX(-28%); opacity: 0; }
+  1.5% { opacity: 1; }
+  11% { opacity: 1; }
+  13% { transform: translateX(118%); opacity: 0; }
+  100% { transform: translateX(118%); opacity: 0; }
 }
-.hero-shine {
+.hero-arrow {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  user-select: none;
-  background-image: linear-gradient(115deg, transparent 42%, rgba(255, 243, 210, 0.9) 50%, transparent 58%);
-  background-size: 240% 100%;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: titleShine 7s ease-in-out infinite;
+  overflow: hidden;
+}
+.hero-arrow-inner {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 0;
+  animation: arrowFly 7s cubic-bezier(0.3, 0, 0.7, 1) infinite;
+  will-change: transform, opacity;
+}
+.hero-arrow-inner svg {
+  position: absolute;
+  left: 0;
+  top: -9px;
+  width: 220px;
+  height: 18px;
+  filter: drop-shadow(0 0 6px rgba(232, 199, 123, 0.8)) drop-shadow(0 0 16px rgba(220, 20, 60, 0.45));
 }
 
 /* Crimson scroll progress along the top of the war room scroll */
@@ -693,7 +705,7 @@ body::after {
 .divider-gem { animation: gemPulse 3.2s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-shine { display: none; }
+  .hero-arrow { display: none; }
   .hero-letter { animation: none; opacity: 1; }
   .divider-gem { animation: none; }
   .shine-sweep::after { display: none; }
