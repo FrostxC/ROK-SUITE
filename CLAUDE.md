@@ -39,6 +39,13 @@ eventually a monetizable multi-kingdom SaaS** (see ROADMAP.md).
 - Commander meta: `app/commanders/meta-data.ts` — built from REAL rokbattles.com live
   battle-feed scrapes (usage counts), not guides. Refresh by re-scraping
   (`_ui-tools/scrape2.js`, `deep-hunt.js`).
+- Equipment sprites: `public/equipment/*.png` (143 bundled, kebab-case item names) +
+  auto-generated map `app/equipment/equip-sprites.ts` — regenerate with
+  `_ui-tools/dl-equip.js`. Source of truth: the FULL in-game item table (id/name/sprite,
+  18 locales) lives in a rokbattles JS chunk — extracted copy at
+  `_ui-tools/equip-gamedata.json` (`equip-bundle-hunt.js` + `extract-equip.py` re-extract
+  it). NOTE: "Lance/Bow of the Eternal Empire" don't exist in-game (EE's only weapon is
+  the Shield) — equipment-meta.ts uses the real KvK cav lance / archer bow.
 
 ## Current state (July 2026)
 Shipped: full redesign + EMBERFALL rebrand (was Angmar/3923 → Kingdom 3709), animated
@@ -54,23 +61,12 @@ DONE from the top-10 research ladder: My Warrior Profile + Compare Scans (on /dk
 Equipment Manager (/equipment: meta builds w/ pairing swaps, awaken/crit priority
 from creator research, set builder).
 
-1. **FIRST: Equipment page visual upgrade** (user-requested, plan ready):
-   - Real equipment sprites CONFIRMED on cdn.rokbattles.com:
-     `game/sprites/img_icon_item_equip_{rarity}_{n}.png` (rarity 3=elite? 4=epic,
-     5=legendary; e.g. equip_5_46, equip_4_23). Discovery script:
-     `C:\ROK\_ui-tools\equip-sprites.js`.
-   - To map sprite→item name: open 2-3 rokbattles /report/ pages with Playwright,
-     the equipment icons appear beside commander loadouts — pair img src with
-     tooltip/name text in DOM (same technique as commander portrait mapping in
-     `deep-hunt.js`). Download needed sprites to `public/equipment/` (kebab-case
-     item names), same bundling pattern as `public/commanders/`.
-   - Then restyle /equipment: slot grid like in-game blacksmith (icon tiles with
-     rarity-colored borders: legendary orange, epic purple), Meta Builds shown as
-     a visual paper-doll layout (weapon/helm/chest/gloves/legs/boots around a
-     silhouette), glass-card polish to match the Ancient Dark Kingdom theme,
-     rarity glow on hover. Set Builder picker should show icon + name rows.
-   - Fallback if a sprite is unmapped: current text row (never break).
-2. **Hall of Heroes recognition tracker** (#3 on the ladder — rides scan data; an
+DONE July 2026: Equipment page visual upgrade (143 real sprites bundled, paper-doll
+Meta Builds, icon-row Set Builder pickers, rarity borders/glow, initials fallback).
+Possible follow-up: add stats for newer KvK gear (EE etc.) to `data/equipment.json`
+so the Set Builder covers them — names/sprites are already bundled.
+
+1. **Hall of Heroes recognition tracker** (#3 on the ladder — rides scan data; an
    archived /recognition page exists to revive).
 2. Supabase keep-alive cron (after user restores the paused project).
 3. Remaining commander portraits (list above) via more rokbattles scrape passes.
