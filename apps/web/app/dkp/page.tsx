@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { WarRoomAuthProvider, useWarRoomAuth } from '@/lib/kvk-map/war-room-auth';
+import WarriorProfile from '@/components/dkp/WarriorProfile';
+import CompareScans from '@/components/dkp/CompareScans';
 import {
   Player,
   DkpDataset,
@@ -1719,6 +1721,13 @@ function DkpPageInner() {
         {/* ===== SIMPLE RATIO MODE ===== */}
         {scoringMode === 'simple' && (
           <>
+            <WarriorProfile
+              players={simpleScored}
+              formula={config.simpleFormula}
+              multiplier={config.simpleMultiplier}
+              minDeadsPct={config.simpleMinDeadsPct}
+            />
+            <CompareScans />
             {/* Simple-mode config */}
             <section className="mb-6 rounded-xl bg-[var(--background-card)] border border-[var(--border)] shadow-[var(--card-shadow)] overflow-hidden">
               <div className="px-4 sm:px-5 py-3 flex items-center gap-3 border-b border-[var(--border)]">
