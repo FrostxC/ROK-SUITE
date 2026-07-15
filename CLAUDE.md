@@ -61,10 +61,23 @@ DONE from the top-10 research ladder: My Warrior Profile + Compare Scans (on /dk
 Equipment Manager (/equipment: meta builds w/ pairing swaps, awaken/crit priority
 from creator research, set builder).
 
-DONE July 2026: Equipment page visual upgrade (143 real sprites bundled, paper-doll
-Meta Builds, icon-row Set Builder pickers, rarity borders/glow, initials fallback).
-Possible follow-up: add stats for newer KvK gear (EE etc.) to `data/equipment.json`
-so the Set Builder covers them — names/sprites are already bundled.
+DONE July 2026: Equipment page visual upgrade + CORRECTNESS pass. The builds
+were transcribed frame-by-frame from BilegtROK's two guides (videos in the
+user's Downloads: "Never Go Wrong Crafting These Sets" Z0zoV7EGkNs +
+"Step by Step Awaken & Crit Priority" Or09gydysUI). Tooling in _ui-tools:
+grab-frames2.js (dense frame extraction), equip-match.py / compare-cands.py /
+zoom-cells.py (identify each build-grid icon against the bundled sprites).
+`app/equipment/equipment-meta.ts` now holds TROOP_BUILDS (Infantry/Cavalry/
+Archer/Siege, each with 2-3 open-field + 1-2 rally VARIANTS — the video's build
+columns), ACCESSORIES, the awaken/crit PRIORITY matrix + cost tables, and
+SET_BUILDER_CATALOG + SET_BONUSES. Page shows all variants side-by-side per
+troop/mode; Set Builder is LEGENDARY-ONLY across all 6 slots (incl. legs) with
+live set-bonus completion tracking (verified bonuses only for Eternal Empire /
+Dragon's Breath / Hellish Wasteland — theriagames). `data/equipment.json` is no
+longer used by the page. NOTE: earlier version had wrong-troop pieces (infantry
+helm on cav/archer) and only 1 build per troop — both fixed. If adding set
+bonuses for Glorious Goddess/Wolf/Witch/Knight, source them and add to
+SET_BONUSES (piece counts already track for any set in the catalog).
 
 1. **Hall of Heroes recognition tracker** (#3 on the ladder — rides scan data; an
    archived /recognition page exists to revive).
