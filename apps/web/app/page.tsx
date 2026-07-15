@@ -210,6 +210,7 @@ export default function Home() {
     { href: '/alliance-calculator', titleKey: 'tools.allianceCalculator.title', descriptionKey: 'tools.allianceCalculator.description', icon: Calculator },
     { href: '/calculators', titleKey: 'tools.calculators.title', descriptionKey: 'tools.calculators.description', icon: Sigma },
     { href: '/commanders', titleKey: 'tools.commanders.title', descriptionKey: 'tools.commanders.description', icon: Users },
+    { href: '/equipment', titleKey: 'tools.equipment.title', descriptionKey: 'tools.equipment.description', icon: Shield },
     { href: '/rok-mail', titleKey: 'tools.rokMail.title', descriptionKey: 'tools.rokMail.description', icon: ScrollText },
     { href: '/dkp', titleKey: 'tools.dkp.title', descriptionKey: 'tools.dkp.description', icon: Trophy },
     { href: '/migration', titleKey: 'tools.migration.title', descriptionKey: 'tools.migration.description', icon: ClipboardList },

@@ -54,7 +54,8 @@
     "migration": "Emigration",
     "applyLeader": "Submit lead info",
     "calculators": "Calculators",
-    "commanders": "Commanders"
+    "commanders": "Commanders",
+    "equipment": "Equipment"
   },
   "home": {
     "tagline": "Kingdom 3709 • Rise of Kingdoms",
@@ -143,6 +144,10 @@
       "commanders": {
         "title": "Commanders",
         "description": "Commander pairing tier list by role and troop type"
+      },
+      "equipment": {
+        "title": "Equipment",
+        "description": "Meta builds, awaken & crit priority, and a set builder"
       }
     },
     "guide": {
