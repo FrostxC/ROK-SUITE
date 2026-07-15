@@ -53,7 +53,24 @@ AoO planner upgrades (Battle Day live match timer tab, Strategy Map route drawin
 DONE from the top-10 research ladder: My Warrior Profile + Compare Scans (on /dkp),
 Equipment Manager (/equipment: meta builds w/ pairing swaps, awaken/crit priority
 from creator research, set builder).
-1. **Hall of Heroes recognition tracker** (#3 on the ladder — rides scan data; an
+
+1. **FIRST: Equipment page visual upgrade** (user-requested, plan ready):
+   - Real equipment sprites CONFIRMED on cdn.rokbattles.com:
+     `game/sprites/img_icon_item_equip_{rarity}_{n}.png` (rarity 3=elite? 4=epic,
+     5=legendary; e.g. equip_5_46, equip_4_23). Discovery script:
+     `C:\ROK\_ui-tools\equip-sprites.js`.
+   - To map sprite→item name: open 2-3 rokbattles /report/ pages with Playwright,
+     the equipment icons appear beside commander loadouts — pair img src with
+     tooltip/name text in DOM (same technique as commander portrait mapping in
+     `deep-hunt.js`). Download needed sprites to `public/equipment/` (kebab-case
+     item names), same bundling pattern as `public/commanders/`.
+   - Then restyle /equipment: slot grid like in-game blacksmith (icon tiles with
+     rarity-colored borders: legendary orange, epic purple), Meta Builds shown as
+     a visual paper-doll layout (weapon/helm/chest/gloves/legs/boots around a
+     silhouette), glass-card polish to match the Ancient Dark Kingdom theme,
+     rarity glow on hover. Set Builder picker should show icon + name rows.
+   - Fallback if a sprite is unmapped: current text row (never break).
+2. **Hall of Heroes recognition tracker** (#3 on the ladder — rides scan data; an
    archived /recognition page exists to revive).
 2. Supabase keep-alive cron (after user restores the paused project).
 3. Remaining commander portraits (list above) via more rokbattles scrape passes.
