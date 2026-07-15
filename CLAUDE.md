@@ -50,10 +50,11 @@ AoO planner upgrades (Battle Day live match timer tab, Strategy Map route drawin
 4 team colors + phases, structure icons), Excel import pipeline for stats.
 
 ## Next up (agreed direction)
-1. **"My Warrior Profile"** on /dkp — personal player card: search+pin your name,
-   see rank/percentile, DKP progress vs power×multiplier target, deads vs minimum,
-   exact gap to pass ("need X T5 kills or Y deads"), copy-for-Discord button.
-   (User asked "best next player feature", this was recommended and well received.)
+DONE from the top-10 research ladder: My Warrior Profile + Compare Scans (on /dkp),
+Equipment Manager (/equipment: meta builds w/ pairing swaps, awaken/crit priority
+from creator research, set builder).
+1. **Hall of Heroes recognition tracker** (#3 on the ladder — rides scan data; an
+   archived /recognition page exists to revive).
 2. Supabase keep-alive cron (after user restores the paused project).
 3. Remaining commander portraits (list above) via more rokbattles scrape passes.
 4. Roadmap phase 2: real auth + multi-tenancy → monetization (ROADMAP.md).
