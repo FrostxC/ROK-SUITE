@@ -2,6 +2,10 @@
 // set builds per troop/mode (rokhub best-builds + creator set guides) and the
 // BilegtROK open-field awaken/crit priority order with material cost tables.
 // Equipment choices vary by pairing/playstyle — variant notes are included.
+// Item names validated against the in-game equipment table (via rokbattles
+// game data): the Eternal Empire set's only weapon is the Shield — the old
+// "Lance/Bow of the Eternal Empire" entries were placeholders and are now
+// the real KvK cavalry lance and archer bow.
 
 export type Troop = 'Infantry' | 'Cavalry' | 'Archer';
 export type Mode = 'openField' | 'rallyGarrison';
@@ -55,7 +59,7 @@ export const META_BUILDS: MetaBuild[] = [
     troop: 'Cavalry',
     mode: 'openField',
     slots: [
-      { slot: 'Weapon', item: `Lance of the ${EE}`, note: 'or Pride of the Khan' },
+      { slot: 'Weapon', item: 'Lance of the Hellish Wasteland', note: 'or Pride of the Khan' },
       { slot: 'Helm', item: `Gold Helm of the ${EE}` },
       { slot: 'Chest', item: 'Hope Cloak', note: 'damage option' },
       { slot: 'Gloves', item: "Navar's Control" },
@@ -70,7 +74,7 @@ export const META_BUILDS: MetaBuild[] = [
     troop: 'Cavalry',
     mode: 'rallyGarrison',
     slots: [
-      { slot: 'Weapon', item: `Lance of the ${EE}` },
+      { slot: 'Weapon', item: 'Lance of the Hellish Wasteland' },
       { slot: 'Helm', item: `Gold Helm of the ${EE}` },
       { slot: 'Chest', item: `Plate of the ${EE}` },
       { slot: 'Gloves', item: `Vambraces of the ${EE}` },
@@ -83,7 +87,7 @@ export const META_BUILDS: MetaBuild[] = [
     troop: 'Archer',
     mode: 'openField',
     slots: [
-      { slot: 'Weapon', item: `Bow of the ${EE}`, note: 'or Dragon\'s Breath Bow' },
+      { slot: 'Weapon', item: "Dragon's Breath Bow", note: "or The Hydra's Blast" },
       { slot: 'Helm', item: `Gold Helm of the ${EE}` },
       { slot: 'Chest', item: 'Hope Cloak', note: 'damage option' },
       { slot: 'Gloves', item: `Vambraces of the ${EE}` },
@@ -99,7 +103,7 @@ export const META_BUILDS: MetaBuild[] = [
     troop: 'Archer',
     mode: 'rallyGarrison',
     slots: [
-      { slot: 'Weapon', item: `Bow of the ${EE}` },
+      { slot: 'Weapon', item: "Dragon's Breath Bow" },
       { slot: 'Helm', item: `Gold Helm of the ${EE}` },
       { slot: 'Chest', item: `Plate of the ${EE}` },
       { slot: 'Gloves', item: `Vambraces of the ${EE}` },

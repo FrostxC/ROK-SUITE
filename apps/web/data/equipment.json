@@ -24,8 +24,8 @@
       "description": "Legendary weapon with balanced stats for all troop types"
     },
     {
-      "id": "rifle-of-the-hellish-wasteland",
-      "name": "Rifle of the Hellish Wasteland",
+      "id": "lance-of-the-hellish-wasteland",
+      "name": "Lance of the Hellish Wasteland",
       "type": "weapon",
       "rarity": "legendary",
       "requiredLevel": 50,
@@ -620,27 +620,59 @@
     "forest-guardian": {
       "id": "forest-guardian",
       "name": "Forest Guardian",
-      "pieces": ["scepter-of-the-forest-guardian", "mask-of-the-forest-guardian", "robe-of-the-forest-guardian", "claws-of-the-forest-guardian", "greaves-of-the-forest-guardian"],
+      "pieces": [
+        "scepter-of-the-forest-guardian",
+        "mask-of-the-forest-guardian",
+        "robe-of-the-forest-guardian",
+        "claws-of-the-forest-guardian",
+        "greaves-of-the-forest-guardian"
+      ],
       "bonuses": {
-        "2": { "gatheringSpeed": 5 },
-        "4": { "gatheringSpeed": 10, "troopLoad": 10 }
+        "2": {
+          "gatheringSpeed": 5
+        },
+        "4": {
+          "gatheringSpeed": 10,
+          "troopLoad": 10
+        }
       }
     },
     "hellish-wasteland": {
       "id": "hellish-wasteland",
       "name": "Hellish Wasteland",
-      "pieces": ["rifle-of-the-hellish-wasteland", "boots-of-the-hellish-wasteland"],
+      "pieces": [
+        "rifle-of-the-hellish-wasteland",
+        "boots-of-the-hellish-wasteland"
+      ],
       "bonuses": {
-        "2": { "cavalryAttack": 3, "cavalryHealth": 3 }
+        "2": {
+          "cavalryAttack": 3,
+          "cavalryHealth": 3
+        }
       }
     },
     "shadow-legion": {
       "id": "shadow-legion",
       "name": "Shadow Legion",
-      "pieces": ["shadow-legions-retribution"],
+      "pieces": [
+        "shadow-legions-retribution"
+      ],
       "bonuses": {}
     }
   },
-  "types": ["weapon", "helm", "chest", "gloves", "boots", "accessory"],
-  "rarities": ["normal", "advanced", "elite", "epic", "legendary"]
+  "types": [
+    "weapon",
+    "helm",
+    "chest",
+    "gloves",
+    "boots",
+    "accessory"
+  ],
+  "rarities": [
+    "normal",
+    "advanced",
+    "elite",
+    "epic",
+    "legendary"
+  ]
 }
