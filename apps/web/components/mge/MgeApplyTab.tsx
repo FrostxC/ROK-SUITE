@@ -59,10 +59,14 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
   const [preferredTier, setPreferredTier] = useState('');
   const [maxTier, setMaxTier] = useState('');
   const [notes, setNotes] = useState('');
+  const [reason, setReason] = useState('');
 
-  // Screenshot
+  // Screenshots: the gear set they'll RUN on this commander + armaments
   const [screenshotFile, setScreenshotFile] = useState<File | null>(null);
   const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
+  const [armamentsFile, setArmamentsFile] = useState<File | null>(null);
+  const [armamentsPreview, setArmamentsPreview] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
 
   // State
   const [roster, setRoster] = useState<RosterMember[]>([]);
@@ -117,8 +121,12 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
       setPreferredTier(existingApp.preferred_tier || '');
       setMaxTier(existingApp.max_tier || '');
       setNotes(existingApp.notes || '');
+      setReason(existingApp.reason || '');
       if (existingApp.screenshot_url) {
         setScreenshotPreview(existingApp.screenshot_url);
+      }
+      if (existingApp.armaments_screenshot_url) {
+        setArmamentsPreview(existingApp.armaments_screenshot_url);
       }
     }
   }, [isEditing, existingApp]);
@@ -164,13 +172,50 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
     setScreenshotPreview(null);
   };
 
+  const handleArmamentsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image must be under 5MB');
+      return;
+    }
+    setArmamentsFile(file);
+    const url = URL.createObjectURL(file);
+    setArmamentsPreview(url);
+  };
+
+  const removeArmaments = () => {
+    setArmamentsFile(null);
+    if (armamentsPreview && !armamentsPreview.startsWith('http')) {
+      URL.revokeObjectURL(armamentsPreview);
+    }
+    setArmamentsPreview(null);
+  };
+
+  /** Required-field check shared by submit + update. Returns an error string
+   * or null. Gear screenshot + armaments screenshot + reason are all required
+   * — the officer ranks on what you'll actually run, not on promises. */
+  const validateRequired = (): string | null => {
+    if (!screenshotPreview && !screenshotFile) return 'Please upload the gear set you will run on this commander.';
+    if (!armamentsPreview && !armamentsFile) return 'Please upload the armaments you will use.';
+    if (!reason.trim()) return 'Please tell the officers why you want this commander.';
+    return null;
+  };
+
   const handleSubmit = async () => {
     if (!applicantName.trim() || !focusCommander) return;
+    const err = validateRequired();
+    if (err) { setFormError(err); return; }
+    setFormError(null);
     setSubmitting(true);
 
     let screenshotUrl: string | null = screenshotPreview?.startsWith('http') ? screenshotPreview : null;
     if (screenshotFile) {
-      screenshotUrl = await uploadMgeScreenshot(screenshotFile, event.id, applicantName.trim());
+      screenshotUrl = await uploadMgeScreenshot(screenshotFile, event.id, applicantName.trim(), 'gear');
+    }
+    let armamentsUrl: string | null = armamentsPreview?.startsWith('http') ? armamentsPreview : null;
+    if (armamentsFile) {
+      armamentsUrl = await uploadMgeScreenshot(armamentsFile, event.id, applicantName.trim(), 'armaments');
     }
 
     const result = await submitApplication(event.id, {
@@ -184,7 +229,9 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
       preferred_tier: preferredTier || null,
       max_tier: maxTier || null,
       notes: notes.trim() || null,
+      reason: reason.trim() || null,
       screenshot_url: screenshotUrl,
+      armaments_screenshot_url: armamentsUrl,
     });
 
     if (result) {
@@ -198,11 +245,18 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
 
   const handleUpdate = async () => {
     if (!existingApp) return;
+    const err = validateRequired();
+    if (err) { setFormError(err); return; }
+    setFormError(null);
     setSubmitting(true);
 
     let screenshotUrl: string | null = screenshotPreview?.startsWith('http') ? screenshotPreview : null;
     if (screenshotFile) {
-      screenshotUrl = await uploadMgeScreenshot(screenshotFile, event.id, applicantName.trim());
+      screenshotUrl = await uploadMgeScreenshot(screenshotFile, event.id, applicantName.trim(), 'gear');
+    }
+    let armamentsUrl: string | null = armamentsPreview?.startsWith('http') ? armamentsPreview : null;
+    if (armamentsFile) {
+      armamentsUrl = await uploadMgeScreenshot(armamentsFile, event.id, applicantName.trim(), 'armaments');
     }
 
     const ok = await updateApplicationFields(existingApp.id, {
@@ -212,7 +266,9 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
       preferred_tier: preferredTier || null,
       max_tier: maxTier || null,
       notes: notes.trim() || null,
+      reason: reason.trim() || null,
       screenshot_url: screenshotUrl,
+      armaments_screenshot_url: armamentsUrl,
     });
 
     if (ok) {
@@ -308,6 +364,12 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
               <div className="flex justify-between">
                 <span style={{ color: 'var(--text-secondary)' }}>Assigned Tier</span>
                 <span className="text-blue-400 font-medium">{existingApp.assigned_tier}</span>
+              </div>
+            )}
+            {existingApp.reason && (
+              <div className="flex justify-between gap-4">
+                <span className="flex-shrink-0" style={{ color: 'var(--text-secondary)' }}>Reason</span>
+                <span className="text-right" style={{ color: 'var(--foreground)' }}>{existingApp.reason}</span>
               </div>
             )}
             {existingApp.notes && (
@@ -439,19 +501,19 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
         />
       </div>
 
-      {/* Commander Screenshot */}
+      {/* Gear set screenshot (required) */}
       <div>
         <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>
-          Commander Screenshot (optional)
+          Gear set for this commander <span className="text-red-400">*</span>
         </label>
         <p className="text-xs mb-2" style={{ color: 'var(--text-muted)' }}>
-          Upload a screenshot of your commander to show gear and equipment
+          Screenshot the EXACT set you will run on {focusCommander || 'him'} during MGE — not your best gear.
         </p>
         {screenshotPreview ? (
           <div className="relative inline-block">
             <img
               src={screenshotPreview}
-              alt="Commander screenshot"
+              alt="Gear set screenshot"
               className="rounded-lg border max-h-48 object-contain"
               style={{ borderColor: 'var(--border)' }}
             />
@@ -468,7 +530,7 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
             style={{ borderColor: 'var(--border)' }}>
             <Camera size={18} style={{ color: 'var(--text-muted)' }} />
             <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
-              Tap to upload screenshot
+              Tap to upload your gear set
             </span>
             <input
               type="file"
@@ -478,6 +540,62 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
             />
           </label>
         )}
+      </div>
+
+      {/* Armaments screenshot (required) */}
+      <div>
+        <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>
+          Armaments you will use <span className="text-red-400">*</span>
+        </label>
+        <p className="text-xs mb-2" style={{ color: 'var(--text-muted)' }}>
+          Screenshot the armaments (inscriptions included) you will run during the event.
+        </p>
+        {armamentsPreview ? (
+          <div className="relative inline-block">
+            <img
+              src={armamentsPreview}
+              alt="Armaments screenshot"
+              className="rounded-lg border max-h-48 object-contain"
+              style={{ borderColor: 'var(--border)' }}
+            />
+            <button
+              type="button"
+              onClick={removeArmaments}
+              className="absolute -top-2 -right-2 p-1 rounded-full bg-red-500/80 text-white hover:bg-red-500 transition-fast"
+            >
+              <X size={12} />
+            </button>
+          </div>
+        ) : (
+          <label className="flex items-center gap-2 px-4 py-3 rounded-lg border border-dashed cursor-pointer hover:bg-[var(--background-secondary)] transition-fast"
+            style={{ borderColor: 'var(--border)' }}>
+            <Camera size={18} style={{ color: 'var(--text-muted)' }} />
+            <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
+              Tap to upload your armaments
+            </span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleArmamentsChange}
+              className="hidden"
+            />
+          </label>
+        )}
+      </div>
+
+      {/* Reason (required) */}
+      <div>
+        <label className="block text-xs font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>
+          Why do you want this commander? <span className="text-red-400">*</span>
+        </label>
+        <textarea
+          value={reason}
+          onChange={e => setReason(e.target.value)}
+          rows={3}
+          placeholder="What will you use him for, and why should the kingdom invest him in you..."
+          className={inputClass + ' w-full resize-y'}
+          style={inputStyle}
+        />
       </div>
 
       {/* Tier Preferences */}
@@ -534,6 +652,14 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
           style={inputStyle}
         />
       </div>
+
+      {/* Validation error */}
+      {formError && (
+        <div className="flex items-center gap-2 p-2.5 rounded-md text-sm bg-red-500/10 text-red-400 border border-red-500/20">
+          <AlertCircle size={15} className="flex-shrink-0" />
+          {formError}
+        </div>
+      )}
 
       {/* Submit / Update */}
       <button

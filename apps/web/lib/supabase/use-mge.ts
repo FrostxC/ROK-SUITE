@@ -57,6 +57,9 @@ export interface MgeApplication {
   assigned_tier: string | null;
   decided_at: string | null;
   screenshot_url: string | null;
+  armaments_screenshot_url: string | null;
+  reason: string | null;
+  dkp_match_name: string | null;
   equipment_rating: number | null;
   created_at: string;
   updated_at: string;
@@ -402,11 +405,12 @@ export async function removeSelection(id: number): Promise<boolean> {
 export async function uploadMgeScreenshot(
   file: File,
   eventId: number,
-  applicantName: string
+  applicantName: string,
+  kind: 'gear' | 'armaments' = 'gear'
 ): Promise<string | null> {
   const ext = file.name.split('.').pop() || 'png';
   const safeName = applicantName.replace(/[^a-zA-Z0-9]/g, '_');
-  const path = `${eventId}/${safeName}_${Date.now()}.${ext}`;
+  const path = `${eventId}/${safeName}_${kind}_${Date.now()}.${ext}`;
 
   const { error } = await supabase
     .storage
@@ -438,6 +442,8 @@ export async function submitApplication(
     max_tier?: string | null;
     notes?: string | null;
     screenshot_url?: string | null;
+    armaments_screenshot_url?: string | null;
+    reason?: string | null;
   }
 ): Promise<MgeApplication | null> {
   const { data: result, error } = await supabase
@@ -455,6 +461,8 @@ export async function submitApplication(
       max_tier: data.max_tier || null,
       notes: data.notes || null,
       screenshot_url: data.screenshot_url || null,
+      armaments_screenshot_url: data.armaments_screenshot_url || null,
+      reason: data.reason || null,
     }])
     .select()
     .single();
@@ -509,6 +517,8 @@ export async function updateApplicationFields(
     max_tier?: string | null;
     notes?: string | null;
     screenshot_url?: string | null;
+    armaments_screenshot_url?: string | null;
+    reason?: string | null;
   }
 ): Promise<boolean> {
   const { error } = await supabase
@@ -518,6 +528,20 @@ export async function updateApplicationFields(
 
   if (error) {
     console.error('Failed to update application:', error.message);
+    return false;
+  }
+  return true;
+}
+
+/** Officer: link an applicant to their name in the DKP dataset (name changes,
+ * alt spellings). null clears the link and falls back to exact-name matching. */
+export async function setApplicationDkpMatch(appId: number, dkpName: string | null): Promise<boolean> {
+  const { error } = await supabase
+    .from('mge_applications')
+    .update({ dkp_match_name: dkpName, updated_at: new Date().toISOString() })
+    .eq('id', appId);
+  if (error) {
+    console.error('Failed to set DKP match:', error.message);
     return false;
   }
   return true;
@@ -537,8 +561,10 @@ export async function deleteApplication(appId: number): Promise<boolean> {
   return true;
 }
 
-/** Convert all approved applications into mge_selections and finalize the event */
-export async function convertApprovedToSelections(eventId: number): Promise<boolean> {
+/** Convert all approved applications into mge_selections and finalize the
+ * event. Pass orderedAppIds (e.g. the review tab's DKP ordering) to control
+ * the final ranking; unlisted approved apps append in created_at order. */
+export async function convertApprovedToSelections(eventId: number, orderedAppIds?: number[]): Promise<boolean> {
   // Get approved applications
   const { data: apps } = await supabase
     .from('mge_applications')
@@ -549,11 +575,20 @@ export async function convertApprovedToSelections(eventId: number): Promise<bool
 
   if (!apps || apps.length === 0) return true;
 
+  // Apply caller-provided ordering (DKP rank from the review tab)
+  let ordered: MgeApplication[] = apps;
+  if (orderedAppIds && orderedAppIds.length > 0) {
+    const pos = new Map(orderedAppIds.map((id, i) => [id, i]));
+    ordered = [...apps].sort((a, b) =>
+      (pos.get(a.id) ?? orderedAppIds.length) - (pos.get(b.id) ?? orderedAppIds.length)
+    );
+  }
+
   // Clear existing selections for this event
   await supabase.from('mge_selections').delete().eq('mge_event_id', eventId);
 
   // Create selections from approved applications
-  const selections = apps.map((app: MgeApplication, i: number) => ({
+  const selections = ordered.map((app: MgeApplication, i: number) => ({
     mge_event_id: eventId,
     member_name: app.applicant_name,
     ranking_tier: app.assigned_tier || app.preferred_tier || `${i + 1}th Place`,

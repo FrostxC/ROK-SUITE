@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Users, CheckCircle, Info, X, ChevronDown, ChevronUp, Trash2, Plus, Camera } from 'lucide-react';
+import { Users, CheckCircle, Info, X, ChevronDown, ChevronUp, Trash2, Plus, Camera, Link2, Mail, Copy, Trophy } from 'lucide-react';
 import { MgeSkillInput } from './MgeSkillInput';
 import SearchableSelect, { type SearchableOption } from '@/components/ui/SearchableSelect';
 import { supabase } from '@/lib/supabase';
@@ -12,9 +12,11 @@ import {
   deleteApplication,
   submitApplication,
   uploadMgeScreenshot,
+  setApplicationDkpMatch,
   type MgeEvent,
   type MgeApplication,
 } from '@/lib/supabase/use-mge';
+import { loadLatestDataset, normalizeName } from '@/app/dkp/data';
 import {
   formatSkillLevels,
   commanderInvestmentScore,
@@ -41,6 +43,20 @@ function formatPower(power: number): string {
   if (power >= 1_000_000) return `${(power / 1_000_000).toFixed(1)}M`;
   if (power >= 1_000) return `${(power / 1_000).toFixed(0)}K`;
   return power.toString();
+}
+
+/** DKP standing pulled from the latest DKP dataset (same numbers as /dkp). */
+interface DkpInfo {
+  dkp: number;
+  rank: number;
+  total: number;
+}
+
+function formatDkp(v: number): string {
+  if (v >= 1_000_000_000) return `${(v / 1_000_000_000).toFixed(2)}B`;
+  if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(1)}M`;
+  if (v >= 1_000) return `${(v / 1_000).toFixed(0)}K`;
+  return v.toString();
 }
 
 function InvestmentBar({
@@ -134,7 +150,10 @@ function InvestmentBar({
 function MissingBadges({ app }: { app: MgeApplication }) {
   const missing: { label: string; color: string }[] = [];
   if (!app.screenshot_url) {
-    missing.push({ label: 'No screenshot', color: 'bg-orange-500/15 text-orange-400' });
+    missing.push({ label: 'No gear shot', color: 'bg-orange-500/15 text-orange-400' });
+  }
+  if (!app.armaments_screenshot_url) {
+    missing.push({ label: 'No armaments', color: 'bg-orange-500/15 text-orange-400' });
   }
   if (app.screenshot_url && app.equipment_rating == null) {
     missing.push({ label: 'Needs gear rating', color: 'bg-orange-500/15 text-orange-400' });
@@ -159,6 +178,10 @@ function ApplicantCard({
   tiers,
   showMissingBadges,
   isAdmin,
+  dkpInfo,
+  dkpLoaded,
+  dkpOptions,
+  onDkpLink,
   onDecision,
   onNoteChange,
   onEquipmentRating,
@@ -168,6 +191,10 @@ function ApplicantCard({
   tiers: { tier_label: string }[];
   showMissingBadges: boolean;
   isAdmin: boolean;
+  dkpInfo: DkpInfo | null;
+  dkpLoaded: boolean;
+  dkpOptions: SearchableOption[];
+  onDkpLink: (name: string | null) => void;
   onDecision: (tier: string | null, status: 'approved' | 'declined' | 'pending') => void;
   onNoteChange: (note: string) => void;
   onEquipmentRating: (rating: number | null) => void;
@@ -180,6 +207,8 @@ function ApplicantCard({
   const headsNeeded = app.skill_levels ? goldHeadsToExpertise(app.skill_levels) : null;
 
   const [showScreenshot, setShowScreenshot] = useState(false);
+  const [showArmaments, setShowArmaments] = useState(false);
+  const [showDkpLink, setShowDkpLink] = useState(false);
   const { openPlayer } = usePlayerDrawer();
 
   const isAssigned = app.status === 'approved';
@@ -230,12 +259,62 @@ function ApplicantCard({
             </span>
           )}
         </div>
-        {app.applicant_power && (
-          <span className="text-sm shrink-0 tabular-nums" style={{ color: 'var(--text-muted)' }}>
-            {formatPower(app.applicant_power)}
-          </span>
-        )}
+        <div className="flex items-center gap-2 shrink-0">
+          {/* DKP standing — the auto-ranking signal */}
+          {dkpLoaded && (dkpInfo ? (
+            <span
+              className="text-xs px-2 py-0.5 rounded-full font-medium bg-yellow-500/10 text-yellow-500 tabular-nums"
+              title={`DKP from the latest /dkp scan${app.dkp_match_name ? ` (linked to "${app.dkp_match_name}")` : ''}`}
+            >
+              DKP {formatDkp(dkpInfo.dkp)} · #{dkpInfo.rank}/{dkpInfo.total}
+            </span>
+          ) : (
+            <button
+              type="button"
+              onClick={() => isAdmin && setShowDkpLink(v => !v)}
+              className={`text-xs px-2 py-0.5 rounded-full font-medium bg-orange-500/10 text-orange-400 flex items-center gap-1 ${isAdmin ? 'hover:bg-orange-500/20' : 'cursor-default'}`}
+              title="Name not found in the DKP scan — link it manually (name changes are common)"
+            >
+              <Link2 size={11} /> No DKP match
+            </button>
+          ))}
+          {app.applicant_power && (
+            <span className="text-sm tabular-nums" style={{ color: 'var(--text-muted)' }}>
+              {formatPower(app.applicant_power)}
+            </span>
+          )}
+        </div>
       </div>
+
+      {/* Manual DKP link picker (officer fixes name mismatches) */}
+      {showDkpLink && isAdmin && (
+        <div className="flex items-center gap-2 mb-2">
+          <div className="flex-1 min-w-0">
+            <SearchableSelect
+              options={dkpOptions}
+              value={app.dkp_match_name || null}
+              onChange={(_val, label) => { onDkpLink(label); setShowDkpLink(false); }}
+              placeholder="Search their name in the DKP scan..."
+            />
+          </div>
+          {app.dkp_match_name && (
+            <button
+              type="button"
+              onClick={() => { onDkpLink(null); setShowDkpLink(false); }}
+              className="text-xs text-red-400 hover:underline shrink-0"
+            >
+              Clear link
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Why they want the commander */}
+      {app.reason && (
+        <p className="text-sm mb-2 italic" style={{ color: 'var(--text-secondary)' }}>
+          &ldquo;{app.reason}&rdquo;
+        </p>
+      )}
 
       {/* Stats row: Level, Skills, Stars, Score bar, Heads */}
       <div className="flex items-center gap-2 sm:gap-3 mb-2 flex-wrap">
@@ -263,21 +342,41 @@ function ApplicantCard({
       </div>
 
       {/* Screenshot + Gear rating row (inline) */}
-      {app.screenshot_url && (
+      {(app.screenshot_url || app.armaments_screenshot_url) && (
         <>
           <div className="flex items-center gap-3 mb-2">
+            {app.screenshot_url && (
             <button
               type="button"
               onClick={() => setShowScreenshot(true)}
-              className="shrink-0"
+              className="shrink-0 relative"
+              title="Gear set they will run"
             >
               <img
                 src={app.screenshot_url}
-                alt="Commander screenshot"
+                alt="Gear set screenshot"
                 className="h-12 rounded border object-cover hover:brightness-110 transition-fast"
                 style={{ borderColor: 'var(--border)' }}
               />
+              <span className="absolute bottom-0 left-0 right-0 text-[8px] text-center bg-black/60 text-white rounded-b uppercase tracking-wide">gear</span>
             </button>
+            )}
+            {app.armaments_screenshot_url && (
+            <button
+              type="button"
+              onClick={() => setShowArmaments(true)}
+              className="shrink-0 relative"
+              title="Armaments they will use"
+            >
+              <img
+                src={app.armaments_screenshot_url}
+                alt="Armaments screenshot"
+                className="h-12 rounded border object-cover hover:brightness-110 transition-fast"
+                style={{ borderColor: 'var(--border)' }}
+              />
+              <span className="absolute bottom-0 left-0 right-0 text-[8px] text-center bg-black/60 text-white rounded-b uppercase tracking-wide">arma</span>
+            </button>
+            )}
             <div className="flex items-center gap-1.5">
               <span className="text-xs shrink-0" style={{ color: 'var(--text-muted)' }} title="Rate equipment quality from screenshot (1=poor, 10=maxed)">Gear</span>
               <div className="flex gap-px">
@@ -302,7 +401,7 @@ function ApplicantCard({
               )}
             </div>
           </div>
-          {showScreenshot && (
+          {showScreenshot && app.screenshot_url && (
             <div
               className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
               onClick={() => setShowScreenshot(false)}
@@ -310,11 +409,31 @@ function ApplicantCard({
               <div className="relative max-w-[90vw] max-h-[90vh]">
                 <img
                   src={app.screenshot_url}
-                  alt="Commander screenshot"
+                  alt="Gear set screenshot"
                   className="max-w-full max-h-[85vh] rounded-lg object-contain"
                 />
                 <button
                   onClick={() => setShowScreenshot(false)}
+                  className="absolute -top-3 -right-3 p-1.5 rounded-full bg-zinc-800 text-white hover:bg-zinc-700 transition-fast"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            </div>
+          )}
+          {showArmaments && app.armaments_screenshot_url && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+              onClick={() => setShowArmaments(false)}
+            >
+              <div className="relative max-w-[90vw] max-h-[90vh]">
+                <img
+                  src={app.armaments_screenshot_url}
+                  alt="Armaments screenshot"
+                  className="max-w-full max-h-[85vh] rounded-lg object-contain"
+                />
+                <button
+                  onClick={() => setShowArmaments(false)}
                   className="absolute -top-3 -right-3 p-1.5 rounded-full bg-zinc-800 text-white hover:bg-zinc-700 transition-fast"
                 >
                   <X size={16} />
@@ -370,6 +489,194 @@ function ApplicantCard({
             <Trash2 size={15} />
           </button>
         )}
+      </div>
+    </div>
+  );
+}
+
+// ── Result mail (deterministic template fill) ────────────────────────
+// Names and rankings are substituted by CODE, never by the AI — an LLM will
+// eventually typo a governor name in a 30-row list; string substitution won't.
+// The AI Assistant on /rok-mail stays available to polish the prose around it.
+
+const MAIL_TEMPLATE_KEY = 'mge-mail-template';
+const MAIL_ROW_KEY = 'mge-mail-row';
+
+const DEFAULT_MAIL_TEMPLATE = `⚔️ MGE RESULTS — {{commander}} ⚔️
+
+The council has spoken. {{count}} warriors were selected for the {{event_date}} Mightiest Governor Event:
+
+{{list}}
+
+Hit your tier's point cap and the kingdom's support is yours. Questions → your alliance officer.
+
+— EMBERFALL Leadership 🔥`;
+
+const DEFAULT_MAIL_ROW = '{{rank}}. {{name}} — {{tier}}';
+
+interface MailRow {
+  name: string;
+  tier: string;
+  alliance: string;
+  dkp: string;
+}
+
+function fillMailTemplate(template: string, rowTemplate: string, rows: MailRow[], vars: Record<string, string>): string {
+  const list = rows
+    .map((r, i) =>
+      rowTemplate
+        .replaceAll('{{rank}}', String(i + 1))
+        .replaceAll('{{name}}', r.name)
+        .replaceAll('{{tier}}', r.tier)
+        .replaceAll('{{alliance}}', r.alliance)
+        .replaceAll('{{dkp}}', r.dkp)
+    )
+    .join('\n');
+  let out = template.replaceAll('{{list}}', list);
+  for (const [k, v] of Object.entries(vars)) {
+    out = out.replaceAll(`{{${k}}}`, v);
+  }
+  return out;
+}
+
+function ResultMailModal({
+  event,
+  rows,
+  onClose,
+}: {
+  event: MgeEvent;
+  rows: MailRow[];
+  onClose: () => void;
+}) {
+  const [template, setTemplate] = useState(() =>
+    (typeof window !== 'undefined' && localStorage.getItem(MAIL_TEMPLATE_KEY)) || DEFAULT_MAIL_TEMPLATE
+  );
+  const [rowTemplate, setRowTemplate] = useState(() =>
+    (typeof window !== 'undefined' && localStorage.getItem(MAIL_ROW_KEY)) || DEFAULT_MAIL_ROW
+  );
+  const [copied, setCopied] = useState(false);
+
+  const commander = event.mge_event_commanders.find(c => c.is_focus)?.commander_name
+    || event.focused_commander.split(',')[0]?.trim() || '';
+
+  const mail = useMemo(
+    () => fillMailTemplate(template, rowTemplate, rows, {
+      commander,
+      event_date: event.event_date,
+      count: String(rows.length),
+    }),
+    [template, rowTemplate, rows, commander, event.event_date]
+  );
+
+  const saveTemplates = (t: string, r: string) => {
+    localStorage.setItem(MAIL_TEMPLATE_KEY, t);
+    localStorage.setItem(MAIL_ROW_KEY, r);
+  };
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(mail);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
+  };
+
+  const handleOpenRokMail = () => {
+    localStorage.setItem('rok-mail-draft', mail);
+    window.location.href = '/rok-mail';
+  };
+
+  const areaClass = 'w-full rounded-md border px-3 py-2 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-blue-500/50 resize-y';
+  const areaStyle = { backgroundColor: 'var(--background-secondary)', borderColor: 'var(--border)', color: 'var(--foreground)' };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={onClose}>
+      <div
+        className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-xl border p-5"
+        style={{ backgroundColor: 'var(--background-card)', borderColor: 'var(--border)' }}
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <Mail size={18} className="text-blue-400" />
+            <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>Result Mail</h3>
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-md hover:bg-[var(--background-secondary)] transition-fast" style={{ color: 'var(--text-muted)' }}>
+            <X size={16} />
+          </button>
+        </div>
+
+        <p className="text-xs mb-4 p-2.5 rounded-md bg-emerald-500/5 border border-emerald-500/15" style={{ color: 'var(--text-secondary)' }}>
+          Names and rankings are filled in by code from the finalized list — never by AI, so they can&apos;t be typoed.
+          Placeholders: <code className="text-emerald-400">{'{{commander}} {{event_date}} {{count}} {{list}}'}</code> in the mail,{' '}
+          <code className="text-emerald-400">{'{{rank}} {{name}} {{tier}} {{alliance}} {{dkp}}'}</code> per row.
+        </p>
+
+        <div className="grid gap-4 lg:grid-cols-2">
+          <div className="space-y-3">
+            <div>
+              <label className="block text-xs font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>Mail template</label>
+              <textarea
+                value={template}
+                onChange={e => { setTemplate(e.target.value); saveTemplates(e.target.value, rowTemplate); }}
+                rows={12}
+                className={areaClass}
+                style={areaStyle}
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>Row format (one line per player)</label>
+              <input
+                value={rowTemplate}
+                onChange={e => { setRowTemplate(e.target.value); saveTemplates(template, e.target.value); }}
+                className={areaClass}
+                style={areaStyle}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setTemplate(DEFAULT_MAIL_TEMPLATE);
+                setRowTemplate(DEFAULT_MAIL_ROW);
+                saveTemplates(DEFAULT_MAIL_TEMPLATE, DEFAULT_MAIL_ROW);
+              }}
+              className="text-xs hover:underline"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              Reset to default template
+            </button>
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
+                Preview ({rows.length} players)
+              </label>
+              <span className="text-xs tabular-nums" style={{ color: 'var(--text-muted)' }}>{mail.length} chars</span>
+            </div>
+            <pre
+              className="w-full rounded-md border px-3 py-2 text-sm whitespace-pre-wrap max-h-[340px] overflow-y-auto"
+              style={{ backgroundColor: 'var(--background-secondary)', borderColor: 'var(--border)', color: 'var(--foreground)' }}
+            >
+              {mail}
+            </pre>
+            <div className="flex gap-2 mt-3">
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-fast"
+              >
+                <Copy size={14} /> {copied ? 'Copied!' : 'Copy mail'}
+              </button>
+              <button
+                type="button"
+                onClick={handleOpenRokMail}
+                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 transition-fast"
+                title="Opens the RoK Mail editor with this draft — use the AI Assistant there to polish the wording"
+              >
+                <Mail size={14} /> Open in RoK Mail
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -653,9 +960,44 @@ function AddApplicantForm({
 export function MgeReviewTab({ event, isAdmin, onUpdate }: MgeReviewTabProps) {
   const [finalizing, setFinalizing] = useState(false);
   const [showAddApplicant, setShowAddApplicant] = useState(false);
+  const [showResultMail, setShowResultMail] = useState(false);
 
   const apps = event.mge_applications || [];
   const tiers = event.mge_rank_tiers || [];
+
+  // ── DKP standings from the latest /dkp scan ──────────────────────────
+  const [dkpMap, setDkpMap] = useState<Map<string, DkpInfo> | null>(null);
+  const [dkpOptions, setDkpOptions] = useState<SearchableOption[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadLatestDataset().then((ds) => {
+      if (cancelled) return;
+      if (!ds || ds.players.length === 0) {
+        setDkpMap(new Map());
+        return;
+      }
+      const sorted = [...ds.players].sort((a, b) => b.dkp - a.dkp);
+      const map = new Map<string, DkpInfo>();
+      sorted.forEach((p, i) => {
+        const key = normalizeName(p.username);
+        if (!map.has(key)) map.set(key, { dkp: p.dkp, rank: i + 1, total: sorted.length });
+      });
+      setDkpMap(map);
+      setDkpOptions(sorted.map((p, i) => ({
+        value: p.username,
+        label: p.username,
+        secondary: `#${i + 1} · ${formatDkp(p.dkp)} DKP`,
+      })));
+    }).catch(() => { if (!cancelled) setDkpMap(new Map()); });
+    return () => { cancelled = true; };
+  }, []);
+
+  const dkpFor = useCallback((app: MgeApplication): DkpInfo | null => {
+    if (!dkpMap) return null;
+    const key = normalizeName(app.dkp_match_name || app.applicant_name);
+    return dkpMap.get(key) ?? null;
+  }, [dkpMap]);
 
   // Group apps by status
   const { needsReview, assigned, skipped, withdrawn } = useMemo(() => {
@@ -676,22 +1018,57 @@ export function MgeReviewTab({ event, isAdmin, onUpdate }: MgeReviewTabProps) {
         ? commanderInvestmentScore(a.commander_level, a.skill_levels, a.commander_stars, a.equipment_rating)
         : 0;
 
-    // Needs review: screenshot first, then by score
-    needsReview.sort((a, b) => {
-      const aHasScreenshot = a.screenshot_url ? 1 : 0;
-      const bHasScreenshot = b.screenshot_url ? 1 : 0;
-      if (aHasScreenshot !== bHasScreenshot) return bHasScreenshot - aHasScreenshot;
+    // Primary order: DKP score from the latest scan (desc). Applicants without
+    // a DKP match sink below matched ones; investment score breaks ties.
+    const byDkpThenScore = (a: MgeApplication, b: MgeApplication) => {
+      const da = dkpFor(a);
+      const db = dkpFor(b);
+      if (da && db && db.dkp !== da.dkp) return db.dkp - da.dkp;
+      if (da && !db) return -1;
+      if (!da && db) return 1;
       return scoreOf(b) - scoreOf(a);
-    });
+    };
 
-    // Assigned: by score desc
-    assigned.sort((a, b) => scoreOf(b) - scoreOf(a));
-
-    // Skipped: by score desc
-    skipped.sort((a, b) => scoreOf(b) - scoreOf(a));
+    needsReview.sort(byDkpThenScore);
+    assigned.sort(byDkpThenScore);
+    skipped.sort(byDkpThenScore);
 
     return { needsReview, assigned, skipped, withdrawn };
-  }, [apps]);
+  }, [apps, dkpFor]);
+
+  const handleDkpLink = useCallback(async (appId: number, name: string | null) => {
+    const ok = await setApplicationDkpMatch(appId, name);
+    if (ok) onUpdate();
+  }, [onUpdate]);
+
+  // Rows for the result mail: finalized selections are the source of truth
+  // (they hold the locked order); before finalizing, preview from the
+  // DKP-ranked assigned list.
+  const mailRows = useMemo<MailRow[]>(() => {
+    const appByName = new Map(apps.map(a => [normalizeName(a.applicant_name), a]));
+    const isFinal = (event.status === 'finalized' || event.status === 'completed') && event.mge_selections.length > 0;
+    if (isFinal) {
+      return event.mge_selections.map(sel => {
+        const app = appByName.get(normalizeName(sel.member_name));
+        const info = app ? dkpFor(app) : null;
+        return {
+          name: sel.member_name,
+          tier: sel.ranking_tier,
+          alliance: app?.applicant_alliance ? allianceDisplay(app.applicant_alliance) : '',
+          dkp: info ? formatDkp(info.dkp) : '',
+        };
+      });
+    }
+    return assigned.map(app => {
+      const info = dkpFor(app);
+      return {
+        name: app.applicant_name,
+        tier: app.assigned_tier || app.preferred_tier || '',
+        alliance: app.applicant_alliance ? allianceDisplay(app.applicant_alliance) : '',
+        dkp: info ? formatDkp(info.dkp) : '',
+      };
+    });
+  }, [apps, assigned, event.status, event.mge_selections, dkpFor]);
 
   const handleDecision = useCallback(async (appId: number, tier: string | null, status: 'approved' | 'declined' | 'pending') => {
     const app = apps.find(a => a.id === appId);
@@ -724,9 +1101,10 @@ export function MgeReviewTab({ event, isAdmin, onUpdate }: MgeReviewTabProps) {
   }, [onUpdate]);
 
   const handleFinalize = async () => {
-    if (!confirm('Convert all assigned applications to selections and finalize this event?')) return;
+    if (!confirm('Convert all assigned applications to selections and finalize this event? The final order follows the DKP ranking shown.')) return;
     setFinalizing(true);
-    const ok = await convertApprovedToSelections(event.id);
+    // Pass the displayed (DKP-ranked) order so selections keep it
+    const ok = await convertApprovedToSelections(event.id, assigned.map(a => a.id));
     if (ok) onUpdate();
     setFinalizing(false);
   };
@@ -772,6 +1150,10 @@ export function MgeReviewTab({ event, isAdmin, onUpdate }: MgeReviewTabProps) {
         tiers={tiers}
         showMissingBadges={showMissing}
         isAdmin={isAdmin}
+        dkpInfo={dkpFor(app)}
+        dkpLoaded={dkpMap !== null && dkpMap.size > 0}
+        dkpOptions={dkpOptions}
+        onDkpLink={name => handleDkpLink(app.id, name)}
         onDecision={(tier, status) => handleDecision(app.id, tier, status)}
         onNoteChange={note => handleNoteChange(app.id, note)}
         onEquipmentRating={rating => handleEquipmentRating(app.id, rating)}
@@ -787,11 +1169,11 @@ export function MgeReviewTab({ event, isAdmin, onUpdate }: MgeReviewTabProps) {
         <div className="text-sm space-y-1" style={{ color: 'var(--text-secondary)' }}>
           <p className="font-medium text-blue-400">How to review</p>
           <ol className="list-decimal list-inside space-y-0.5" style={{ color: 'var(--text-muted)' }}>
-            <li>Review <strong>screenshot</strong> and rate <strong>equipment</strong> (1-10)</li>
-            <li>Tap the <strong>score bar</strong> to see level/skill/star breakdown</li>
-            <li>Use the <strong>dropdown</strong> to assign a rank or skip</li>
-            <li>Add <strong>officer notes</strong> if needed</li>
-            <li>When all reviewed, admin clicks <strong>Finalize</strong></li>
+            <li>Applicants are <strong>auto-ordered by DKP score</strong> from the latest /dkp scan — fix any <strong>No DKP match</strong> via the link button</li>
+            <li>Review <strong>gear + armaments</strong> screenshots and rate <strong>equipment</strong> (1-10)</li>
+            <li>Use the <strong>dropdown</strong> to assign a rank or skip; add <strong>officer notes</strong> if needed</li>
+            <li>When all reviewed, admin clicks <strong>Finalize</strong> (keeps the DKP order)</li>
+            <li>Then <strong>Result Mail</strong> fills your announcement template — names inserted by code, never AI</li>
           </ol>
         </div>
       </div>
@@ -845,18 +1227,36 @@ export function MgeReviewTab({ event, isAdmin, onUpdate }: MgeReviewTabProps) {
         {renderCards(withdrawn, false)}
       </ReviewSection>
 
-      {/* Finalize button (admin only) */}
-      {isAdmin && assigned.length > 0 && event.status !== 'finalized' && event.status !== 'completed' && (
-        <div className="mt-5 pt-4 border-t" style={{ borderColor: 'var(--border)' }}>
+      {/* Finalize + Result Mail (admin only) */}
+      {isAdmin && (assigned.length > 0 || event.mge_selections.length > 0) && (
+        <div className="mt-5 pt-4 border-t flex flex-col sm:flex-row gap-2" style={{ borderColor: 'var(--border)' }}>
+          {assigned.length > 0 && event.status !== 'finalized' && event.status !== 'completed' && (
+            <button
+              onClick={handleFinalize}
+              disabled={finalizing}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-md text-base font-medium bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 transition-fast disabled:opacity-40"
+            >
+              <CheckCircle size={18} />
+              {finalizing ? 'Finalizing...' : `Finalize Event (${assigned.length} assigned, DKP order)`}
+            </button>
+          )}
           <button
-            onClick={handleFinalize}
-            disabled={finalizing}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-md text-base font-medium bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 transition-fast disabled:opacity-40"
+            onClick={() => setShowResultMail(true)}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-md text-base font-medium bg-blue-500/15 text-blue-400 hover:bg-blue-500/25 transition-fast"
+            title="Generate the in-game results mail from your template — names and ranks filled by code"
           >
-            <CheckCircle size={18} />
-            {finalizing ? 'Finalizing...' : `Finalize Event (${assigned.length} assigned)`}
+            <Trophy size={18} />
+            Result Mail
           </button>
         </div>
+      )}
+
+      {showResultMail && (
+        <ResultMailModal
+          event={event}
+          rows={mailRows}
+          onClose={() => setShowResultMail(false)}
+        />
       )}
     </div>
   );

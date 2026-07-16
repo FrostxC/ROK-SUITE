@@ -341,10 +341,10 @@ export default function Home() {
 
             <div className="anim-rise mt-10 flex flex-col sm:flex-row items-center justify-center gap-4" style={{ animationDelay: '0.6s' }}>
               <Link
-                href="/apply"
+                href="/mge"
                 className="shine-sweep group relative px-8 py-3.5 rounded-[8px] font-semibold text-sm tracking-[0.14em] uppercase text-white bg-gradient-to-b from-[#DC143C] to-[#8B0000] border border-[#DC143C]/40 shadow-[0_6px_28px_rgba(139,0,0,0.45)] transition-all duration-300 hover:shadow-[0_8px_40px_rgba(220,20,60,0.55)] hover:-translate-y-0.5"
               >
-                Join the Kingdom
+                Apply for MGE
               </Link>
               <a
                 href="#war-room"

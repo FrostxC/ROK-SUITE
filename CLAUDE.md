@@ -79,6 +79,23 @@ helm on cav/archer) and only 1 build per troop — both fixed. If adding set
 bonuses for Glorious Goddess/Wolf/Witch/Knight, source them and add to
 SET_BONUSES (piece counts already track for any set in the catalog).
 
+DONE July 2026: MGE application pipeline upgrade — hero CTA is now "Apply for
+MGE" → /mge (the /apply Submit Lead Info page is untouched, still in sidebar +
+tools). MgeApplyTab requires: gear-set screenshot ("the set you'll RUN, not
+your best"), armaments screenshot, and a "why do you want him" reason.
+MgeReviewTab auto-ranks applicants by DKP score from the latest /dkp scan
+(normalizeName matching + officer "No DKP match" manual link via
+dkp_match_name), Finalize keeps the DKP order, and a Result Mail modal fills
+the officer's announcement template DETERMINISTICALLY ({{rank}}/{{name}}/
+{{tier}}/{{list}} placeholders — code substitution, never the AI; template
+persisted in localStorage) with handoff to /rok-mail via the
+'rok-mail-draft' localStorage key.
+⚠️ REQUIRED BEFORE FIRST MGE EVENT: run
+`apps/web/lib/supabase/migrations/mge-apply-upgrade.sql` against the Supabase
+DB (adds armaments_screenshot_url, reason, dkp_match_name to
+mge_applications). Runner: `node C:\ROK\_db-tools\apply-schema.js "<conn>"` or
+psql the single file. Until then, submitting an application will 400.
+
 1. **Hall of Heroes recognition tracker** (#3 on the ladder — rides scan data; an
    archived /recognition page exists to revive).
 2. Supabase keep-alive cron (after user restores the paused project).
