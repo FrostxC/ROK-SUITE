@@ -80,8 +80,10 @@ bonuses for Glorious Goddess/Wolf/Witch/Knight, source them and add to
 SET_BONUSES (piece counts already track for any set in the catalog).
 
 DONE July 2026: MGE application pipeline upgrade — hero CTA is now "Apply for
-MGE" → /mge (the /apply Submit Lead Info page is untouched, still in sidebar +
-tools). MgeApplyTab requires: gear-set screenshot ("the set you'll RUN, not
+MGE" → /mge/apply, a dedicated player-facing application page styled like
+/apply (before-you-start card, event summary, embedded form, friendly
+no-open-event state). /mge stays the officer event manager. (The /apply
+Submit Lead Info page is untouched, still in sidebar + tools.) MgeApplyTab requires: gear-set screenshot ("the set you'll RUN, not
 your best"), armaments screenshot, and a "why do you want him" reason.
 MgeReviewTab auto-ranks applicants by DKP score from the latest /dkp scan
 (normalizeName matching + officer "No DKP match" manual link via
