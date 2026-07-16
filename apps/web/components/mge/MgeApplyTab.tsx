@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { Send, CheckCircle, Clock, XCircle, AlertCircle, Camera, X, Pencil, Trash2 } from 'lucide-react';
-import { MgeSkillInput } from './MgeSkillInput';
 import SearchableSelect, { type SearchableOption } from '@/components/ui/SearchableSelect';
 import { supabase } from '@/lib/supabase';
 import {
@@ -15,7 +14,7 @@ import {
   type MgeApplication,
   type MgeApplicationStatus,
 } from '@/lib/supabase/use-mge';
-import { formatSkillLevels, commanderInvestmentScore, isDeadlinePassed, formatDeadline } from '@/lib/mge/helpers';
+import { formatSkillLevels, isDeadlinePassed, formatDeadline } from '@/lib/mge/helpers';
 import { allianceDisplay } from '@/lib/alliances';
 
 interface RosterMember {
@@ -46,14 +45,11 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
   const [applicantAlliance, setApplicantAlliance] = useState('');
   const [applicantPower, setApplicantPower] = useState<number | null>(null);
 
-  // Commander stats
+  // Focus commander for this event
   const focusCommander = event.mge_event_commanders.find(c => c.is_focus)?.commander_name
     || event.mge_event_commanders[0]?.commander_name
     || event.focused_commander.split(',')[0]?.trim()
     || '';
-  const [level, setLevel] = useState(60);
-  const [skills, setSkills] = useState([5, 5, 5, 5]);
-  const [stars, setStars] = useState(5);
 
   // Tier preferences
   const [preferredTier, setPreferredTier] = useState('');
@@ -61,7 +57,10 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
   const [notes, setNotes] = useState('');
   const [reason, setReason] = useState('');
 
-  // Screenshots: the gear set they'll RUN on this commander + armaments
+  // Screenshots: the commander profile (shows level/skills/stars — replaces
+  // manual stat entry), the gear set they'll RUN on him, and armaments
+  const [commanderFile, setCommanderFile] = useState<File | null>(null);
+  const [commanderPreview, setCommanderPreview] = useState<string | null>(null);
   const [screenshotFile, setScreenshotFile] = useState<File | null>(null);
   const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
   const [armamentsFile, setArmamentsFile] = useState<File | null>(null);
@@ -115,13 +114,13 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
   // Pre-fill form when editing existing application
   useEffect(() => {
     if (isEditing && existingApp) {
-      setLevel(existingApp.commander_level || 60);
-      setSkills(existingApp.skill_levels || [5, 5, 5, 5]);
-      setStars(existingApp.commander_stars || 5);
       setPreferredTier(existingApp.preferred_tier || '');
       setMaxTier(existingApp.max_tier || '');
       setNotes(existingApp.notes || '');
       setReason(existingApp.reason || '');
+      if (existingApp.commander_screenshot_url) {
+        setCommanderPreview(existingApp.commander_screenshot_url);
+      }
       if (existingApp.screenshot_url) {
         setScreenshotPreview(existingApp.screenshot_url);
       }
@@ -192,10 +191,31 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
     setArmamentsPreview(null);
   };
 
+  const handleCommanderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image must be under 5MB');
+      return;
+    }
+    setCommanderFile(file);
+    const url = URL.createObjectURL(file);
+    setCommanderPreview(url);
+  };
+
+  const removeCommander = () => {
+    setCommanderFile(null);
+    if (commanderPreview && !commanderPreview.startsWith('http')) {
+      URL.revokeObjectURL(commanderPreview);
+    }
+    setCommanderPreview(null);
+  };
+
   /** Required-field check shared by submit + update. Returns an error string
-   * or null. Gear screenshot + armaments screenshot + reason are all required
-   * — the officer ranks on what you'll actually run, not on promises. */
+   * or null. Commander + gear + armaments screenshots + reason are all
+   * required — screenshots can't be typoed, promises can. */
   const validateRequired = (): string | null => {
+    if (!commanderPreview && !commanderFile) return `Please upload a screenshot of your ${focusCommander || 'commander'} — level, skills and stars visible.`;
     if (!screenshotPreview && !screenshotFile) return 'Please upload the gear set you will run on this commander.';
     if (!armamentsPreview && !armamentsFile) return 'Please upload the armaments you will use.';
     if (!reason.trim()) return 'Please tell the officers why you want this commander.';
@@ -209,6 +229,10 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
     setFormError(null);
     setSubmitting(true);
 
+    let commanderUrl: string | null = commanderPreview?.startsWith('http') ? commanderPreview : null;
+    if (commanderFile) {
+      commanderUrl = await uploadMgeScreenshot(commanderFile, event.id, applicantName.trim(), 'commander');
+    }
     let screenshotUrl: string | null = screenshotPreview?.startsWith('http') ? screenshotPreview : null;
     if (screenshotFile) {
       screenshotUrl = await uploadMgeScreenshot(screenshotFile, event.id, applicantName.trim(), 'gear');
@@ -223,14 +247,12 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
       applicant_alliance: applicantAlliance || null,
       applicant_power: applicantPower,
       commander_name: focusCommander,
-      commander_level: level,
-      skill_levels: skills,
-      commander_stars: stars,
       preferred_tier: preferredTier || null,
       max_tier: maxTier || null,
       notes: notes.trim() || null,
       reason: reason.trim() || null,
       screenshot_url: screenshotUrl,
+      commander_screenshot_url: commanderUrl,
       armaments_screenshot_url: armamentsUrl,
     });
 
@@ -250,6 +272,10 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
     setFormError(null);
     setSubmitting(true);
 
+    let commanderUrl: string | null = commanderPreview?.startsWith('http') ? commanderPreview : null;
+    if (commanderFile) {
+      commanderUrl = await uploadMgeScreenshot(commanderFile, event.id, applicantName.trim(), 'commander');
+    }
     let screenshotUrl: string | null = screenshotPreview?.startsWith('http') ? screenshotPreview : null;
     if (screenshotFile) {
       screenshotUrl = await uploadMgeScreenshot(screenshotFile, event.id, applicantName.trim(), 'gear');
@@ -259,15 +285,15 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
       armamentsUrl = await uploadMgeScreenshot(armamentsFile, event.id, applicantName.trim(), 'armaments');
     }
 
+    // Legacy commander_level/skill_levels/commander_stars are intentionally
+    // not touched — old applications keep their manually-entered stats.
     const ok = await updateApplicationFields(existingApp.id, {
-      commander_level: level,
-      skill_levels: skills,
-      commander_stars: stars,
       preferred_tier: preferredTier || null,
       max_tier: maxTier || null,
       notes: notes.trim() || null,
       reason: reason.trim() || null,
       screenshot_url: screenshotUrl,
+      commander_screenshot_url: commanderUrl,
       armaments_screenshot_url: armamentsUrl,
     });
 
@@ -486,19 +512,45 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
         )}
       </div>
 
-      {/* Commander Stats */}
+      {/* Commander screenshot (required — replaces manual stats entry) */}
       <div>
-        <label className="block text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>
-          Your {focusCommander} Stats
+        <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>
+          Your {focusCommander} <span className="text-red-400">*</span>
         </label>
-        <MgeSkillInput
-          level={level}
-          skills={skills}
-          stars={stars}
-          onLevelChange={setLevel}
-          onSkillsChange={setSkills}
-          onStarsChange={setStars}
-        />
+        <p className="text-xs mb-2" style={{ color: 'var(--text-muted)' }}>
+          Screenshot of the commander — level, skills and stars must be visible.
+        </p>
+        {commanderPreview ? (
+          <div className="relative inline-block">
+            <img
+              src={commanderPreview}
+              alt="Commander screenshot"
+              className="rounded-lg border max-h-48 object-contain"
+              style={{ borderColor: 'var(--border)' }}
+            />
+            <button
+              type="button"
+              onClick={removeCommander}
+              className="absolute -top-2 -right-2 p-1 rounded-full bg-red-500/80 text-white hover:bg-red-500 transition-fast"
+            >
+              <X size={12} />
+            </button>
+          </div>
+        ) : (
+          <label className="flex items-center gap-2 px-4 py-3 rounded-lg border border-dashed cursor-pointer hover:bg-[var(--background-secondary)] transition-fast"
+            style={{ borderColor: 'var(--border)' }}>
+            <Camera size={18} style={{ color: 'var(--text-muted)' }} />
+            <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
+              Tap to upload your commander
+            </span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleCommanderChange}
+              className="hidden"
+            />
+          </label>
+        )}
       </div>
 
       {/* Gear set screenshot (required) */}

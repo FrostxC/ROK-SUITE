@@ -57,6 +57,7 @@ export interface MgeApplication {
   assigned_tier: string | null;
   decided_at: string | null;
   screenshot_url: string | null;
+  commander_screenshot_url: string | null;
   armaments_screenshot_url: string | null;
   reason: string | null;
   dkp_match_name: string | null;
@@ -406,7 +407,7 @@ export async function uploadMgeScreenshot(
   file: File,
   eventId: number,
   applicantName: string,
-  kind: 'gear' | 'armaments' = 'gear'
+  kind: 'gear' | 'armaments' | 'commander' = 'gear'
 ): Promise<string | null> {
   const ext = file.name.split('.').pop() || 'png';
   const safeName = applicantName.replace(/[^a-zA-Z0-9]/g, '_');
@@ -442,6 +443,7 @@ export async function submitApplication(
     max_tier?: string | null;
     notes?: string | null;
     screenshot_url?: string | null;
+    commander_screenshot_url?: string | null;
     armaments_screenshot_url?: string | null;
     reason?: string | null;
   }
@@ -461,6 +463,7 @@ export async function submitApplication(
       max_tier: data.max_tier || null,
       notes: data.notes || null,
       screenshot_url: data.screenshot_url || null,
+      commander_screenshot_url: data.commander_screenshot_url || null,
       armaments_screenshot_url: data.armaments_screenshot_url || null,
       reason: data.reason || null,
     }])
@@ -517,6 +520,7 @@ export async function updateApplicationFields(
     max_tier?: string | null;
     notes?: string | null;
     screenshot_url?: string | null;
+    commander_screenshot_url?: string | null;
     armaments_screenshot_url?: string | null;
     reason?: string | null;
   }

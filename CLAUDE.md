@@ -83,8 +83,11 @@ DONE July 2026: MGE application pipeline upgrade — hero CTA is now "Apply for
 MGE" → /mge/apply, a dedicated player-facing application page styled like
 /apply (before-you-start card, event summary, embedded form, friendly
 no-open-event state). /mge stays the officer event manager. (The /apply
-Submit Lead Info page is untouched, still in sidebar + tools.) MgeApplyTab requires: gear-set screenshot ("the set you'll RUN, not
-your best"), armaments screenshot, and a "why do you want him" reason.
+Submit Lead Info page is untouched, still in sidebar + tools.) MgeApplyTab requires THREE screenshots — commander profile (replaced the
+manual level/stars/skills entry at the user's request; a picture can't be
+typoed), gear set ("the set you'll RUN, not your best"), armaments — plus a
+"why do you want him" reason. Legacy manual-stats fields still render on old
+applications only; the officer AddApplicantForm still has manual stat entry.
 MgeReviewTab auto-ranks applicants by DKP score from the latest /dkp scan
 (normalizeName matching + officer "No DKP match" manual link via
 dkp_match_name), Finalize keeps the DKP order, and a Result Mail modal fills
@@ -94,8 +97,8 @@ persisted in localStorage) with handoff to /rok-mail via the
 'rok-mail-draft' localStorage key.
 ⚠️ REQUIRED BEFORE FIRST MGE EVENT: run
 `apps/web/lib/supabase/migrations/mge-apply-upgrade.sql` against the Supabase
-DB (adds armaments_screenshot_url, reason, dkp_match_name to
-mge_applications). Runner: `node C:\ROK\_db-tools\apply-schema.js "<conn>"` or
+DB (adds commander_screenshot_url, armaments_screenshot_url, reason,
+dkp_match_name to mge_applications). Runner: `node C:\ROK\_db-tools\apply-schema.js "<conn>"` or
 psql the single file. Until then, submitting an application will 400.
 
 1. **Hall of Heroes recognition tracker** (#3 on the ladder — rides scan data; an

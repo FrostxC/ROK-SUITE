@@ -149,6 +149,10 @@ function InvestmentBar({
 /** Missing info badges for an application */
 function MissingBadges({ app }: { app: MgeApplication }) {
   const missing: { label: string; color: string }[] = [];
+  // Legacy applications entered stats manually instead of a commander shot
+  if (!app.commander_screenshot_url && !app.skill_levels) {
+    missing.push({ label: 'No commander shot', color: 'bg-orange-500/15 text-orange-400' });
+  }
   if (!app.screenshot_url) {
     missing.push({ label: 'No gear shot', color: 'bg-orange-500/15 text-orange-400' });
   }
@@ -208,8 +212,11 @@ function ApplicantCard({
 
   const [showScreenshot, setShowScreenshot] = useState(false);
   const [showArmaments, setShowArmaments] = useState(false);
+  const [showCommander, setShowCommander] = useState(false);
   const [showDkpLink, setShowDkpLink] = useState(false);
   const { openPlayer } = usePlayerDrawer();
+  // Manually-entered stats only exist on legacy applications
+  const hasLegacyStats = Boolean(app.commander_level || app.skill_levels);
 
   const isAssigned = app.status === 'approved';
   const isSkipped = app.status === 'declined';
@@ -316,7 +323,8 @@ function ApplicantCard({
         </p>
       )}
 
-      {/* Stats row: Level, Skills, Stars, Score bar, Heads */}
+      {/* Stats row \u2014 legacy applications only (stats now come from the commander screenshot) */}
+      {hasLegacyStats && (
       <div className="flex items-center gap-2 sm:gap-3 mb-2 flex-wrap">
         <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
           Lv.{app.commander_level || '?'}
@@ -340,11 +348,28 @@ function ApplicantCard({
           </span>
         )}
       </div>
+      )}
 
       {/* Screenshot + Gear rating row (inline) */}
-      {(app.screenshot_url || app.armaments_screenshot_url) && (
+      {(app.screenshot_url || app.armaments_screenshot_url || app.commander_screenshot_url) && (
         <>
           <div className="flex items-center gap-3 mb-2">
+            {app.commander_screenshot_url && (
+            <button
+              type="button"
+              onClick={() => setShowCommander(true)}
+              className="shrink-0 relative"
+              title="Commander — level, skills, stars"
+            >
+              <img
+                src={app.commander_screenshot_url}
+                alt="Commander screenshot"
+                className="h-12 rounded border object-cover hover:brightness-110 transition-fast"
+                style={{ borderColor: 'var(--border)' }}
+              />
+              <span className="absolute bottom-0 left-0 right-0 text-[8px] text-center bg-black/60 text-white rounded-b uppercase tracking-wide">cmdr</span>
+            </button>
+            )}
             {app.screenshot_url && (
             <button
               type="button"
@@ -434,6 +459,26 @@ function ApplicantCard({
                 />
                 <button
                   onClick={() => setShowArmaments(false)}
+                  className="absolute -top-3 -right-3 p-1.5 rounded-full bg-zinc-800 text-white hover:bg-zinc-700 transition-fast"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            </div>
+          )}
+          {showCommander && app.commander_screenshot_url && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+              onClick={() => setShowCommander(false)}
+            >
+              <div className="relative max-w-[90vw] max-h-[90vh]">
+                <img
+                  src={app.commander_screenshot_url}
+                  alt="Commander screenshot"
+                  className="max-w-full max-h-[85vh] rounded-lg object-contain"
+                />
+                <button
+                  onClick={() => setShowCommander(false)}
                   className="absolute -top-3 -right-3 p-1.5 rounded-full bg-zinc-800 text-white hover:bg-zinc-700 transition-fast"
                 >
                   <X size={16} />
@@ -1170,7 +1215,7 @@ export function MgeReviewTab({ event, isAdmin, onUpdate }: MgeReviewTabProps) {
           <p className="font-medium text-blue-400">How to review</p>
           <ol className="list-decimal list-inside space-y-0.5" style={{ color: 'var(--text-muted)' }}>
             <li>Applicants are <strong>auto-ordered by DKP score</strong> from the latest /dkp scan — fix any <strong>No DKP match</strong> via the link button</li>
-            <li>Review <strong>gear + armaments</strong> screenshots and rate <strong>equipment</strong> (1-10)</li>
+            <li>Review <strong>commander + gear + armaments</strong> screenshots and rate <strong>equipment</strong> (1-10)</li>
             <li>Use the <strong>dropdown</strong> to assign a rank or skip; add <strong>officer notes</strong> if needed</li>
             <li>When all reviewed, admin clicks <strong>Finalize</strong> (keeps the DKP order)</li>
             <li>Then <strong>Result Mail</strong> fills your announcement template — names inserted by code, never AI</li>

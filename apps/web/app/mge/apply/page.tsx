@@ -107,7 +107,8 @@ export default function MgeApplyPage() {
                   </h2>
                   <ul className="space-y-1 text-xs text-[var(--text-secondary)] leading-relaxed">
                     <li>• Your governor name — search it from the kingdom roster</li>
-                    <li>• A screenshot of the <strong>exact gear set you will run on {focusCommander}</strong> during the event — not your best set</li>
+                    <li>• A screenshot of <strong>your {focusCommander}</strong> — level, skills and stars visible</li>
+                    <li>• A screenshot of the <strong>exact gear set you will run on him</strong> during the event — not your best set</li>
                     <li>• A screenshot of the <strong>armaments</strong> you will use</li>
                     <li>• A short reason: <strong>why should the kingdom invest him in you?</strong></li>
                   </ul>
