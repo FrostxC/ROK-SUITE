@@ -2,14 +2,9 @@
 
 import { useState, useMemo } from 'react';
 import { Plus, Trash2, X, Star, Wand2, ChevronDown, ChevronUp } from 'lucide-react';
-import { commanderReferences } from '@/lib/sunset-canyon/commander-reference';
+import { MGE_COMMANDERS, MGE_COMMANDER_TYPES, type MgeCommanderType } from '@/lib/mge/commanders';
 import { generateDefaultTiers } from '@/lib/mge/helpers';
 import { Search } from 'lucide-react';
-
-const COMMANDER_NAMES = commanderReferences
-  .filter(c => c.rarity === 'legendary')
-  .map(c => c.name)
-  .sort();
 
 interface TierConfig {
   label: string;
@@ -59,27 +54,28 @@ export function MgeEventSetup({ onSave, onCancel, initialData }: MgeEventSetupPr
   const [deadline, setDeadline] = useState(initialData?.deadline || '');
   const [saving, setSaving] = useState(false);
 
-  // Commander search
+  // Commander picker: type tabs + search
+  const [cmdType, setCmdType] = useState<MgeCommanderType>('Infantry');
   const [cmdSearch, setCmdSearch] = useState('');
-  const [showCmdDropdown, setShowCmdDropdown] = useState(false);
 
   // Section collapse
   const [showTiers, setShowTiers] = useState(true);
 
   const selectedNames = commanders.map(c => c.name);
 
-  const filteredCommanders = useMemo(() => {
-    const available = COMMANDER_NAMES.filter(n => !selectedNames.includes(n));
-    if (!cmdSearch) return available.slice(0, 12);
-    const q = cmdSearch.toLowerCase();
-    return available.filter(n => n.toLowerCase().includes(q)).slice(0, 12);
-  }, [cmdSearch, selectedNames]);
+  // Search (any type) wins over the type tab; otherwise show the full list
+  // for the selected troop type, newest release first.
+  const pickerCommanders = useMemo(() => {
+    const available = MGE_COMMANDERS.filter(c => !selectedNames.includes(c.name));
+    const q = cmdSearch.trim().toLowerCase();
+    if (q) return available.filter(c => c.name.toLowerCase().includes(q));
+    return available.filter(c => c.type === cmdType);
+  }, [cmdSearch, cmdType, selectedNames]);
 
   const addCommander = (name: string) => {
     const isFocus = commanders.length === 0;
     setCommanders([...commanders, { name, isFocus }]);
     setCmdSearch('');
-    setShowCmdDropdown(false);
   };
 
   const removeCommander = (name: string) => {
@@ -170,32 +166,59 @@ export function MgeEventSetup({ onSave, onCancel, initialData }: MgeEventSetupPr
             ))}
           </div>
         )}
-        <div className="relative">
+        {/* Troop-type tabs */}
+        <div className="flex flex-wrap gap-1.5 mb-2">
+          {MGE_COMMANDER_TYPES.map(t => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => { setCmdType(t); setCmdSearch(''); }}
+              className={`px-2.5 py-1 rounded-md text-xs font-medium transition-fast ${
+                cmdType === t && !cmdSearch.trim()
+                  ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                  : 'border border-[var(--border)] hover:bg-[var(--background-secondary)]'
+              }`}
+              style={cmdType !== t || cmdSearch.trim() ? { color: 'var(--text-secondary)' } : undefined}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+
+        {/* Search (overrides the tab, looks across all types) */}
+        <div className="relative mb-2">
           <Search size={14} className="absolute left-2.5 top-2.5" style={{ color: 'var(--text-muted)' }} />
           <input
             type="text"
-            placeholder={commanders.length ? 'Add another commander...' : 'Search commanders...'}
+            placeholder="Search all commanders..."
             value={cmdSearch}
-            onChange={e => { setCmdSearch(e.target.value); setShowCmdDropdown(true); }}
-            onFocus={() => setShowCmdDropdown(true)}
-            onBlur={() => setTimeout(() => setShowCmdDropdown(false), 200)}
+            onChange={e => setCmdSearch(e.target.value)}
             className={inputClass + ' w-full pl-8'}
             style={inputStyle}
           />
-          {showCmdDropdown && filteredCommanders.length > 0 && (
-            <div className="absolute z-10 mt-1 w-full max-h-48 overflow-y-auto rounded-md border shadow-lg"
-              style={{ backgroundColor: 'var(--background-card)', borderColor: 'var(--border)' }}>
-              {filteredCommanders.map(name => (
-                <button key={name} type="button"
-                  onMouseDown={e => e.preventDefault()}
-                  onClick={() => addCommander(name)}
-                  className="w-full text-left px-3 py-1.5 text-sm hover:bg-blue-500/10 transition-fast"
-                  style={{ color: 'var(--foreground)' }}>
-                  {name}
-                </button>
-              ))}
-            </div>
-          )}
+        </div>
+
+        {/* Commander grid — full list for the tab (newest first), tap to add */}
+        <div className="max-h-44 overflow-y-auto rounded-md border p-1.5 flex flex-wrap gap-1.5"
+          style={{ backgroundColor: 'var(--background-secondary)', borderColor: 'var(--border)' }}>
+          {pickerCommanders.length === 0 ? (
+            <span className="text-xs px-1.5 py-1" style={{ color: 'var(--text-muted)' }}>
+              {cmdSearch.trim() ? 'No commander matches that search.' : 'All commanders of this type are already added.'}
+            </span>
+          ) : pickerCommanders.map(c => (
+            <button
+              key={c.name}
+              type="button"
+              onClick={() => addCommander(c.name)}
+              className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md border border-transparent hover:border-blue-500/40 hover:bg-blue-500/10 transition-fast"
+              style={{ backgroundColor: 'var(--background-card)', color: 'var(--foreground)' }}
+              title={`${c.type}${c.prime ? ' · Prime' : ''} — tap to add`}
+            >
+              <Plus size={10} className="text-blue-400" />
+              {c.name}
+              {c.prime && <span className="text-[9px] font-bold text-[var(--gold)]">P</span>}
+            </button>
+          ))}
         </div>
         {commanders.length > 1 && (
           <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
