@@ -16,7 +16,8 @@ import {
   type MgeEvent,
   type MgeApplication,
 } from '@/lib/supabase/use-mge';
-import { loadLatestDataset, normalizeName } from '@/app/dkp/data';
+import { loadLatestPlayersWithFallback, normalizeName } from '@/app/dkp/data';
+import { loadKingdomRoster, formatRosterPower, type KingdomMember } from '@/lib/mge/kingdom-roster';
 import {
   formatSkillLevels,
   commanderInvestmentScore,
@@ -773,7 +774,7 @@ function AddApplicantForm({
   onDone: () => void;
   onCancel: () => void;
 }) {
-  const [roster, setRoster] = useState<RosterMember[]>([]);
+  const [roster, setRoster] = useState<KingdomMember[]>([]);
   const [name, setName] = useState('');
   const [alliance, setAlliance] = useState('');
   const [power, setPower] = useState<number | null>(null);
@@ -787,16 +788,9 @@ function AddApplicantForm({
   const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+  // Kingdom scan roster (same source as the player form — searchable by gov ID)
   useEffect(() => {
-    async function fetchRoster() {
-      const { data } = await supabase
-        .from('alliance_roster')
-        .select('id, name, alliance, power')
-        .eq('is_active', true)
-        .order('power', { ascending: false });
-      setRoster(data || []);
-    }
-    fetchRoster();
+    loadKingdomRoster().then(setRoster);
   }, []);
 
   useEffect(() => {
@@ -813,7 +807,11 @@ function AddApplicantForm({
     () => roster.map((m) => ({
       value: m.name,
       label: m.name,
-      secondary: [m.alliance ? allianceDisplay(m.alliance) : '', formatPower(m.power)].filter(Boolean).join(' '),
+      secondary: [
+        m.govId ? `ID ${m.govId}` : '',
+        m.alliance ? allianceDisplay(m.alliance) : '',
+        formatRosterPower(m.power),
+      ].filter(Boolean).join(' · '),
     })),
     [roster],
   );
@@ -854,7 +852,7 @@ function AddApplicantForm({
       screenshotUrl = await uploadMgeScreenshot(screenshotFile, event.id, name.trim());
     }
 
-    const result = await submitApplication(event.id, {
+    const { app, error } = await submitApplication(event.id, {
       applicant_name: name.trim(),
       applicant_alliance: alliance || null,
       applicant_power: power,
@@ -868,8 +866,10 @@ function AddApplicantForm({
       screenshot_url: screenshotUrl,
     });
 
-    if (result) {
+    if (app) {
       onDone();
+    } else {
+      alert(`Failed to add applicant: ${error || 'unknown error'}`);
     }
     setSubmitting(false);
   };
@@ -1016,13 +1016,13 @@ export function MgeReviewTab({ event, isAdmin, onUpdate }: MgeReviewTabProps) {
 
   useEffect(() => {
     let cancelled = false;
-    loadLatestDataset().then((ds) => {
+    loadLatestPlayersWithFallback().then((players) => {
       if (cancelled) return;
-      if (!ds || ds.players.length === 0) {
+      if (players.length === 0) {
         setDkpMap(new Map());
         return;
       }
-      const sorted = [...ds.players].sort((a, b) => b.dkp - a.dkp);
+      const sorted = [...players].sort((a, b) => b.dkp - a.dkp);
       const map = new Map<string, DkpInfo>();
       sorted.forEach((p, i) => {
         const key = normalizeName(p.username);

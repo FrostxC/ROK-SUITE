@@ -109,8 +109,12 @@ export function MgeEventCard({
 
   const handleDeleteEvent = async () => {
     if (!confirm('Delete this MGE event and all its data?')) return;
-    const ok = await deleteMgeEvent(event.id);
-    if (ok) onRefetch();
+    const err = await deleteMgeEvent(event.id);
+    if (err) {
+      alert(`Delete failed: ${err}`);
+      return;
+    }
+    onRefetch();
   };
 
   const handleStatusChange = async (newStatus: MgeEventStatus) => {

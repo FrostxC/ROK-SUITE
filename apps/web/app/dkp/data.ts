@@ -146,6 +146,28 @@ function rowToDataset(row: DkpDatasetRow): DkpDataset {
   };
 }
 
+/** Latest players with the same fallback chain the DKP page uses:
+ * dkp_datasets row if one exists, else the bundled kingdom scan
+ * (/data/players_data.json — the real KD3709 baseline export). */
+export async function loadLatestPlayersWithFallback(): Promise<Player[]> {
+  try {
+    const latest = await loadLatestDataset();
+    if (latest && latest.players.length > 0) return latest.players;
+  } catch (e) {
+    console.error('loadLatestPlayersWithFallback: dataset load failed', e);
+  }
+  try {
+    const res = await fetch('/data/players_data.json');
+    if (res.ok) {
+      const players: Player[] = await res.json();
+      return players ?? [];
+    }
+  } catch (e) {
+    console.error('loadLatestPlayersWithFallback: bundled scan failed', e);
+  }
+  return [];
+}
+
 /** Fetch the most recent dataset from Supabase, or null if none exists. */
 export async function loadLatestDataset(): Promise<DkpDataset | null> {
   const supabase = createClient();

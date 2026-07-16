@@ -270,17 +270,37 @@ export async function updateMgeEventStatus(id: number, status: MgeEventStatus): 
   return true;
 }
 
-export async function deleteMgeEvent(id: number): Promise<boolean> {
-  const { error } = await supabase
+/** Delete an event and everything under it. Returns an error message on
+ * failure (null = success). Deletes children explicitly (belt & braces for
+ * DBs created before the ON DELETE CASCADE schema), and — critically —
+ * verifies the event row actually went away: Supabase returns success with
+ * ZERO rows deleted when the DB lacks a DELETE policy, which used to look
+ * like the button silently doing nothing. */
+export async function deleteMgeEvent(id: number): Promise<string | null> {
+  // children first (each of these is safe if the table is empty)
+  for (const table of ['mge_applications', 'mge_selections', 'mge_event_commanders', 'mge_rank_tiers']) {
+    const { error } = await supabase.from(table).delete().eq('mge_event_id', id);
+    if (error) {
+      console.error(`Failed to delete ${table} for event ${id}:`, error.message);
+      return `${table}: ${error.message}`;
+    }
+  }
+
+  const { data, error } = await supabase
     .from('mge_events')
     .delete()
-    .eq('id', id);
+    .eq('id', id)
+    .select('id');
 
   if (error) {
     console.error('Failed to delete MGE event:', error.message);
-    return false;
+    return error.message;
   }
-  return true;
+  if (!data || data.length === 0) {
+    // 0 rows deleted with no error = blocked by row-level security
+    return 'The database refused the delete (missing DELETE permission — run the MGE RLS fix in Supabase SQL Editor).';
+  }
+  return null;
 }
 
 // ─── Commanders CRUD ────────────────────────────────────────────────
@@ -447,7 +467,7 @@ export async function submitApplication(
     armaments_screenshot_url?: string | null;
     reason?: string | null;
   }
-): Promise<MgeApplication | null> {
+): Promise<{ app: MgeApplication | null; error: string | null }> {
   const { data: result, error } = await supabase
     .from('mge_applications')
     .insert([{
@@ -471,10 +491,12 @@ export async function submitApplication(
     .single();
 
   if (error) {
+    // Surface the real failure to the UI — a silent submit failure looks like
+    // a broken page (e.g. "column does not exist" until the migration runs).
     console.error('Failed to submit application:', error.message);
-    return null;
+    return { app: null, error: error.message };
   }
-  return result;
+  return { app: result, error: null };
 }
 
 export async function updateApplicationStatus(
@@ -524,7 +546,7 @@ export async function updateApplicationFields(
     armaments_screenshot_url?: string | null;
     reason?: string | null;
   }
-): Promise<boolean> {
+): Promise<{ ok: boolean; error: string | null }> {
   const { error } = await supabase
     .from('mge_applications')
     .update({ ...data, updated_at: new Date().toISOString() })
@@ -532,9 +554,9 @@ export async function updateApplicationFields(
 
   if (error) {
     console.error('Failed to update application:', error.message);
-    return false;
+    return { ok: false, error: error.message };
   }
-  return true;
+  return { ok: true, error: null };
 }
 
 /** Officer: link an applicant to their name in the DKP dataset (name changes,

@@ -75,23 +75,59 @@ export default function MgeApplyPage() {
           </div>
         ) : !event ? (
           /* No open event */
-          <div className="rounded-2xl bg-[var(--background-card)] border border-[var(--border)] p-10 text-center">
-            <Crown className="w-9 h-9 mx-auto mb-3 text-[var(--gold)]/50" />
-            <p className="text-base font-semibold text-[var(--foreground)] mb-1">
-              No MGE applications open right now
-            </p>
-            <p className="text-sm text-[var(--text-muted)] max-w-sm mx-auto">
-              Officers open applications shortly before each Mightiest Governor event.
-              Check back soon, or ask your alliance officer when the next one starts.
-            </p>
-            {isOfficer && (
-              <Link
-                href="/mge"
-                className="inline-flex items-center gap-2 mt-5 px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-[#DC143C] to-[#8B0000] hover:opacity-90 transition-opacity"
-              >
-                <Shield className="w-4 h-4" /> Open an event (officer)
-              </Link>
-            )}
+          <div className="space-y-4">
+            <div className="rounded-2xl bg-[var(--background-card)] border border-[var(--border)] p-10 text-center">
+              <Crown className="w-9 h-9 mx-auto mb-3 text-[var(--gold)]/50" />
+              <p className="text-base font-semibold text-[var(--foreground)] mb-1">
+                No MGE applications open right now
+              </p>
+              <p className="text-sm text-[var(--text-muted)] max-w-sm mx-auto">
+                Officers open applications shortly before each Mightiest Governor event.
+                Check back soon, or ask your alliance officer when the next one starts.
+              </p>
+              {isOfficer && (
+                <Link
+                  href="/mge"
+                  className="inline-flex items-center gap-2 mt-5 px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-[#DC143C] to-[#8B0000] hover:opacity-90 transition-opacity"
+                >
+                  <Shield className="w-4 h-4" /> Open an event (officer)
+                </Link>
+              )}
+            </div>
+
+            {/* Non-open events exist — tell players where things stand, and officers what to do */}
+            {(() => {
+              const labels: Record<string, string> = {
+                draft: 'Applications not open yet',
+                reviewing: 'Applications closed — under review',
+                finalized: 'Selections finalized',
+              };
+              const pending = events.filter(e => e.status in labels);
+              if (pending.length === 0) return null;
+              return (
+                <div className="rounded-2xl bg-[var(--background-card)] border border-[var(--border)] p-5">
+                  <p className="text-xs uppercase tracking-wider text-[var(--text-muted)] mb-3">Kingdom MGE events</p>
+                  <div className="space-y-2">
+                    {pending.map(d => (
+                      <div key={d.id} className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                        <Crown className="w-4 h-4 text-[var(--gold)]" />
+                        <span className="text-[var(--foreground)] font-medium">{d.focused_commander}</span>
+                        <span className="text-[var(--text-muted)]">{d.event_date}</span>
+                        <span className="text-[11px] px-2 py-0.5 rounded-full bg-[var(--background-secondary)] text-[var(--text-muted)] border border-[var(--border)]">
+                          {labels[d.status]}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                  {isOfficer && (
+                    <p className="text-xs mt-3 text-[var(--gold)]/80">
+                      Officer: players can only apply while an event&apos;s status is <strong>Open</strong> — set it from the event card in the officer view
+                      (draft → &ldquo;Open Applications&rdquo;; clicking again moves it to reviewing, which closes applications).
+                    </p>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         ) : (
           <div className="space-y-6">

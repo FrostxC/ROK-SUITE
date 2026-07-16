@@ -3,7 +3,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Send, CheckCircle, Clock, XCircle, AlertCircle, Camera, X, Pencil, Trash2 } from 'lucide-react';
 import SearchableSelect, { type SearchableOption } from '@/components/ui/SearchableSelect';
-import { supabase } from '@/lib/supabase';
 import {
   submitApplication,
   updateApplicationFields,
@@ -15,14 +14,8 @@ import {
   type MgeApplicationStatus,
 } from '@/lib/supabase/use-mge';
 import { formatSkillLevels, isDeadlinePassed, formatDeadline } from '@/lib/mge/helpers';
+import { loadKingdomRoster, formatRosterPower, type KingdomMember } from '@/lib/mge/kingdom-roster';
 import { allianceDisplay } from '@/lib/alliances';
-
-interface RosterMember {
-  id: string;
-  name: string;
-  alliance: string | null;
-  power: number;
-}
 
 interface MgeApplyTabProps {
   event: MgeEvent;
@@ -68,22 +61,16 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
   const [formError, setFormError] = useState<string | null>(null);
 
   // State
-  const [roster, setRoster] = useState<RosterMember[]>([]);
+  const [roster, setRoster] = useState<KingdomMember[]>([]);
+  const [rosterLoaded, setRosterLoaded] = useState(false);
+  const [manualName, setManualName] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [existingApp, setExistingApp] = useState<MgeApplication | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Load roster
+  // Load roster — from the latest kingdom (DKP) scan, incl. governor IDs
   useEffect(() => {
-    async function fetchRoster() {
-      const { data } = await supabase
-        .from('alliance_roster')
-        .select('id, name, alliance, power')
-        .eq('is_active', true)
-        .order('power', { ascending: false });
-      setRoster(data || []);
-    }
-    fetchRoster();
+    loadKingdomRoster().then((r) => { setRoster(r); setRosterLoaded(true); });
   }, []);
 
   // Load saved name
@@ -130,11 +117,16 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
     }
   }, [isEditing, existingApp]);
 
+  // Options searchable by name OR governor ID (ID lives in `secondary`)
   const rosterOptions = useMemo<SearchableOption[]>(
     () => roster.map((m) => ({
       value: m.name,
       label: m.name,
-      secondary: [m.alliance ? allianceDisplay(m.alliance) : '', formatPower(m.power)].filter(Boolean).join(' '),
+      secondary: [
+        m.govId ? `ID ${m.govId}` : '',
+        m.alliance ? allianceDisplay(m.alliance) : '',
+        formatRosterPower(m.power),
+      ].filter(Boolean).join(' · '),
     })),
     [roster],
   );
@@ -242,7 +234,7 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
       armamentsUrl = await uploadMgeScreenshot(armamentsFile, event.id, applicantName.trim(), 'armaments');
     }
 
-    const result = await submitApplication(event.id, {
+    const { app, error } = await submitApplication(event.id, {
       applicant_name: applicantName.trim(),
       applicant_alliance: applicantAlliance || null,
       applicant_power: applicantPower,
@@ -256,11 +248,13 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
       armaments_screenshot_url: armamentsUrl,
     });
 
-    if (result) {
+    if (app) {
       localStorage.setItem(APPLICANT_KEY, applicantName.trim());
-      setExistingApp(result);
+      setExistingApp(app);
       setIsEditing(false);
       onApplicationSubmitted();
+    } else {
+      setFormError(`Submission failed: ${error || 'unknown error'} — screenshot uploads or the database may be misconfigured; show this message to an officer.`);
     }
     setSubmitting(false);
   };
@@ -287,7 +281,7 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
 
     // Legacy commander_level/skill_levels/commander_stars are intentionally
     // not touched — old applications keep their manually-entered stats.
-    const ok = await updateApplicationFields(existingApp.id, {
+    const { ok, error } = await updateApplicationFields(existingApp.id, {
       preferred_tier: preferredTier || null,
       max_tier: maxTier || null,
       notes: notes.trim() || null,
@@ -300,6 +294,8 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
     if (ok) {
       setIsEditing(false);
       onApplicationSubmitted();
+    } else {
+      setFormError(`Update failed: ${error || 'unknown error'} — show this message to an officer.`);
     }
     setSubmitting(false);
   };
@@ -488,12 +484,53 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
           <label className="block text-xs font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>
             Your Name
           </label>
-          <SearchableSelect
-            options={rosterOptions}
-            value={applicantName || null}
-            onChange={(_val, label) => handleSelectName(label)}
-            placeholder="Search your name..."
-          />
+          {!manualName ? (
+            <>
+              <SearchableSelect
+                options={rosterOptions}
+                value={applicantName || null}
+                onChange={(_val, label) => handleSelectName(label)}
+                placeholder="Search your name or governor ID..."
+              />
+              <div className="flex items-center justify-between mt-1.5">
+                <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                  {rosterLoaded && roster.length === 0
+                    ? 'Kingdom scan unavailable — enter your name manually.'
+                    : 'From the latest kingdom scan — you can also type your governor ID.'}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setManualName(true)}
+                  className="text-xs text-blue-400 hover:underline shrink-0 ml-2"
+                >
+                  Can&apos;t find your name?
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                value={applicantName}
+                onChange={e => handleSelectName(e.target.value)}
+                placeholder="Type your exact in-game governor name..."
+                className={inputClass + ' w-full'}
+                style={inputStyle}
+              />
+              <div className="flex items-center justify-between mt-1.5">
+                <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                  Use your EXACT in-game name so officers can match you.
+                </span>
+                <button
+                  type="button"
+                  onClick={() => { setManualName(false); setApplicantName(''); }}
+                  className="text-xs text-blue-400 hover:underline shrink-0 ml-2"
+                >
+                  Back to search
+                </button>
+              </div>
+            </>
+          )}
           {applicantName && applicantPower && (
             <div className="flex gap-3 mt-1.5 text-xs" style={{ color: 'var(--text-muted)' }}>
               {applicantAlliance && <span>{allianceDisplay(applicantAlliance)}</span>}

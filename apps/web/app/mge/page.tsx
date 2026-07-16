@@ -358,7 +358,11 @@ export default function MgePage() {
       // Sequential deletes — bulk size is small (handfuls of past events) and
       // serial keeps error reporting straightforward if one fails mid-flight.
       for (const id of selectedIds) {
-        await deleteMgeEvent(id);
+        const err = await deleteMgeEvent(id);
+        if (err) {
+          alert(`Delete failed: ${err}`);
+          break;
+        }
       }
       exitBulkMode();
       refetch();

@@ -55,7 +55,12 @@ export default function SearchableSelect({
   const filtered = useMemo(() => {
     if (!search) return options.slice(0, maxResults);
     const q = normalizeSearch(search);
-    return options.filter((o) => normalizeSearch(o.label).includes(q)).slice(0, maxResults);
+    // Match label OR secondary — secondary can carry IDs (e.g. governor ID)
+    return options
+      .filter((o) =>
+        normalizeSearch(o.label).includes(q) ||
+        (o.secondary ? normalizeSearch(o.secondary).includes(q) : false))
+      .slice(0, maxResults);
   }, [options, search, maxResults]);
 
   // Reset highlight when list changes
