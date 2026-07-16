@@ -95,6 +95,12 @@ the officer's announcement template DETERMINISTICALLY ({{rank}}/{{name}}/
 {{tier}}/{{list}} placeholders — code substitution, never the AI; template
 persisted in localStorage) with handoff to /rok-mail via the
 'rok-mail-draft' localStorage key.
+Event setup's commander picker uses `lib/mge/commanders.ts` — ALL 110 live
+legendaries grouped Infantry/Cavalry/Archer/Leadership/Other (Engineering+
+Integration), newest first, P = Prime. Regenerate with
+`_ui-tools/gen-mge-commanders.py` (reads the rokbattles game-data bundle +
+commander-reference, with web-verified OVERRIDES for new commanders — David IV
+is Cavalry, Vercingetorix Leadership, Archimedes Engineering).
 ⚠️ REQUIRED BEFORE FIRST MGE EVENT: run
 `apps/web/lib/supabase/migrations/mge-apply-upgrade.sql` against the Supabase
 DB (adds commander_screenshot_url, armaments_screenshot_url, reason,
