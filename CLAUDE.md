@@ -95,12 +95,19 @@ the officer's announcement template DETERMINISTICALLY ({{rank}}/{{name}}/
 {{tier}}/{{list}} placeholders — code substitution, never the AI; template
 persisted in localStorage) with handoff to /rok-mail via the
 'rok-mail-draft' localStorage key.
-Event setup's commander picker uses `lib/mge/commanders.ts` — ALL 110 live
-legendaries grouped Infantry/Cavalry/Archer/Leadership/Other (Engineering+
-Integration), newest first, P = Prime. Regenerate with
-`_ui-tools/gen-mge-commanders.py` (reads the rokbattles game-data bundle +
-commander-reference, with web-verified OVERRIDES for new commanders — David IV
-is Cavalry, Vercingetorix Leadership, Archimedes Engineering).
+MGE events are TROOP-TYPED (July 17): event setup picks Infantry/Cavalry/
+Archer/Leadership (stored as focused_commander = "Infantry MGE" — schema
+untouched; `parseMgeEventType` in lib/mge/commanders.ts detects typed vs
+legacy fixed-commander events). Players pick their own commander of that type
+in the apply form (required; filtered via `commandersForEventType`, newest
+first); review cards show each applicant's commander chip; Result Mail rows
+support per-row {{commander}}. The full commander dataset lives in
+`lib/mge/commanders.ts` — ALL 110 live legendaries typed
+Infantry/Cavalry/Archer/Leadership/Other (Engineering+Integration), newest
+first, P = Prime. Regenerate with `_ui-tools/gen-mge-commanders.py` (reads
+the rokbattles game-data bundle + commander-reference, with web-verified
+OVERRIDES for new commanders — David IV is Cavalry, Vercingetorix Leadership,
+Archimedes Engineering).
 ✅ DB MIGRATION APPLIED (user ran mge-apply-upgrade.sql in the dashboard SQL
 editor, July 17 2026): the 4 new mge_applications columns exist, the MGE
 tables have full RLS policies incl. DELETE (they were missing — deletes
