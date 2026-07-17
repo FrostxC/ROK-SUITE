@@ -15,6 +15,26 @@ export interface MgeCommander {
 
 export const MGE_COMMANDER_TYPES: MgeCommanderType[] = ['Infantry', 'Cavalry', 'Archer', 'Leadership', 'Other'];
 
+/** Troop classes an MGE event can be themed on (matches the in-game format —
+ * an "Infantry MGE" etc. — players then pick their commander of that class). */
+export const MGE_EVENT_TYPES = ['Infantry', 'Cavalry', 'Archer', 'Leadership'] as const;
+export type MgeEventType = (typeof MGE_EVENT_TYPES)[number];
+
+/** If an event's focused_commander is a troop-class theme ("Infantry MGE" or
+ * just "Cavalry"), return that type; null means a legacy single-commander
+ * event (e.g. "Ivar") which keeps the old fixed-commander behavior. */
+export function parseMgeEventType(focused: string): MgeEventType | null {
+  const m = focused.trim().match(/^(Infantry|Cavalry|Archer|Leadership)(\s+MGE)?$/i);
+  if (!m) return null;
+  const t = m[1].toLowerCase();
+  return (t.charAt(0).toUpperCase() + t.slice(1)) as MgeEventType;
+}
+
+/** Commanders players can apply with for a typed event, newest first. */
+export function commandersForEventType(type: MgeEventType): MgeCommander[] {
+  return MGE_COMMANDERS.filter((c) => c.type === type);
+}
+
 export const MGE_COMMANDERS: MgeCommander[] = [
   { name: 'Yahya ibn Khalid', type: 'Other', prime: false },
   { name: 'Pelagius', type: 'Cavalry', prime: false },

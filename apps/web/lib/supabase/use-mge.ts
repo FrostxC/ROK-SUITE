@@ -535,6 +535,7 @@ export async function withdrawApplication(appId: number): Promise<boolean> {
 export async function updateApplicationFields(
   appId: number,
   data: {
+    commander_name?: string;
     commander_level?: number | null;
     skill_levels?: number[] | null;
     commander_stars?: number | null;

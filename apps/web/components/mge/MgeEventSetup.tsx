@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { Plus, Trash2, X, Star, Wand2, ChevronDown, ChevronUp } from 'lucide-react';
-import { MGE_COMMANDERS, MGE_COMMANDER_TYPES, type MgeCommanderType } from '@/lib/mge/commanders';
+import { useState } from 'react';
+import { Plus, Trash2, Wand2, ChevronDown, ChevronUp, Shield, Zap, Target, Crown } from 'lucide-react';
+import { MGE_EVENT_TYPES, parseMgeEventType, type MgeEventType } from '@/lib/mge/commanders';
 import { generateDefaultTiers } from '@/lib/mge/helpers';
-import { Search } from 'lucide-react';
 
 interface TierConfig {
   label: string;
@@ -46,53 +45,33 @@ function normalizeTiers(tiers: Partial<TierConfig>[]): TierConfig[] {
   }));
 }
 
+const TYPE_ICONS: Record<MgeEventType, typeof Shield> = {
+  Infantry: Shield,
+  Cavalry: Zap,
+  Archer: Target,
+  Leadership: Crown,
+};
+
 export function MgeEventSetup({ onSave, onCancel, initialData }: MgeEventSetupProps) {
   const [date, setDate] = useState(initialData?.date || '');
-  const [commanders, setCommanders] = useState<CommanderConfig[]>(initialData?.commanders || []);
+  // Events are themed on a troop class (how MGE works in-game) — players pick
+  // their own commander of that class when applying. Legacy events that named
+  // a specific commander map back to a type when possible.
+  const [eventType, setEventType] = useState<MgeEventType>(() => {
+    const legacy = initialData?.commanders?.find(c => c.isFocus)?.name || initialData?.commanders?.[0]?.name;
+    return (legacy && parseMgeEventType(legacy)) || 'Infantry';
+  });
   const [tiers, setTiers] = useState<TierConfig[]>(initialData?.tiers ? normalizeTiers(initialData.tiers) : []);
   const [notes, setNotes] = useState(initialData?.notes || '');
   const [deadline, setDeadline] = useState(initialData?.deadline || '');
   const [saving, setSaving] = useState(false);
 
-  // Commander picker: type tabs + search
-  const [cmdType, setCmdType] = useState<MgeCommanderType>('Infantry');
-  const [cmdSearch, setCmdSearch] = useState('');
-
   // Section collapse
   const [showTiers, setShowTiers] = useState(true);
 
-  const selectedNames = commanders.map(c => c.name);
-
-  // Search (any type) wins over the type tab; otherwise show the full list
-  // for the selected troop type, newest release first.
-  const pickerCommanders = useMemo(() => {
-    const available = MGE_COMMANDERS.filter(c => !selectedNames.includes(c.name));
-    const q = cmdSearch.trim().toLowerCase();
-    if (q) return available.filter(c => c.name.toLowerCase().includes(q));
-    return available.filter(c => c.type === cmdType);
-  }, [cmdSearch, cmdType, selectedNames]);
-
-  const addCommander = (name: string) => {
-    const isFocus = commanders.length === 0;
-    setCommanders([...commanders, { name, isFocus }]);
-    setCmdSearch('');
-  };
-
-  const removeCommander = (name: string) => {
-    const filtered = commanders.filter(c => c.name !== name);
-    // If we removed the focus commander, make the first one focus
-    if (filtered.length > 0 && !filtered.some(c => c.isFocus)) {
-      filtered[0].isFocus = true;
-    }
-    setCommanders(filtered);
-  };
-
-  const toggleFocus = (name: string) => {
-    setCommanders(commanders.map(c => ({
-      ...c,
-      isFocus: c.name === name,
-    })));
-  };
+  // What gets stored: a single "type" pseudo-commander (keeps the existing
+  // schema/API untouched — focused_commander becomes e.g. "Infantry MGE").
+  const commanders: CommanderConfig[] = [{ name: `${eventType} MGE`, isFocus: true }];
 
   const addTier = () => {
     const ordinals = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th'];
@@ -136,95 +115,36 @@ export function MgeEventSetup({ onSave, onCancel, initialData }: MgeEventSetupPr
         {initialData ? 'Edit Event' : 'Create New MGE Event'}
       </h2>
 
-      {/* Commanders */}
+      {/* Event type — the troop class this MGE is themed on */}
       <div className="mb-4">
         <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>
-          Commanders
+          MGE Type
         </label>
-        {commanders.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-2">
-            {commanders.map(c => (
-              <span key={c.name}
-                className={`inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md ${
-                  c.isFocus ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30' : 'bg-[var(--background-secondary)] border border-transparent'
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {MGE_EVENT_TYPES.map(t => {
+            const Icon = TYPE_ICONS[t];
+            const active = eventType === t;
+            return (
+              <button
+                key={t}
+                type="button"
+                onClick={() => setEventType(t)}
+                className={`flex flex-col items-center gap-1.5 px-3 py-3 rounded-lg border text-sm font-medium transition-fast ${
+                  active
+                    ? 'bg-blue-500/15 text-blue-300 border-blue-500/40'
+                    : 'border-[var(--border)] hover:bg-[var(--background-secondary)]'
                 }`}
-                style={!c.isFocus ? { color: 'var(--foreground)' } : undefined}
+                style={!active ? { color: 'var(--text-secondary)' } : undefined}
               >
-                {c.isFocus && <Star size={10} className="text-blue-400 fill-blue-400" />}
-                {c.name}
-                {!c.isFocus && commanders.length > 1 && (
-                  <button type="button" onClick={() => toggleFocus(c.name)}
-                    className="hover:text-blue-400 transition-fast" title="Set as focus">
-                    <Star size={10} />
-                  </button>
-                )}
-                <button type="button" onClick={() => removeCommander(c.name)}
-                  className="hover:text-red-400 transition-fast">
-                  <X size={12} />
-                </button>
-              </span>
-            ))}
-          </div>
-        )}
-        {/* Troop-type tabs */}
-        <div className="flex flex-wrap gap-1.5 mb-2">
-          {MGE_COMMANDER_TYPES.map(t => (
-            <button
-              key={t}
-              type="button"
-              onClick={() => { setCmdType(t); setCmdSearch(''); }}
-              className={`px-2.5 py-1 rounded-md text-xs font-medium transition-fast ${
-                cmdType === t && !cmdSearch.trim()
-                  ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
-                  : 'border border-[var(--border)] hover:bg-[var(--background-secondary)]'
-              }`}
-              style={cmdType !== t || cmdSearch.trim() ? { color: 'var(--text-secondary)' } : undefined}
-            >
-              {t}
-            </button>
-          ))}
+                <Icon size={18} className={active ? 'text-blue-400' : ''} />
+                {t}
+              </button>
+            );
+          })}
         </div>
-
-        {/* Search (overrides the tab, looks across all types) */}
-        <div className="relative mb-2">
-          <Search size={14} className="absolute left-2.5 top-2.5" style={{ color: 'var(--text-muted)' }} />
-          <input
-            type="text"
-            placeholder="Search all commanders..."
-            value={cmdSearch}
-            onChange={e => setCmdSearch(e.target.value)}
-            className={inputClass + ' w-full pl-8'}
-            style={inputStyle}
-          />
-        </div>
-
-        {/* Commander grid — full list for the tab (newest first), tap to add */}
-        <div className="max-h-44 overflow-y-auto rounded-md border p-1.5 flex flex-wrap gap-1.5"
-          style={{ backgroundColor: 'var(--background-secondary)', borderColor: 'var(--border)' }}>
-          {pickerCommanders.length === 0 ? (
-            <span className="text-xs px-1.5 py-1" style={{ color: 'var(--text-muted)' }}>
-              {cmdSearch.trim() ? 'No commander matches that search.' : 'All commanders of this type are already added.'}
-            </span>
-          ) : pickerCommanders.map(c => (
-            <button
-              key={c.name}
-              type="button"
-              onClick={() => addCommander(c.name)}
-              className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md border border-transparent hover:border-blue-500/40 hover:bg-blue-500/10 transition-fast"
-              style={{ backgroundColor: 'var(--background-card)', color: 'var(--foreground)' }}
-              title={`${c.type}${c.prime ? ' · Prime' : ''} — tap to add`}
-            >
-              <Plus size={10} className="text-blue-400" />
-              {c.name}
-              {c.prime && <span className="text-[9px] font-bold text-[var(--gold)]">P</span>}
-            </button>
-          ))}
-        </div>
-        {commanders.length > 1 && (
-          <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-            <Star size={8} className="inline text-blue-400 fill-blue-400" /> marks the focus commander (the one players submit stats for)
-          </p>
-        )}
+        <p className="text-xs mt-1.5" style={{ color: 'var(--text-muted)' }}>
+          Players choose their own {eventType.toLowerCase()} commander when they apply.
+        </p>
       </div>
 
       {/* Date and Deadline */}

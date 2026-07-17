@@ -15,6 +15,7 @@ import {
 } from '@/lib/supabase/use-mge';
 import { formatSkillLevels, isDeadlinePassed, formatDeadline } from '@/lib/mge/helpers';
 import { loadKingdomRoster, formatRosterPower, type KingdomMember } from '@/lib/mge/kingdom-roster';
+import { parseMgeEventType, commandersForEventType } from '@/lib/mge/commanders';
 import { allianceDisplay } from '@/lib/alliances';
 
 interface MgeApplyTabProps {
@@ -47,11 +48,25 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
   const [applicantAlliance, setApplicantAlliance] = useState('');
   const [applicantPower, setApplicantPower] = useState<number | null>(null);
 
-  // Focus commander for this event
+  // Event theme: either a troop class ("Infantry MGE" → player picks their
+  // own commander of that class) or a legacy fixed commander ("Ivar").
   const focusCommander = event.mge_event_commanders.find(c => c.is_focus)?.commander_name
     || event.mge_event_commanders[0]?.commander_name
     || event.focused_commander.split(',')[0]?.trim()
     || '';
+  const eventType = parseMgeEventType(focusCommander);
+  const [chosenCommander, setChosenCommander] = useState('');
+  // The commander this application is about
+  const applyCommander = eventType ? chosenCommander : focusCommander;
+
+  const commanderOptions = useMemo<SearchableOption[]>(
+    () => (eventType ? commandersForEventType(eventType) : []).map((c) => ({
+      value: c.name,
+      label: c.name,
+      secondary: c.prime ? 'Prime' : '',
+    })),
+    [eventType],
+  );
 
   // Tier preferences
   const [preferredTier, setPreferredTier] = useState('');
@@ -110,6 +125,7 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
   // Pre-fill form when editing existing application
   useEffect(() => {
     if (isEditing && existingApp) {
+      setChosenCommander(existingApp.commander_name || '');
       setPreferredTier(existingApp.preferred_tier || '');
       setMaxTier(existingApp.max_tier || '');
       setNotes(existingApp.notes || '');
@@ -216,7 +232,8 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
    * or null. Commander + gear + armaments screenshots + reason are all
    * required — screenshots can't be typoed, promises can. */
   const validateRequired = (): string | null => {
-    if (!commanderPreview && !commanderFile) return `Please upload a screenshot of your ${focusCommander || 'commander'} — level, skills and stars visible.`;
+    if (eventType && !chosenCommander) return `Please pick which ${eventType.toLowerCase()} commander you want.`;
+    if (!commanderPreview && !commanderFile) return `Please upload a screenshot of your ${applyCommander || 'commander'} — level, skills and stars visible.`;
     if (!screenshotPreview && !screenshotFile) return 'Please upload the gear set you will run on this commander.';
     if (!armamentsPreview && !armamentsFile) return 'Please upload the armaments you will use.';
     if (!reason.trim()) return 'Please tell the officers why you want this commander.';
@@ -247,7 +264,7 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
       applicant_name: applicantName.trim(),
       applicant_alliance: applicantAlliance || null,
       applicant_power: applicantPower,
-      commander_name: focusCommander,
+      commander_name: applyCommander,
       preferred_tier: preferredTier || null,
       max_tier: maxTier || null,
       notes: notes.trim() || null,
@@ -291,6 +308,7 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
     // Legacy commander_level/skill_levels/commander_stars are intentionally
     // not touched — old applications keep their manually-entered stats.
     const { ok, error } = await updateApplicationFields(existingApp.id, {
+      commander_name: applyCommander || existingApp.commander_name,
       preferred_tier: preferredTier || null,
       max_tier: maxTier || null,
       notes: notes.trim() || null,
@@ -549,19 +567,44 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
         </div>
       )}
 
-      {/* Focus Commander Header */}
-      <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
-        <p className="text-xs font-medium text-blue-400 mb-0.5">Focus Commander</p>
-        <p className="font-semibold" style={{ color: 'var(--foreground)' }}>{focusCommander}</p>
-        {event.notes && (
-          <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>{event.notes}</p>
-        )}
-      </div>
+      {/* Event theme + commander choice */}
+      {eventType ? (
+        <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20 space-y-2">
+          <div>
+            <p className="text-xs font-medium text-blue-400 mb-0.5">{eventType} MGE</p>
+            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+              Pick the {eventType.toLowerCase()} commander you&apos;re going for — newest first.
+            </p>
+            {event.notes && (
+              <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>{event.notes}</p>
+            )}
+          </div>
+          <div>
+            <label className="block text-xs font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>
+              Which commander do you want? <span className="text-red-400">*</span>
+            </label>
+            <SearchableSelect
+              options={commanderOptions}
+              value={chosenCommander || null}
+              onChange={(_val, label) => setChosenCommander(label)}
+              placeholder={`Search ${eventType.toLowerCase()} commanders...`}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
+          <p className="text-xs font-medium text-blue-400 mb-0.5">Focus Commander</p>
+          <p className="font-semibold" style={{ color: 'var(--foreground)' }}>{focusCommander}</p>
+          {event.notes && (
+            <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>{event.notes}</p>
+          )}
+        </div>
+      )}
 
       {/* Commander screenshot (required — replaces manual stats entry) */}
       <div>
         <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>
-          Your {focusCommander} <span className="text-red-400">*</span>
+          Your {applyCommander || 'commander'} <span className="text-red-400">*</span>
         </label>
         <p className="text-xs mb-2" style={{ color: 'var(--text-muted)' }}>
           Screenshot of the commander — level, skills and stars must be visible.
@@ -605,7 +648,7 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
           Gear set for this commander <span className="text-red-400">*</span>
         </label>
         <p className="text-xs mb-2" style={{ color: 'var(--text-muted)' }}>
-          Screenshot the EXACT set you will run on {focusCommander || 'him'} during MGE — not your best gear.
+          Screenshot the EXACT set you will run on {applyCommander || 'him'} during MGE — not your best gear.
         </p>
         {screenshotPreview ? (
           <div className="relative inline-block">

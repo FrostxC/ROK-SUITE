@@ -10,6 +10,7 @@ import { ArrowLeft, Crown, Info, Clock, CalendarDays, Shield } from 'lucide-reac
 import { MgeApplyTab } from '@/components/mge/MgeApplyTab';
 import { useMgeEvents, type MgeEvent } from '@/lib/supabase/use-mge';
 import { isDeadlinePassed, formatDeadline } from '@/lib/mge/helpers';
+import { parseMgeEventType } from '@/lib/mge/commanders';
 import { useAuthRole, meetsRole } from '@/lib/auth-role';
 
 function pickOpenEvent(events: MgeEvent[]): MgeEvent | null {
@@ -30,6 +31,10 @@ export default function MgeApplyPage() {
       || event.mge_event_commanders[0]?.commander_name
       || event.focused_commander.split(',')[0]?.trim() || '')
     : '';
+  // Typed events ("Infantry MGE") don't have a fixed commander — the player
+  // picks one in the form, so the checklist stays generic.
+  const isTypedEvent = parseMgeEventType(focusCommander) !== null;
+  const commanderLabel = isTypedEvent ? 'the commander you want' : focusCommander;
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
@@ -143,7 +148,7 @@ export default function MgeApplyPage() {
                   </h2>
                   <ul className="space-y-1 text-xs text-[var(--text-secondary)] leading-relaxed">
                     <li>• Your governor name — search it from the kingdom roster</li>
-                    <li>• A screenshot of <strong>your {focusCommander}</strong> — level, skills and stars visible</li>
+                    <li>• A screenshot of <strong>{commanderLabel}</strong> — level, skills and stars visible</li>
                     <li>• A screenshot of the <strong>exact gear set you will run on him</strong> during the event — not your best set</li>
                     <li>• A screenshot of the <strong>armaments</strong> you will use</li>
                     <li>• A short reason: <strong>why should the kingdom invest him in you?</strong></li>

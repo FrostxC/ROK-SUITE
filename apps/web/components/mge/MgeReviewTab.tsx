@@ -18,6 +18,7 @@ import {
 } from '@/lib/supabase/use-mge';
 import { loadLatestPlayersWithFallback, normalizeName } from '@/app/dkp/data';
 import { loadKingdomRoster, formatRosterPower, type KingdomMember } from '@/lib/mge/kingdom-roster';
+import { parseMgeEventType, commandersForEventType } from '@/lib/mge/commanders';
 import {
   formatSkillLevels,
   commanderInvestmentScore,
@@ -256,6 +257,11 @@ function ApplicantCard({
           <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
             {app.applicant_alliance ? allianceDisplay(app.applicant_alliance) : ''}
           </span>
+          {app.commander_name && (
+            <span className="text-xs px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-300 font-medium">
+              {app.commander_name}
+            </span>
+          )}
           {app.preferred_tier && (
             <span className="text-xs px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400">
               Prefers {app.preferred_tier}
@@ -565,6 +571,7 @@ interface MailRow {
   tier: string;
   alliance: string;
   dkp: string;
+  commander: string;
 }
 
 function fillMailTemplate(template: string, rowTemplate: string, rows: MailRow[], vars: Record<string, string>): string {
@@ -576,6 +583,7 @@ function fillMailTemplate(template: string, rowTemplate: string, rows: MailRow[]
         .replaceAll('{{tier}}', r.tier)
         .replaceAll('{{alliance}}', r.alliance)
         .replaceAll('{{dkp}}', r.dkp)
+        .replaceAll('{{commander}}', r.commander)
     )
     .join('\n');
   let out = template.replaceAll('{{list}}', list);
@@ -653,7 +661,7 @@ function ResultMailModal({
         <p className="text-xs mb-4 p-2.5 rounded-md bg-emerald-500/5 border border-emerald-500/15" style={{ color: 'var(--text-secondary)' }}>
           Names and rankings are filled in by code from the finalized list — never by AI, so they can&apos;t be typoed.
           Placeholders: <code className="text-emerald-400">{'{{commander}} {{event_date}} {{count}} {{list}}'}</code> in the mail,{' '}
-          <code className="text-emerald-400">{'{{rank}} {{name}} {{tier}} {{alliance}} {{dkp}}'}</code> per row.
+          <code className="text-emerald-400">{'{{rank}} {{name}} {{commander}} {{tier}} {{alliance}} {{dkp}}'}</code> per row.
         </p>
 
         <div className="grid gap-4 lg:grid-cols-2">
@@ -820,6 +828,17 @@ function AddApplicantForm({
     || event.mge_event_commanders[0]?.commander_name
     || event.focused_commander.split(',')[0]?.trim()
     || '';
+  // Typed event ("Infantry MGE") → the officer picks the applicant's commander
+  const eventType = parseMgeEventType(focusCommander);
+  const [chosenCommander, setChosenCommander] = useState('');
+  const commanderOptions = useMemo<SearchableOption[]>(
+    () => (eventType ? commandersForEventType(eventType) : []).map((c) => ({
+      value: c.name,
+      label: c.name,
+      secondary: c.prime ? 'Prime' : '',
+    })),
+    [eventType],
+  );
 
   const tiers = event.mge_rank_tiers || [];
 
@@ -845,6 +864,10 @@ function AddApplicantForm({
 
   const handleSubmit = async () => {
     if (!name.trim() || !focusCommander) return;
+    if (eventType && !chosenCommander.trim()) {
+      alert(`Pick which ${eventType.toLowerCase()} commander this applicant wants.`);
+      return;
+    }
     setSubmitting(true);
 
     let screenshotUrl: string | null = null;
@@ -856,7 +879,7 @@ function AddApplicantForm({
       applicant_name: name.trim(),
       applicant_alliance: alliance || null,
       applicant_power: power,
-      commander_name: focusCommander,
+      commander_name: eventType ? chosenCommander.trim() : focusCommander,
       commander_level: level,
       skill_levels: skills,
       commander_stars: stars,
@@ -901,10 +924,25 @@ function AddApplicantForm({
         )}
       </div>
 
+      {/* Commander choice (typed events — e.g. "Infantry MGE") */}
+      {eventType && (
+        <div>
+          <label className="block text-xs font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>
+            Commander they want
+          </label>
+          <SearchableSelect
+            options={commanderOptions}
+            value={chosenCommander || null}
+            onChange={(_val, label) => setChosenCommander(label)}
+            placeholder={`Search ${eventType.toLowerCase()} commanders...`}
+          />
+        </div>
+      )}
+
       {/* Commander Stats */}
       <div>
         <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>
-          {focusCommander} Stats
+          {eventType ? (chosenCommander || 'Commander') : focusCommander} Stats
         </label>
         <MgeSkillInput
           level={level}
@@ -1101,6 +1139,7 @@ export function MgeReviewTab({ event, isAdmin, onUpdate }: MgeReviewTabProps) {
           tier: sel.ranking_tier,
           alliance: app?.applicant_alliance ? allianceDisplay(app.applicant_alliance) : '',
           dkp: info ? formatDkp(info.dkp) : '',
+          commander: app?.commander_name || '',
         };
       });
     }
@@ -1111,6 +1150,7 @@ export function MgeReviewTab({ event, isAdmin, onUpdate }: MgeReviewTabProps) {
         tier: app.assigned_tier || app.preferred_tier || '',
         alliance: app.applicant_alliance ? allianceDisplay(app.applicant_alliance) : '',
         dkp: info ? formatDkp(info.dkp) : '',
+        commander: app.commander_name || '',
       };
     });
   }, [apps, assigned, event.status, event.mge_selections, dkpFor]);
