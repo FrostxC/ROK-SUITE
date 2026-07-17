@@ -121,8 +121,27 @@ any future migration, PostgREST's schema cache can reject new columns
 just retry. Diagnostic probes: `_ui-tools/mge-db-audit.js`,
 `mge-delete-probe.js`, `mge-insert-probe.js` (read .env.local anon key).
 
+DONE July 17: Governor Profiles — `/governor` (searchable directory of all
+scanned governors) + `/governor/[id]` (permanent per-player page, resolves by
+governor ID OR name). Built by `lib/governor/profile.ts` from the kingdom scan
++ shared DKP config (MERGE it over DEFAULT_CONFIG — the stored config is
+partial, raw use crashes on simpleFormula) + MGE history (matched by name incl.
+dkp_match_name). Linked from the DKP Warrior Profile card and MGE review cards.
+Read-only views of already-visible data → no security-model change. For
+players: shareable record/flex page; for officers: migrant vetting. Verify
+script: `_ui-tools/governor-shot.js`.
+
+**AUTH/SECURITY — reviewed, still Phase 2 (nothing built yet).** Current model:
+anon key + fully-open "allow public" RLS; the admin/officer passwords only gate
+the UI, so anyone with dev tools can read/write/delete any row via REST. Real
+fix = Supabase Auth with **Discord OAuth** (alliances live on Discord) + a
+`profiles` table (user→role→governor_id) + real RLS (public read; officer/admin
+write; players edit only their own application). This is also the multi-tenancy
+foundation. It's a big, own-milestone effort touching every write path — write
+an ADR first; do NOT bolt it onto feature work.
+
 1. **Hall of Heroes recognition tracker** (#3 on the ladder — rides scan data; an
    archived /recognition page exists to revive).
 2. Supabase keep-alive cron (after user restores the paused project).
 3. Remaining commander portraits (list above) via more rokbattles scrape passes.
-4. Roadmap phase 2: real auth + multi-tenancy → monetization (ROADMAP.md).
+4. Roadmap phase 2: real auth (Discord OAuth) + multi-tenancy → monetization (ROADMAP.md).
