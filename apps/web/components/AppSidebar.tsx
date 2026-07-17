@@ -21,6 +21,7 @@ import {
   Trophy,
   ClipboardList,
   UserPlus,
+  UserRound,
 } from 'lucide-react';
 import { KvkCountdownBanner } from './KvkCountdownBanner';
 import { ThemeToggle } from './ThemeToggle';
@@ -69,6 +70,7 @@ export function AppSidebar({ children }: AppSidebarProps) {
         { labelKey: 'equipment', href: '/equipment', icon: <Shield size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
         { labelKey: 'rokMail', href: '/rok-mail', icon: <ScrollText size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
         { labelKey: 'dkp', href: '/dkp', icon: <Trophy size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
+        { labelKey: 'governors', href: '/governor', icon: <UserRound size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
         { labelKey: 'migration', href: '/migration', icon: <ClipboardList size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
         { labelKey: 'aooPlanner', href: '/aoo-strategy', icon: <Swords size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },
         { labelKey: 'mge', href: '/mge', icon: <Shield size={20} />, hoverColor: 'group-hover:text-[var(--gold)]', hoverBg: 'hover:bg-[var(--gold)]/5', activeColor: 'text-white', activeBg: 'bg-gradient-to-r from-[#8B0000] to-[#A21232]' },

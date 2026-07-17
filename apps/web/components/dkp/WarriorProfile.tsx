@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { UserRound, Copy, Check, X, Search } from 'lucide-react';
+import Link from 'next/link';
+import { UserRound, Copy, Check, X, Search, ExternalLink } from 'lucide-react';
 
 // Personal KvK report card. Player searches their name once (pinned in
 // localStorage) and sees THEIR rank, targets and exact gap to pass —
@@ -197,6 +198,12 @@ export default function WarriorProfile({ players, formula, multiplier, minDeadsP
               >
                 {me.simpleStatus === 'PASS' ? 'PASSING' : 'BELOW TARGET'}
               </span>
+              <Link
+                href={`/governor/${me.characterId}`}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--foreground)] hover:border-[var(--gold)]/40 transition-colors"
+              >
+                <ExternalLink size={12} /> Full profile
+              </Link>
               <button
                 onClick={copyCard}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--foreground)] hover:border-[var(--gold)]/40 transition-colors"

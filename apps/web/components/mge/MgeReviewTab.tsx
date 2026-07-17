@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Users, CheckCircle, Info, X, ChevronDown, ChevronUp, Trash2, Plus, Camera, Link2, Mail, Copy, Trophy } from 'lucide-react';
+import { Users, CheckCircle, Info, X, ChevronDown, ChevronUp, Trash2, Plus, Camera, Link2, Mail, Copy, Trophy, ExternalLink } from 'lucide-react';
 import { MgeSkillInput } from './MgeSkillInput';
 import SearchableSelect, { type SearchableOption } from '@/components/ui/SearchableSelect';
 import { supabase } from '@/lib/supabase';
@@ -254,6 +254,16 @@ function ApplicantCard({
           <button onClick={() => openPlayer(app.applicant_name)} className="font-semibold text-lg hover:underline cursor-pointer" style={{ color: 'var(--foreground)' }}>
             {app.applicant_name}
           </button>
+          <a
+            href={`/governor/${encodeURIComponent(app.dkp_match_name || app.applicant_name)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            title="Open full governor profile"
+            className="text-[var(--text-muted)] hover:text-[var(--gold)] transition-fast"
+          >
+            <ExternalLink size={13} />
+          </a>
           <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
             {app.applicant_alliance ? allianceDisplay(app.applicant_alliance) : ''}
           </span>
