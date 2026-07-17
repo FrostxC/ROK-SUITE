@@ -101,11 +101,18 @@ Integration), newest first, P = Prime. Regenerate with
 `_ui-tools/gen-mge-commanders.py` (reads the rokbattles game-data bundle +
 commander-reference, with web-verified OVERRIDES for new commanders — David IV
 is Cavalry, Vercingetorix Leadership, Archimedes Engineering).
-⚠️ REQUIRED BEFORE FIRST MGE EVENT: run
-`apps/web/lib/supabase/migrations/mge-apply-upgrade.sql` against the Supabase
-DB (adds commander_screenshot_url, armaments_screenshot_url, reason,
-dkp_match_name to mge_applications). Runner: `node C:\ROK\_db-tools\apply-schema.js "<conn>"` or
-psql the single file. Until then, submitting an application will 400.
+✅ DB MIGRATION APPLIED (user ran mge-apply-upgrade.sql in the dashboard SQL
+editor, July 17 2026): the 4 new mge_applications columns exist, the MGE
+tables have full RLS policies incl. DELETE (they were missing — deletes
+returned "200, 0 rows" and silently did nothing), and the mge-screenshots
+bucket is set up. Verified by REST probes (insert with new columns = 201;
+delete = row actually gone). Name pickers read the kingdom scan via
+`lib/mge/kingdom-roster.ts` (dkp_datasets → bundled players_data.json →
+alliance_roster) and are searchable by governor ID. Note: for ~1 min after
+any future migration, PostgREST's schema cache can reject new columns
+("Could not find column in schema cache") — the form now tells players to
+just retry. Diagnostic probes: `_ui-tools/mge-db-audit.js`,
+`mge-delete-probe.js`, `mge-insert-probe.js` (read .env.local anon key).
 
 1. **Hall of Heroes recognition tracker** (#3 on the ladder — rides scan data; an
    archived /recognition page exists to revive).
