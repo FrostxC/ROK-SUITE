@@ -24,6 +24,15 @@ interface MgeApplyTabProps {
 
 const APPLICANT_KEY = 'mge-applicant-name';
 
+/** Turn raw Supabase errors into something a player can act on. The schema
+ * cache one happens for ~a minute after officers run a DB migration. */
+function friendlySubmitError(error: string | null, action: 'Submission' | 'Update'): string {
+  if (error && /schema cache/i.test(error)) {
+    return `${action} failed because the database just finished an update — wait a minute and press the button again. (${error})`;
+  }
+  return `${action} failed: ${error || 'unknown error'} — show this message to an officer.`;
+}
+
 function formatPower(power: number): string {
   if (power >= 1_000_000) return `${(power / 1_000_000).toFixed(1)}M`;
   if (power >= 1_000) return `${(power / 1_000).toFixed(0)}K`;
@@ -254,7 +263,7 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
       setIsEditing(false);
       onApplicationSubmitted();
     } else {
-      setFormError(`Submission failed: ${error || 'unknown error'} — screenshot uploads or the database may be misconfigured; show this message to an officer.`);
+      setFormError(friendlySubmitError(error, 'Submission'));
     }
     setSubmitting(false);
   };
@@ -295,7 +304,7 @@ export function MgeApplyTab({ event, onApplicationSubmitted }: MgeApplyTabProps)
       setIsEditing(false);
       onApplicationSubmitted();
     } else {
-      setFormError(`Update failed: ${error || 'unknown error'} — show this message to an officer.`);
+      setFormError(friendlySubmitError(error, 'Update'));
     }
     setSubmitting(false);
   };
