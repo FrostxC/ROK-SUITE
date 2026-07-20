@@ -131,6 +131,15 @@ Read-only views of already-visible data → no security-model change. For
 players: shareable record/flex page; for officers: migrant vetting. Verify
 script: `_ui-tools/governor-shot.js`.
 
+DONE July 17: RoK Mail officer-managed templates — "Save current as template"
+(captures editor content w/ name/desc/category) + delete on custom templates,
+both gated to officer/admin via useAuthRole; new "Events" category tab for
+recurring event mails. Stored kingdom-wide as ONE JSON array in the dkp_config
+row 'mail-templates' (lib/rok-mail/custom-templates.ts) — deliberately reuses
+the existing key-value table + helpers so NO migration was needed. Built-ins
+in lib/rok-mail/templates.ts stay hardcoded/undeletable. Verify:
+`_ui-tools/mail-templates-check.js`.
+
 **AUTH/SECURITY — reviewed, still Phase 2 (nothing built yet).** Current model:
 anon key + fully-open "allow public" RLS; the admin/officer passwords only gate
 the UI, so anyone with dev tools can read/write/delete any row via REST. Real
