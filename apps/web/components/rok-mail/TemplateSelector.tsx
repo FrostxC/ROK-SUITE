@@ -1,28 +1,96 @@
 'use client';
 
-import { useState } from 'react';
-import { X } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { X, Plus, Trash2, BookmarkPlus } from 'lucide-react';
 import {
   MAIL_TEMPLATES,
   TEMPLATE_CATEGORY_LABELS,
+  type MailTemplate,
   type TemplateCategory,
 } from '@/lib/rok-mail/templates';
+import {
+  loadCustomTemplates,
+  addCustomTemplate,
+  deleteCustomTemplate,
+  type CustomMailTemplate,
+} from '@/lib/rok-mail/custom-templates';
+import { useAuthRole, meetsRole } from '@/lib/auth-role';
 import { RokMailPreview } from './RokMailPreview';
 
 interface TemplateSelectorProps {
   onClose: () => void;
   onLoadTemplate: (content: string) => void;
+  /** Current editor content — what "Save as template" captures. */
+  currentContent?: string;
 }
 
-export function TemplateSelector({ onClose, onLoadTemplate }: TemplateSelectorProps) {
+export function TemplateSelector({ onClose, onLoadTemplate, currentContent }: TemplateSelectorProps) {
+  const { role } = useAuthRole();
+  const canManage = meetsRole(role, ['admin', 'officer']);
+
   const [activeCategory, setActiveCategory] = useState<TemplateCategory>('angmar');
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+  const [customTemplates, setCustomTemplates] = useState<CustomMailTemplate[]>([]);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Save-as-template dialog
+  const [showSave, setShowSave] = useState(false);
+  const [saveName, setSaveName] = useState('');
+  const [saveDesc, setSaveDesc] = useState('');
+  const [saveCategory, setSaveCategory] = useState<TemplateCategory>('events');
+
+  useEffect(() => {
+    loadCustomTemplates().then(setCustomTemplates);
+  }, []);
 
   const categories = Object.keys(TEMPLATE_CATEGORY_LABELS) as TemplateCategory[];
-  const filteredTemplates = MAIL_TEMPLATES.filter((t) => t.category === activeCategory);
+  const allTemplates: MailTemplate[] = useMemo(
+    () => [...MAIL_TEMPLATES, ...customTemplates],
+    [customTemplates],
+  );
+  const filteredTemplates = allTemplates.filter((t) => t.category === activeCategory);
   const previewTemplate = selectedTemplate
-    ? MAIL_TEMPLATES.find((t) => t.id === selectedTemplate)
+    ? allTemplates.find((t) => t.id === selectedTemplate)
     : null;
+
+  const isCustom = (t: MailTemplate): boolean => 'custom' in t && (t as CustomMailTemplate).custom;
+
+  const handleSave = async () => {
+    if (!saveName.trim() || !currentContent?.trim()) return;
+    setBusy(true);
+    setError(null);
+    const { templates, error: err } = await addCustomTemplate({
+      name: saveName,
+      description: saveDesc || 'Custom template',
+      category: saveCategory,
+      content: currentContent,
+    });
+    if (templates) {
+      setCustomTemplates(templates);
+      setShowSave(false);
+      setSaveName('');
+      setSaveDesc('');
+      setActiveCategory(saveCategory);
+    } else {
+      setError(`Save failed: ${err}`);
+    }
+    setBusy(false);
+  };
+
+  const handleDelete = async (id: string, name: string) => {
+    if (!confirm(`Delete the "${name}" template? This removes it for everyone.`)) return;
+    setBusy(true);
+    setError(null);
+    const { templates, error: err } = await deleteCustomTemplate(id);
+    if (templates) {
+      setCustomTemplates(templates);
+      if (selectedTemplate === id) setSelectedTemplate(null);
+    } else {
+      setError(`Delete failed: ${err}`);
+    }
+    setBusy(false);
+  };
 
   return (
     <>
@@ -42,15 +110,88 @@ export function TemplateSelector({ onClose, onLoadTemplate }: TemplateSelectorPr
           <h2 className="text-lg font-bold" style={{ color: 'var(--foreground)' }}>
             Mail Templates
           </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-2 rounded-lg hover:bg-pink-500/10 transition-fast"
-            style={{ color: 'var(--text-secondary)' }}
-          >
-            <X size={18} />
-          </button>
+          <div className="flex items-center gap-2">
+            {canManage && (
+              <button
+                type="button"
+                disabled={!currentContent?.trim()}
+                onClick={() => setShowSave(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-pink-500/15 text-pink-400 hover:bg-pink-500/25 disabled:opacity-40 disabled:cursor-not-allowed transition-fast"
+                title={currentContent?.trim()
+                  ? 'Save the mail currently in the editor as a reusable template'
+                  : 'Write a mail in the editor first — this saves its content as a template'}
+              >
+                <BookmarkPlus size={14} /> Save current as template
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={onClose}
+              className="p-2 rounded-lg hover:bg-pink-500/10 transition-fast"
+              style={{ color: 'var(--text-secondary)' }}
+            >
+              <X size={18} />
+            </button>
+          </div>
         </div>
+
+        {/* Save dialog */}
+        {showSave && (
+          <div className="px-4 py-3 border-b space-y-2" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--background-secondary)' }}>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <input
+                value={saveName}
+                onChange={(e) => setSaveName(e.target.value)}
+                placeholder="Template name (e.g. MGE Results)…"
+                autoFocus
+                className="px-3 py-2 rounded-lg border text-sm outline-none"
+                style={{ backgroundColor: 'var(--background-card)', borderColor: 'var(--border)', color: 'var(--foreground)' }}
+              />
+              <select
+                value={saveCategory}
+                onChange={(e) => setSaveCategory(e.target.value as TemplateCategory)}
+                className="px-3 py-2 rounded-lg border text-sm outline-none"
+                style={{ backgroundColor: 'var(--background-card)', borderColor: 'var(--border)', color: 'var(--foreground)' }}
+              >
+                {categories.map((c) => (
+                  <option key={c} value={c}>{TEMPLATE_CATEGORY_LABELS[c]}</option>
+                ))}
+              </select>
+            </div>
+            <input
+              value={saveDesc}
+              onChange={(e) => setSaveDesc(e.target.value)}
+              placeholder="Short description (optional)…"
+              className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+              style={{ backgroundColor: 'var(--background-card)', borderColor: 'var(--border)', color: 'var(--foreground)' }}
+            />
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                disabled={busy || !saveName.trim()}
+                onClick={handleSave}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white hover:opacity-90 disabled:opacity-40 transition-fast"
+              >
+                <Plus size={13} /> {busy ? 'Saving…' : 'Save template'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowSave(false)}
+                className="px-3 py-1.5 rounded-lg text-xs"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Cancel
+              </button>
+              <span className="text-[11px]" style={{ color: 'var(--text-muted)' }}>
+                Saves the mail currently in the editor, shared with all officers.
+              </span>
+            </div>
+          </div>
+        )}
+
+        {error && (
+          <div className="px-4 py-2 text-xs text-red-400 border-b" style={{ borderColor: 'var(--border)' }}>{error}</div>
+        )}
 
         {/* Category Tabs */}
         <div
@@ -84,27 +225,47 @@ export function TemplateSelector({ onClose, onLoadTemplate }: TemplateSelectorPr
             className="md:w-1/3 border-b md:border-b-0 md:border-r overflow-y-auto p-2 shrink-0 max-h-[25vh] md:max-h-none"
             style={{ borderColor: 'var(--border)' }}
           >
+            {filteredTemplates.length === 0 && (
+              <p className="text-xs p-3" style={{ color: 'var(--text-muted)' }}>
+                No templates here yet{canManage ? ' — write a mail and use "Save current as template".' : '.'}
+              </p>
+            )}
             {filteredTemplates.map((template) => (
-              <button
+              <div
                 key={template.id}
-                type="button"
-                onClick={() => setSelectedTemplate(template.id)}
-                className={`w-full text-left p-3 rounded-lg mb-1 transition-fast ${
+                className={`relative rounded-lg mb-1 transition-fast ${
                   selectedTemplate === template.id
                     ? 'bg-pink-500/15 border border-pink-500/30'
                     : 'hover:bg-pink-500/5 border border-transparent'
                 }`}
               >
-                <p
-                  className="text-sm font-medium"
-                  style={{ color: 'var(--foreground)' }}
+                <button
+                  type="button"
+                  onClick={() => setSelectedTemplate(template.id)}
+                  className="w-full text-left p-3 pr-8"
                 >
-                  {template.name}
-                </p>
-                <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                  {template.description}
-                </p>
-              </button>
+                  <p className="text-sm font-medium flex items-center gap-1.5" style={{ color: 'var(--foreground)' }}>
+                    {template.name}
+                    {isCustom(template) && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-pink-500/15 text-pink-400 font-semibold uppercase tracking-wide">custom</span>
+                    )}
+                  </p>
+                  <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                    {template.description}
+                  </p>
+                </button>
+                {canManage && isCustom(template) && (
+                  <button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => handleDelete(template.id, template.name)}
+                    className="absolute top-2 right-2 p-1.5 rounded-md text-red-400/50 hover:text-red-400 hover:bg-red-500/10 transition-fast"
+                    title="Delete this template (officers only)"
+                  >
+                    <Trash2 size={13} />
+                  </button>
+                )}
+              </div>
             ))}
           </div>
 

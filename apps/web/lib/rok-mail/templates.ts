@@ -5,7 +5,8 @@ export type TemplateCategory =
   | 'sng'
   | 'ing'
   | 'eng'
-  | 'kingdom';
+  | 'kingdom'
+  | 'events';
 
 export interface MailTemplate {
   id: string;
@@ -23,6 +24,7 @@ export const TEMPLATE_CATEGORY_LABELS: Record<TemplateCategory, string> = {
   ing: 'ING',
   eng: 'ENG',
   kingdom: 'Kingdom',
+  events: 'Events',
 };
 
 export const MAIL_TEMPLATES: MailTemplate[] = [

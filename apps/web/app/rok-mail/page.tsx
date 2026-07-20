@@ -712,6 +712,7 @@ export default function RokMailPage() {
         <TemplateSelector
           onClose={() => setShowTemplates(false)}
           onLoadTemplate={handleTemplateLoad}
+          currentContent={content}
         />
       )}
 
